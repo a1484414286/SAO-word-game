@@ -14,6 +14,10 @@ public class PotionBag implements BagTemplate {
     }
     @Override
     public void print() {
+        if(this.potionContainer.size() < 1)
+        {
+            System.out.println("无物品");
+        }
         System.out.println(potionContainer.iterator().next().getName() +" : "+potionContainer.iterator().next().getCount() );
     }
 

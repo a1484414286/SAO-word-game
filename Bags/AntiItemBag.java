@@ -5,14 +5,21 @@ import Items.ItemElement;
 import Items.ItemTypes.AntiItem;
 
 public class AntiItemBag implements BagTemplate{
-    private static HashSet<AntiItem> categoryContainer;
+    private HashSet<AntiItem> categoryContainer;
     public AntiItemBag()
     {
         categoryContainer = new HashSet<>();
     }
     @Override
     public void print() {
-        System.out.println(categoryContainer.iterator().next().getName() +" : "+categoryContainer.iterator().next().getCount() );
+        if(this.categoryContainer.size() < 1)
+        {
+            System.out.println("无物品");
+        }
+        else
+        {
+            System.out.println(categoryContainer.iterator().next().getName() +" : "+categoryContainer.iterator().next().getCount() );
+        }
     }
     @Override
     public void addChild(ItemElement e) {
