@@ -161,7 +161,6 @@
 * dropItems    掉落篮
 * weaponResist 武器抗性
 * respawnTime  重生时间
-* hatredStatus 仇恨系统
 * 品质(普通,精英,特殊,层主)
 
 ## 技能系统 Move system
