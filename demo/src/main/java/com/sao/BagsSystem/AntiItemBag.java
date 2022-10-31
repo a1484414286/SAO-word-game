@@ -2,7 +2,9 @@ package com.sao.Bags;
 
 
 import java.util.HashSet;
-import Items.ItemTypes.AntiItem;
+
+import com.sao.Items.ItemElement;
+import com.sao.Items.ItemTypes.AntiItem;
 
 public class AntiItemBag implements BagTemplate{
     private HashSet<AntiItem> categoryContainer;

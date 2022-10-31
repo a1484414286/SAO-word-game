@@ -1,6 +1,8 @@
 package com.sao.Items.ItemTypes;
 
+import com.sao.Bags.BagVisitor;
 import com.sao.Items.ItemElement;
+
 
 public class AntiItem implements ItemElement{
     private int id;

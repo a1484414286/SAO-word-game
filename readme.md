@@ -164,9 +164,6 @@
 * hatredStatus 仇恨系统
 * 品质(普通,精英,特殊,层主)
 
-## 仇恨系统 Hatred system
-
-
 ## 技能系统 Move system
 
 
