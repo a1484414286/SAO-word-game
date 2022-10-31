@@ -1,0 +1,17 @@
+{
+    "name": "tools",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {},
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/fs-extra": "^9.0.13",
+        "ts-node": "^10.9.1"
+    },
+    "dependencies": {
+        "fs-extra": "^10.1.0",
+        "xlsx": "^0.18.5"
+    }
+}
