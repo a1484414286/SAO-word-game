@@ -17,6 +17,18 @@ interface I_SheetRange {
     rowEnd: number;
 }
 
+/** 工作表头部信息 */
+interface I_SheetHead {
+    /** 使用的col区间 */
+    uses: number[];
+    /** 注释数组 */
+    comments: string[];
+    /** 字段名数组 */
+    fields: string[];
+    /** 类型数组 */
+    types: string[];
+}
+
 async function main() {
     let xlsxFiles = fs.readdirSync(excelRoot);
     for (let i = 0, l_i = xlsxFiles.length; i < l_i; i++) {
@@ -38,6 +50,66 @@ async function parse(xlsxFile: string) {
     let ref = sheet["!ref"];
     let sheetRang = calRange(ref, xlsxFile);
     console.log(sheetRang);
+    let sheetHead = calHead(sheet, sheetRang, xlsxFile);
+    console.log(sheetHead);
+}
+
+function calHead(sheet: xlsx.WorkSheet, range: I_SheetRange, xlsxFile: string) {
+    let uses: number[] = [];
+    for (let i = range.colStart; i <= range.colEnd; i++) {
+        //取前三个行 必须有值
+        let str1 = numToString(i) + "1";
+        let str2 = numToString(i) + "2";
+        let str3 = numToString(i) + "3";
+        let v1 = sheet[str1] as xlsx.CellObject;
+        let v2 = sheet[str2] as xlsx.CellObject;
+        let v3 = sheet[str3] as xlsx.CellObject;
+        if ((v1 && v1.w.trim()) && (v2 && v2.w.trim()) && (v3 && v3.w.trim())) {
+            uses.push(i);
+        }
+    }
+    //取注释
+    let comments: string[] = [];
+    //取字段名
+    let fields: string[] = [];
+    //取类型
+    let types: string[] = [];
+    for (let i = 0, l_i = uses.length; i < l_i; i++) {
+        let pos = uses[i];
+        {
+            //注释
+            let str = numToString(pos) + "1";
+            let v = sheet[str] as xlsx.CellObject;
+            comments.push(v.w.trim());
+        }
+        {
+            //字段名
+            let str = numToString(pos) + "2";
+            let v = sheet[str] as xlsx.CellObject;
+            let field = v.w.trim();
+            if (fields.indexOf(field) >= 0) {
+                console.error(`【${xlsxFile}】【${field}】字段名重复!`);
+                process.exit(1);
+            }
+            fields.push(field);
+        }
+        {
+            //类型
+            let str = numToString(pos) + "3";
+            let v = sheet[str] as xlsx.CellObject;
+            types.push(v.w.trim());
+        }
+    }
+    return {
+        uses: uses,
+        comments: comments,
+        fields: fields,
+        types: types,
+    } as I_SheetHead;
+}
+
+function isValid(v: xlsx.CellObject) {
+    return v && v.w && v.w.trim();
 }
 
 function calRange(ref: string, xlsxFile: string) {
