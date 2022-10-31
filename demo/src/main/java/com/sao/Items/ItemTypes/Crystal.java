@@ -1,7 +1,8 @@
-package Items.ItemTypes;
+package com.sao.Items.ItemTypes;
 
-import Bags.BagVisitor;
-import Items.ItemElement;
+import com.sao.Bags.BagVisitor;
+import com.sao.Items.ItemElement;
+
 public class Crystal implements ItemElement{
     private int id;
     private String name;

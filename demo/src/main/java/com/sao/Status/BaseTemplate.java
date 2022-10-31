@@ -1,4 +1,4 @@
-package Status;
+package com.sao.Status;
 
 public class BaseTemplate {
     private final long id;

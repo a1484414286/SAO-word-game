@@ -1,8 +1,7 @@
-package Items.ItemTypes;
+package com.sao.Items.ItemTypes;
 
-
-import Bags.BagVisitor;
-import Items.ItemElement;
+import com.sao.Bags.BagVisitor;
+import com.sao.Items.ItemElement;
 
 public class Food implements ItemElement{
     private int id;

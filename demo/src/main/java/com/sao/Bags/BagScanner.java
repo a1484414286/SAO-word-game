@@ -1,6 +1,10 @@
 package com.sao.Bags;
 
-
+import com.sao.Items.ItemTypes.AntiItem;
+import com.sao.Items.ItemTypes.Crystal;
+import com.sao.Items.ItemTypes.Food;
+import com.sao.Items.ItemTypes.Material;
+import com.sao.Items.ItemTypes.Potion;
 
 public class BagScanner implements BagVisitor{
 
