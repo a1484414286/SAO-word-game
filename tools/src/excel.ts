@@ -48,10 +48,99 @@ async function parse(xlsxFile: string) {
     //这边只取第一张表
     let sheet = sheets[workbook.SheetNames[0]];
     let ref = sheet["!ref"];
-    let sheetRang = calRange(ref, xlsxFile);
-    console.log(sheetRang);
-    let sheetHead = calHead(sheet, sheetRang, xlsxFile);
-    console.log(sheetHead);
+    let sheetRange = calRange(ref, xlsxFile);
+    // console.log(sheetRange);
+    let sheetHead = calHead(sheet, sheetRange, xlsxFile);
+    // console.log(sheetHead);
+    parseCell(xlsxFile, sheet, sheetRange, sheetHead);
+}
+
+function parseCell(xlsxFile: string, sheet: xlsx.WorkSheet, sheetRang: I_SheetRange, sheetHead: I_SheetHead) {
+    let uses = sheetHead.uses;
+    let types = sheetHead.types;
+    let fields = sheetHead.fields;
+    let jsonObj: { [key: string]: any } = {};
+    for (let row = 4; row <= sheetRang.rowEnd; row++) {
+        let id: string;
+        for (let i = 0, l_i = uses.length; i < l_i; i++) {
+            let col = uses[i];
+            let curType = types[i];
+            let str = numToString(col) + String(row);
+            let v: xlsx.CellObject = sheet[str];
+            let curField = fields[i];
+            if (col == 1) {
+                //第一个行
+                if (!isValid(v)) {
+                    //没有id 不取此行数据
+                    break;
+                } else {
+                    id = getValue(v);
+                    if (jsonObj[id]) {
+                        console.log(`【${xlsxFile}】【id=${id}】重复`);
+                        process.exit(1);
+                    }
+                }
+                jsonObj[id] = {};
+                continue;
+            }
+            let value: any;
+            if (!isValid(v)) {
+                //无值
+                // value = getTypeDefaultValue(curType);
+                // jsonObj[id][curField] = value;
+                continue;
+            } else {
+                value = getTypeValue(curType, v);
+                jsonObj[id][curField] = value;
+            }
+        }
+    }
+    console.log(JSON.stringify(jsonObj));
+}
+
+function getTypeDefaultValue(curType: string) {
+    switch (curType) {
+        case "string":
+            return "";
+        case "int":
+        case "long":
+            return 0;
+        case "string[]":
+        case "int[]":
+        case "long[]":
+        case "string[][]":
+        case "int[][]":
+        case "long[][]":
+            return [];
+    }
+}
+
+function getTypeValue(curType: string, v: any) {
+    let value = getValue(v);
+    switch (curType) {
+        case "string":
+        case "int":
+        case "long":
+            return value;
+        case "string[]":
+        case "int[]":
+        case "long[]":
+            return value.split("|");
+        case "string[][]":
+        case "int[][]":
+        case "long[][]": {
+            let result: string[][] = [];
+            let arr1 = value.split(";");
+            for (let i = 0, l_i = arr1.length; i < l_i; i++) {
+                result.push(arr1[i].split("|"));
+            }
+            return result;
+        }
+    }
+}
+
+function getValue(v: xlsx.CellObject) {
+    return v.w.trim();
 }
 
 function calHead(sheet: xlsx.WorkSheet, range: I_SheetRange, xlsxFile: string) {
@@ -64,7 +153,7 @@ function calHead(sheet: xlsx.WorkSheet, range: I_SheetRange, xlsxFile: string) {
         let v1 = sheet[str1] as xlsx.CellObject;
         let v2 = sheet[str2] as xlsx.CellObject;
         let v3 = sheet[str3] as xlsx.CellObject;
-        if ((v1 && v1.w.trim()) && (v2 && v2.w.trim()) && (v3 && v3.w.trim())) {
+        if (isValid(v1) && isValid(v2) && isValid(v3)) {
             uses.push(i);
         }
     }
