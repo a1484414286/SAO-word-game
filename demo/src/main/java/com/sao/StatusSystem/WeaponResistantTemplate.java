@@ -1,4 +1,4 @@
-package com.sao.Status;
+package com.sao.StatusSystem;
 public class WeaponResistantTemplate {
     private int critResist;
     private int slashResist;

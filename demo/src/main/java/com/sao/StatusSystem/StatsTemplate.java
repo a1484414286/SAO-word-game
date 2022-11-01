@@ -1,4 +1,4 @@
-package com.sao.Status;
+package com.sao.StatusSystem;
 
 import java.util.Random;
 

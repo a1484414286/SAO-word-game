@@ -1,14 +1,13 @@
-package com.sao.Bags;
+package com.sao.BagsSystem;
+
 import java.util.ArrayList;
 
-import com.sao.Items.ItemElement;
+import com.sao.ItemsSystem.ItemElement;
 
-
-public class GeneralBag{
+public class GeneralBag {
     private ArrayList<BagTemplate> bags;
 
-    public GeneralBag()
-    {
+    public GeneralBag() {
         bags = new ArrayList<>();
         bags.add(new AntiItemBag());
         bags.add(new ArmorBag());
@@ -18,30 +17,25 @@ public class GeneralBag{
         bags.add(new PotionBag());
         bags.add(new WeaponBag());
     }
-  
+
     public BagTemplate getCategoryBag(int i) {
         return bags.get(i);
     }
 
-    public void addChild(ItemElement e) 
-    {
-        for(int i = 0 ; i < bags.size(); i ++)
-        {
-            if(e.getClass().equals(this.bags.get(i).getType()))
-            {
+    public void addChild(ItemElement e) {
+        for (int i = 0; i < bags.size(); i++) {
+            if (e.getClass().equals(this.bags.get(i).getType())) {
                 this.bags.get(i).addChild(e);
             }
-        }     
-        
+        }
+
     }
 
-    public String calculate()
-    {
+    public String calculate() {
         int totalValue = 0;
         int totalWeight = 0;
         int itemCount = 0;
-        for(BagTemplate i : bags)
-        {
+        for (BagTemplate i : bags) {
             totalValue += i.calculate()[0];
             totalWeight += i.calculate()[1];
             itemCount += i.calculate()[2];
@@ -57,10 +51,10 @@ public class GeneralBag{
     public static void main(String[] args) {
         // GeneralBag gb = new GeneralBag();
         // AntiItem a = new AntiItem(0, "anti teleport", null, 50, 2, 0);
-        // gb.addChild(a);      
-        // gb.addChild(a);      
+        // gb.addChild(a);
+        // gb.addChild(a);
         // gb.addChild(a);
         // gb.bag.get(0).print();
-        // gb.calculate(gb.bag);   
+        // gb.calculate(gb.bag);
     }
 }

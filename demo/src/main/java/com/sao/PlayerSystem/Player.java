@@ -1,7 +1,7 @@
-package com.sao.Player;
+package com.sao.PlayerSystem;
 
-import com.sao.Bags.GeneralBag;
-import com.sao.Status.BaseTemplate;
+import com.sao.BagsSystem.GeneralBag;
+import com.sao.StatusSystem.BaseTemplate;
 
 public class Player {
     private String name;

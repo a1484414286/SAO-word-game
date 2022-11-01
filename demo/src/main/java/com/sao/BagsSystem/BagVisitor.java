@@ -1,10 +1,10 @@
-package com.sao.Bags;
+package com.sao.BagsSystem;
 
-import com.sao.Items.ItemTypes.AntiItem;
-import com.sao.Items.ItemTypes.Crystal;
-import com.sao.Items.ItemTypes.Food;
-import com.sao.Items.ItemTypes.Material;
-import com.sao.Items.ItemTypes.Potion;
+import com.sao.ItemsSystem.ItemTypes.AntiItem;
+import com.sao.ItemsSystem.ItemTypes.Crystal;
+import com.sao.ItemsSystem.ItemTypes.Food;
+import com.sao.ItemsSystem.ItemTypes.Material;
+import com.sao.ItemsSystem.ItemTypes.Potion;
 
 public interface BagVisitor {
     public int[] visit(Food f);

@@ -1,6 +1,6 @@
-package com.sao.Bags;
+package com.sao.BagsSystem;
 
-import com.sao.Items.ItemElement;
+import com.sao.ItemsSystem.ItemElement;
 
 public interface BagTemplate {
     public abstract void print();

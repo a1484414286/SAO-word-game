@@ -1,9 +1,9 @@
-package com.sao.Bags;
+package com.sao.BagsSystem;
 
 import java.util.ArrayList;
 
-import com.sao.Items.ItemElement;
-import com.sao.Items.ItemTypes.Crystal;
+import com.sao.ItemsSystem.ItemElement;
+import com.sao.ItemsSystem.ItemTypes.Crystal;
 
 
 public class CrystalBag implements BagTemplate{

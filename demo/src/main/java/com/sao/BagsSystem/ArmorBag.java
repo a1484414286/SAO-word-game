@@ -1,8 +1,8 @@
-package com.sao.Bags;
+package com.sao.BagsSystem;
 
 import java.util.ArrayList;
 
-import com.sao.Items.ItemElement;
+import com.sao.ItemsSystem.ItemElement;
 
 public class ArmorBag implements BagTemplate{
     private ArrayList<ItemElement> armorContainer;
