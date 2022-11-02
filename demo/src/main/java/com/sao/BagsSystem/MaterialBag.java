@@ -1,10 +1,10 @@
-package com.sao.Bags;
+package com.sao.BagsSystem;
 
 
 import java.util.HashSet;
 
-import com.sao.Items.ItemElement;
-import com.sao.Items.ItemTypes.Material;
+import com.sao.ItemsSystem.ItemElement;
+import com.sao.ItemsSystem.ItemTypes.Material;
 
 
 

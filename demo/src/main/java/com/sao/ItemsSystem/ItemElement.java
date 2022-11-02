@@ -1,6 +1,6 @@
-package com.sao.Items;
+package com.sao.ItemsSystem;
 
-import com.sao.Bags.BagVisitor;
+import com.sao.BagsSystem.BagVisitor;
 
 public interface ItemElement {
     public int[] accept(BagVisitor visitor);

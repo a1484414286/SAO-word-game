@@ -1,6 +1,12 @@
 package com.sao;
 
+import java.util.HashMap;
+
+import com.sao.BattleSystem.BattleField;
+import com.sao.ItemsSystem.ItemElement;
 import com.sao.ItemsSystem.ItemTypes.Potion;
+import com.sao.MobSystem.MobTemplate;
+import com.sao.MobSystem.RegMob;
 import com.sao.PlayerSystem.Player;
 
 /**
@@ -21,5 +27,13 @@ public class App
         player1.getBag().getCategoryBag(5).print();;
         System.out.println(player1.getBag());
         System.out.println("\n 介绍 : " + po.getName() + po + ", " + " 重量 " + po.getWeight() + " 价值 " + po.getPrice());
+
+        //怪物
+
+        MobTemplate mob1 = new RegMob(0, "野猪", new HashMap<Integer, ItemElement>(), 0);
+        BattleField field = new BattleField(player1.getStats().getStats(), mob1.getStats());
+        field.battle();
+        System.out.println(mob1.getStats().getHP());
+        System.out.println(player1.getStats().getStats().getHP());
     }
 }

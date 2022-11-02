@@ -1,7 +1,7 @@
-package com.sao.Items.ItemTypes;
+package com.sao.ItemsSystem.ItemTypes;
 
-import com.sao.Items.ItemElement;
-import com.sao.Bags.BagVisitor;
+import com.sao.BagsSystem.BagVisitor;
+import com.sao.ItemsSystem.ItemElement;
 
 public class Material implements ItemElement{
     private int id;
