@@ -1,6 +1,8 @@
 package com.sao;
 
 import com.sao.ItemsSystem.ItemTypes.Potion;
+import com.sao.JsonModel.LevelJsonUtil;
+import com.sao.JsonModel.LoadAllJsonModel;
 import com.sao.PlayerSystem.Player;
 
 /**
@@ -15,6 +17,11 @@ public class App {
     // }
 
     public static void main(String[] args) {
+        // 加载所有的JsonModel
+        LoadAllJsonModel.load();
+        System.out.println(LevelJsonUtil.getModel(1).hp);
+        System.out.println(LevelJsonUtil.getModel(2).mp);
+
         Player player1 = new Player(0, "晓铜");
         System.out.println(player1.getStats());
         Potion po = new Potion(0, "红药水", " +10 HP", 20, 5, 1);

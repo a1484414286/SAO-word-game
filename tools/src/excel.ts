@@ -2,12 +2,34 @@ import * as fs from "fs-extra";
 import * as path from "path";
 import * as xlsx from "xlsx";
 //取excel路径
-let argv = process.argv;
-let excelRoot = argv[2];
+let excelRoot = "";
+let codeRoot = "";
+let jsonRoot = "";
 //测试路径
-excelRoot = "F:/workspace/my/SAO-word-game/excel";
+// excelRoot = "F:/workspace/my/SAO-word-game/excel";
+// codeRoot = "F:/workspace/my/SAO-word-game/demo/src/main/java/com/sao/JsonModel";
+// jsonRoot = "F:/workspace/my/SAO-word-game/demo/src/main/resources/json";
+//正式路径
+excelRoot = path.join(process.cwd(), "excel");
+codeRoot = path.join(process.cwd(), "demo/src/main/java/com/sao/JsonModel");
+jsonRoot = path.join(process.cwd(), "demo/src/main/resources/json");
+
+
+if (!fs.existsSync(codeRoot)) {
+    fs.mkdirsSync(codeRoot);
+}
+if (!fs.existsSync(jsonRoot)) {
+    fs.mkdirsSync(jsonRoot);
+}
 
 let stringArray = [];
+
+let loadAllJsonModelTpl = `package com.sao.JsonModel;
+
+import java.io.InputStream;
+public class LoadAllJsonModel {
+    public static void load() {
+`;
 
 /** 工作表范围区间 */
 interface I_SheetRange {
@@ -37,8 +59,18 @@ async function main() {
             //不是配置表不处理
             continue;
         }
+        console.log(`【${xlsxFile}】正在解析中...`);
         await parse(xlsxFile);
     }
+    loadAllJsonModelTpl += `\t}\n`;
+    loadAllJsonModelTpl += `}\n`;
+    // console.log(loadAllJsonModelTpl);
+    fs.writeFileSync(path.join(codeRoot, "LoadAllJsonModel.java"), loadAllJsonModelTpl);
+
+    console.log('请输入任意键退出...');
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdin.on('data', process.exit.bind(process, 0));
 }
 
 async function parse(xlsxFile: string) {
@@ -59,6 +91,7 @@ function parseCell(xlsxFile: string, sheet: xlsx.WorkSheet, sheetRang: I_SheetRa
     let uses = sheetHead.uses;
     let types = sheetHead.types;
     let fields = sheetHead.fields;
+    let comments = sheetHead.comments;
     let jsonObj: { [key: string]: any } = {};
     for (let row = 4; row <= sheetRang.rowEnd; row++) {
         let id: string;
@@ -80,7 +113,7 @@ function parseCell(xlsxFile: string, sheet: xlsx.WorkSheet, sheetRang: I_SheetRa
                         process.exit(1);
                     }
                 }
-                jsonObj[id] = {};
+                jsonObj[id] = { id: id };
                 continue;
             }
             let value: any;
@@ -95,38 +128,84 @@ function parseCell(xlsxFile: string, sheet: xlsx.WorkSheet, sheetRang: I_SheetRa
             }
         }
     }
-    console.log(JSON.stringify(jsonObj));
-}
-
-function getTypeDefaultValue(curType: string) {
-    switch (curType) {
-        case "string":
-            return "";
-        case "int":
-        case "long":
-            return 0;
-        case "string[]":
-        case "int[]":
-        case "long[]":
-        case "string[][]":
-        case "int[][]":
-        case "long[][]":
-            return [];
+    // console.log(JSON.stringify(jsonObj, null, " "));
+    let modelName = getXlsxName(xlsxFile);
+    let modelContent = getXlsxComment(xlsxFile);
+    //生成代码文件
+    let content = "";
+    //1.结构类文件
+    content = "";
+    content += `package com.sao.JsonModel;\n\n`;
+    content += `/** ${modelContent} */\n`;
+    content += `public class ${modelName}JsonModel {\n`;
+    for (let i = 0, l_i = fields.length; i < l_i; i++) {
+        content += `\t/** ${comments[i]} */\n`;
+        content += `\tpublic ${types[i]} ${fields[i]};\n\n`;
     }
+    content += `}\n`;
+    // console.log(content);
+    fs.writeFileSync(path.join(codeRoot, `${modelName}JsonModel.java`), content);
+    //2.工具类文件
+    let idType = types[0];
+    let idJavaType = getJavaKeyType(idType);
+    content = "";
+    content += `package com.sao.JsonModel;\n`;
+    content += `\n`;
+    content += `import java.util.HashMap;\n`;
+    content += `import java.util.Set;\n`;
+    content += `\n`;
+    content += `import com.alibaba.fastjson2.JSONObject;\n`;
+    content += `\n`;
+    content += `public class ${modelName}JsonUtil {\n`;
+    content += `\tprivate static HashMap<${idJavaType}, ${modelName}JsonModel> map = new HashMap<>();\n`;
+    content += `\n`;
+    content += `\tpublic static void loadJson(String text) {\n`;
+    content += `\t\tmap.clear();\n`;
+    content += `\t\tJSONObject object = JSONObject.parseObject(text);\n`;
+    content += `\t\tSet<String> set = object.keySet();\n`;
+    content += `\t\tfor (String key : set) {\n`;
+    content += `\t\t\tJSONObject row = object.getJSONObject(key);\n`;
+    if (idType == "int") {
+        content += `\t\t\tmap.put(Integer.parseInt(key), row.to(${modelName}JsonModel.class));\n`;
+    } else if (idType == "long") {
+        content += `\t\t\tmap.put(Long.parseLong(key), row.to(${modelName}JsonModel.class));\n`;
+    } else if (idType == "String") {
+        content += `\t\t\tmap.put(key, row.to(${modelName}JsonModel.class));\n`;
+    } else {
+        console.error(`【${xlsxFile}】id类型未支持`);
+        process.exit(1);
+    }
+    content += `\t\t}\n`;
+    content += `\t}\n`;
+    content += `\n`;
+    content += `\tpublic static ${modelName}JsonModel getModel(${idJavaType} id) {\n`;
+    content += `\t\treturn map.get(id);\n`;
+    content += `\t}\n`;
+    content += `}\n`;
+    fs.writeFileSync(path.join(codeRoot, `${modelName}JsonUtil.java`), content);
+    //3.LoadAllJsonModel
+    loadAllJsonModelTpl += `\t\tInputStream stream${modelName} = LoadAllJsonModel.class.getClassLoader().getResourceAsStream("json/${modelName}.json");\n`;
+    loadAllJsonModelTpl += `\t\ttry {\n`;
+    loadAllJsonModelTpl += `\t\t\t${modelName}JsonUtil.loadJson(new String(stream${modelName}.readAllBytes()));\n`;
+    loadAllJsonModelTpl += `\t\t} catch (Exception e) {\n`;
+    loadAllJsonModelTpl += `\t\t\tSystem.err.println(e);\n`;
+    loadAllJsonModelTpl += `\t\t}\n`;
+    //4.生成对应的json
+    fs.writeFileSync(path.join(jsonRoot, `${modelName}.json`), JSON.stringify(jsonObj));
 }
 
 function getTypeValue(curType: string, v: any) {
     let value = getValue(v);
     switch (curType) {
-        case "string":
+        case "String":
         case "int":
         case "long":
             return value;
-        case "string[]":
+        case "String[]":
         case "int[]":
         case "long[]":
             return value.split("|");
-        case "string[][]":
+        case "String[][]":
         case "int[][]":
         case "long[][]": {
             let result: string[][] = [];
@@ -141,6 +220,17 @@ function getTypeValue(curType: string, v: any) {
 
 function getValue(v: xlsx.CellObject) {
     return v.w.trim();
+}
+
+function getJavaKeyType(idType: string) {
+    switch (idType) {
+        case "String":
+            return "String";
+        case "int":
+            return "Integer";
+        case "long":
+            return "Long";
+    }
 }
 
 function calHead(sheet: xlsx.WorkSheet, range: I_SheetRange, xlsxFile: string) {
@@ -273,13 +363,12 @@ function getCharNumber(charx: any) {
     return charx.charCodeAt() - 96;
 }
 
-/**
- * 获取xlsx文件的名称
- * @param xlsxFile 
- * @returns 
- */
 function getXlsxName(xlsxFile: string) {
     return xlsxFile.split(".")[0].split("_")[1];
+}
+
+function getXlsxComment(xlsxFile: string) {
+    return xlsxFile.split(".")[0].split("_")[0];
 }
 
 main();
