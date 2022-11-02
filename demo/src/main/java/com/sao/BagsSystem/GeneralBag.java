@@ -48,13 +48,4 @@ public class GeneralBag {
         return this.calculate();
     }
 
-    public static void main(String[] args) {
-        // GeneralBag gb = new GeneralBag();
-        // AntiItem a = new AntiItem(0, "anti teleport", null, 50, 2, 0);
-        // gb.addChild(a);
-        // gb.addChild(a);
-        // gb.addChild(a);
-        // gb.bag.get(0).print();
-        // gb.calculate(gb.bag);
-    }
 }

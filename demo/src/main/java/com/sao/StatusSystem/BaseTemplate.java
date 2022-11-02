@@ -17,6 +17,9 @@ public class BaseTemplate {
     public long getId() {
         return id;
     }
+    public StatsTemplate getStats() {
+        return stats;
+    }
     @Override
     public String toString() {
         return
