@@ -2,10 +2,8 @@ package com.sao.BagsSystem;
 
 import java.util.HashSet;
 
-import com.sao.ItemsSystem.ItemTypes.Potion;
-
 import com.sao.ItemsSystem.ItemElement;
-
+import com.sao.ItemsSystem.ItemTypes.Potion;
 
 public class PotionBag implements BagTemplate {
     private HashSet<Potion> potionContainer;
@@ -33,17 +31,17 @@ public class PotionBag implements BagTemplate {
     @Override
     public int[] calculate() {
         int totalValue = 0;
-            int totalWeight = 0;
-            int itemCount = 0;
-            BagVisitor visitor = new BagScanner();
-            for(ItemElement i : potionContainer)
-            {
-               totalValue += i.accept(visitor)[0];
-               totalWeight += i.accept(visitor)[1];
-               itemCount ++;
-            }
-            // System.out.println("背包总价值 : " + totalValue + " 背包总重量 : " + totalWeight + " 背包物品数量 : " + itemCount);
-        return new int[]{totalValue, totalWeight, itemCount};
+        int totalWeight = 0;
+        int itemCount = 0;
+        BagVisitor visitor = new BagScanner();
+        for (ItemElement i : potionContainer) {
+            totalValue += i.accept(visitor)[0];
+            totalWeight += i.accept(visitor)[1];
+            itemCount++;
+        }
+        // System.out.println("背包总价值 : " + totalValue + " 背包总重量 : " + totalWeight + "
+        // 背包物品数量 : " + itemCount);
+        return new int[] { totalValue, totalWeight, itemCount };
     }
 
     @Override
