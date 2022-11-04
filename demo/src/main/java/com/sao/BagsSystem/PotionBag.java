@@ -1,9 +1,10 @@
-package com.sao.Bags;
+package com.sao.BagsSystem;
 
 import java.util.HashSet;
 
-import com.sao.Items.ItemElement;
-import com.sao.Items.ItemTypes.Potion;
+import com.sao.ItemsSystem.ItemTypes.Potion;
+
+import com.sao.ItemsSystem.ItemElement;
 
 
 public class PotionBag implements BagTemplate {

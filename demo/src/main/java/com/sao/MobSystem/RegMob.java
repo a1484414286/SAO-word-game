@@ -3,9 +3,10 @@ package com.sao.MobSystem;
 import java.util.HashMap;
 
 import com.sao.ItemsSystem.ItemElement;
+import com.sao.StatusSystem.BaseTemplate;
 import com.sao.StatusSystem.StatsTemplate;
 
-public class RegMob extends MobTemplate{
+public class RegMob extends MobTemplate implements FunctionalInterface{
     private int id;
     private String name;
     private long respawnTime; 
@@ -25,5 +26,10 @@ public class RegMob extends MobTemplate{
     public String toString() {
         // TODO Auto-generated method stub
         return super.toString();
+    }
+    @Override
+    public void StatusAdjustification() {
+        //成长性魔物, 有新的变化, 属性将会更变
+        
     }
 }
