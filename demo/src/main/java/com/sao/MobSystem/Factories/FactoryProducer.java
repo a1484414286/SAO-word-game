@@ -1,8 +1,15 @@
 package com.sao.MobSystem.Factories;
 
 public class FactoryProducer {
-    public static AbstractFactory getFactory()
+    public static AbstractFactory getFactory(boolean enhanced)
     {
-        return null;
+        if(enhanced)
+        {
+            return new EnhancedFactory();
+        }
+        else
+        {
+            return new NormalFactory();
+        }
     }
 }
