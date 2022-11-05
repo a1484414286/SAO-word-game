@@ -1,19 +1,20 @@
 package com.sao.MobSystem.Mobs;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.sao.ItemsSystem.ItemElement;
-import com.sao.MobSystem.MobTemplate;
 import com.sao.StatusSystem.StatsTemplate;
 public class SpecialMob implements MobTemplate{
-    private final int id;
+    public AtomicInteger incrementID = new AtomicInteger();
+    private int id;
     private final String name;
     private StatsTemplate stats;
     private HashMap<Integer,ItemElement> dropList;
     private long respawnTime;
 
-    public SpecialMob(int id, String name, int spawnTime, HashMap<Integer, ItemElement> droppable)
+    public SpecialMob(String name, int spawnTime, HashMap<Integer, ItemElement> droppable)
     {
-        this.id = id;
+        this.id = incrementID.incrementAndGet();
         this.name = name;
         this.dropList = droppable;
         this.respawnTime = spawnTime;
@@ -40,6 +41,11 @@ public class SpecialMob implements MobTemplate{
     public void statusAdjustification() {
         // TODO Auto-generated method stub
         
+    }
+       
+    @Override
+    public String toString() {
+        return String.format("\n id: %d, %s %s", this.id, this.name, this.stats);
     }
 
 }

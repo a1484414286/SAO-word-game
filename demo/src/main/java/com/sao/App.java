@@ -1,5 +1,9 @@
 package com.sao;
 
+import java.util.HashMap;
+
+import com.sao.ItemsSystem.ItemElement;
+
 // import java.util.HashMap;
 
 // import com.sao.BattleSystem.BattleField;
@@ -7,6 +11,12 @@ package com.sao;
 import com.sao.ItemsSystem.ItemTypes.Potion;
 import com.sao.JsonModel.LevelJsonUtil;
 import com.sao.JsonModel.LoadAllJsonModel;
+import com.sao.MobSystem.Factories.AbstractFactory;
+import com.sao.MobSystem.Factories.FactoryProducer;
+// import com.sao.MobSystem.Factories.FactoryProducer;
+// import com.sao.MobSystem.Factories.NormalFactory;
+import com.sao.MobSystem.Mobs.MobTemplate;
+import com.sao.MobSystem.Mobs.RegMob;
 // import com.sao.MobSystem.MobTemplate;
 // import com.sao.MobSystem.Mobs.RegMob;
 import com.sao.PlayerSystem.Player;
@@ -40,7 +50,11 @@ public class App {
         System.out.println("\n 介绍 : " + po.getName() + po + ", " + " 重量 " + po.getWeight() + " 价值 " + po.getPrice());
 
         // 怪物
-
+        AbstractFactory mob = FactoryProducer.getFactory(false);
+        
+        MobTemplate firstMob = mob.getMob(RegMob.class, "野猪", 10, 10, 1, new HashMap<Integer,ItemElement>());
+        System.out.println(firstMob);
+        // System.out.println(firstMob);
         // MobTemplate mob1 = new RegMob(0, "野猪", new HashMap<Integer, ItemElement>(), 0);
         // BattleField field = new BattleField(player1.getStats().getStats(), mob1.getStats());
         // field.battle();
