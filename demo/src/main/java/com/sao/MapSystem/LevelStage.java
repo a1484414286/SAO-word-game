@@ -1,5 +1,7 @@
 package com.sao.MapSystem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.sao.MobSystem.Mobs.MobTemplate;
@@ -9,10 +11,11 @@ public class LevelStage {
     public AtomicInteger increments;
     private final int id;
     private final String name;
-    private MobTemplate[] mobs;
-    private Player[] players;
-    public LevelStage(String name, MobTemplate[] mobs, Player[] players)
+    private ArrayList<MobTemplate> mobs;
+    private ArrayList<Player> players;
+    public LevelStage(String name, ArrayList<MobTemplate> mobs, ArrayList<Player> players)
     {
+        this.increments = new AtomicInteger();
         this.id = increments.incrementAndGet();
         this.name = name;
         this.mobs = mobs;
@@ -21,15 +24,19 @@ public class LevelStage {
 
     public LevelStage(String name)
     {
+        this.increments = new AtomicInteger();
         this.id = increments.incrementAndGet();
         this.name = name;
+        this.players = new ArrayList<>();
     }
 
-    public LevelStage(String name, MobTemplate[] mobs)
+    public LevelStage(String name, ArrayList<MobTemplate> mobs)
     {
+        this.increments = new AtomicInteger();
         this.id = increments.incrementAndGet();
         this.name = name;
         this.mobs = mobs;
+        this.players = new ArrayList<>();
     }
 
     public int getId() {
@@ -38,14 +45,29 @@ public class LevelStage {
     public AtomicInteger getIncrements() {
         return increments;
     }
-    public MobTemplate[] getMobs() {
+    public ArrayList<MobTemplate> getMobs() {
         return mobs;
     }
     public String getName() {
         return name;
     }
-    public Player[] getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
+    
+    public void addPlayer(Player e)
+    {
+        this.players.add(e);
+    }
 
+    @Override
+    public String toString() {
+        String result = "";
+        result += getName() + "\n 玩家列表: ";
+        for(Player p : players)
+        {
+            result += p.getName();
+        }
+        return result;
+    }
 }

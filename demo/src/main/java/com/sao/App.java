@@ -1,5 +1,7 @@
 package com.sao;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import com.sao.ItemsSystem.ItemElement;
@@ -11,6 +13,8 @@ import com.sao.ItemsSystem.ItemElement;
 import com.sao.ItemsSystem.ItemTypes.Potion;
 import com.sao.JsonModel.LevelJsonUtil;
 import com.sao.JsonModel.LoadAllJsonModel;
+import com.sao.MapSystem.LevelStage;
+import com.sao.MapSystem.Map;
 import com.sao.MobSystem.Factories.AbstractFactory;
 import com.sao.MobSystem.Factories.FactoryProducer;
 // import com.sao.MobSystem.Factories.FactoryProducer;
@@ -54,6 +58,29 @@ public class App {
         
         MobTemplate firstMob = mob.getMob(RegMob.class, "野猪", 10, 10, 1, new HashMap<Integer,ItemElement>());
         System.out.println(firstMob);
+
+        //地图
+
+        //这一层的地图
+        HashMap<Integer,ArrayList<LevelStage>> floors = new HashMap<>();
+
+        //这块区域
+        ArrayList<LevelStage> firstFloor = new ArrayList<>();
+        
+        //这个关卡
+        LevelStage stage1 = new LevelStage("草原小路1");
+        
+        
+        stage1.addPlayer(player1);
+        //玩家加入关卡,草原小路1
+
+        firstFloor.add(stage1);
+        //添加到区域
+
+        floors.put(1, firstFloor);
+        //添加到总地图/层地图
+
+        System.out.println(floors);
         // System.out.println(firstMob);
         // MobTemplate mob1 = new RegMob(0, "野猪", new HashMap<Integer, ItemElement>(), 0);
         // BattleField field = new BattleField(player1.getStats().getStats(), mob1.getStats());
