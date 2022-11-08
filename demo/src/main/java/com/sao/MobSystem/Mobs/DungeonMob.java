@@ -8,7 +8,7 @@ import com.sao.StatusSystem.StatsTemplate;
 
 public class DungeonMob implements MobTemplate{
     public AtomicInteger incrementID = new AtomicInteger();
-    private int id;
+    private final int id;
     private final String name;
     private StatsTemplate stats;
     private HashMap<Integer,ItemElement> dropList;
