@@ -1,8 +1,10 @@
 package com.sao.BattleSystem;
 
+import com.sao.MapSystem.LevelStage;
 import com.sao.StatusSystem.StatsTemplate;
 
 public class BattleField {
+    public LevelStage stage;
     public StatsTemplate p1;
     public StatsTemplate p2;
 
