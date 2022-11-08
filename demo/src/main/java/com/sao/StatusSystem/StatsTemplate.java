@@ -77,6 +77,10 @@ public class StatsTemplate {
         return VIT;
     }
 
+    public void setHP(int hP) {
+        HP = hP;
+    }
+
     @Override
     public String toString() {
         String r = String.format("\n HP  : %d \n MP  : %d \n STR : %d \n AGI : %d \n VIT : %d \n INT : %d \n DEX : %d \n EXP : %d", HP, MP,STR,AGI,VIT,INT,DEX,EXP);
