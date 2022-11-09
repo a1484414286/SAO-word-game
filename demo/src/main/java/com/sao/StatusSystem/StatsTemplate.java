@@ -11,16 +11,16 @@ public class StatsTemplate {
     private int INT;
     private int DEX;
     private int LUK;
+    private int LVL;
     private long EXP;
     private long reqEXP;
-    private int LVL;
 
     public StatsTemplate(int LVL, int HP, int MP)
     {
+        this.EXP = 0;
         this.HP = HP;
         this.MP = MP;
         this.LVL = LVL;
-        this.EXP = 0;
         this.STR = new Random().nextInt(LVL,100);
         this.AGI = new Random().nextInt(LVL,100);
         this.VIT = new Random().nextInt(LVL,100);
@@ -83,7 +83,7 @@ public class StatsTemplate {
 
     @Override
     public String toString() {
-        String r = String.format("\n HP  : %d \n MP  : %d \n STR : %d \n AGI : %d \n VIT : %d \n INT : %d \n DEX : %d \n EXP : %d", HP, MP,STR,AGI,VIT,INT,DEX,EXP);
+        String r = String.format("\n HP  : %d  MP  : %d \n STR : %d   AGI : %d \n VIT : %d   INT : %d \n DEX : %d   EXP : %d", HP, MP,STR,AGI,VIT,INT,DEX,EXP);
         return r;
     }
 }

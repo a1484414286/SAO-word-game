@@ -41,7 +41,7 @@ public class EliteMob implements MobTemplate{
    
     @Override
     public String toString() {
-        return String.format("\n id: %d, %s %s", this.id, this.name, this.stats);
+        return String.format("\n id: %d,  %s %s", this.id, this.name, this.stats);
     }
 
     @Override

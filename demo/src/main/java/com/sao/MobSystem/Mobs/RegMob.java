@@ -46,6 +46,6 @@ public class RegMob implements MobTemplate{
        
     @Override
     public String toString() {
-        return String.format("\n id: %d, %s %s", this.id, this.name, this.stats);
+        return String.format("\n名字: %s %s", this.name, this.stats);
     }
 }
