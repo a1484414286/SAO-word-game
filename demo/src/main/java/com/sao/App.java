@@ -1,7 +1,6 @@
 package com.sao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import com.sao.ItemsSystem.ItemElement;
@@ -14,7 +13,6 @@ import com.sao.ItemsSystem.ItemTypes.Potion;
 import com.sao.JsonModel.LevelJsonUtil;
 import com.sao.JsonModel.LoadAllJsonModel;
 import com.sao.MapSystem.LevelStage;
-import com.sao.MapSystem.Map;
 import com.sao.MobSystem.Factories.AbstractFactory;
 import com.sao.MobSystem.Factories.FactoryProducer;
 // import com.sao.MobSystem.Factories.FactoryProducer;

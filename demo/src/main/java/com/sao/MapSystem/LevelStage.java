@@ -1,7 +1,6 @@
 package com.sao.MapSystem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.sao.MobSystem.Mobs.MobTemplate;
