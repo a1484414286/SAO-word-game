@@ -10,6 +10,7 @@ import com.sao.ItemsSystem.ItemElement;
 // import com.sao.BattleSystem.BattleField;
 // import com.sao.ItemsSystem.ItemElement;
 import com.sao.ItemsSystem.ItemTypes.Potion;
+import com.sao.JsonModel.ItemJsonUtil;
 import com.sao.JsonModel.LevelJsonUtil;
 import com.sao.JsonModel.LoadAllJsonModel;
 import com.sao.MapSystem.LevelStage;
@@ -39,6 +40,7 @@ public class App {
         LoadAllJsonModel.load();
         System.out.println(LevelJsonUtil.getModel(1).hp);
         System.out.println(LevelJsonUtil.getModel(2).mp);
+        System.out.println(LevelJsonUtil.getModel(3));
 
         Player player1 = new Player(0, "晓铜");
         System.out.println(player1.getStats());
