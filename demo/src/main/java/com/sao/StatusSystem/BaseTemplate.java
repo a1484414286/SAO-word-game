@@ -20,6 +20,9 @@ public class BaseTemplate {
     public StatsTemplate getStats() {
         return stats;
     }
+    public WeaponResistantTemplate getWeaponResist() {
+        return weaponResist;
+    }
     @Override
     public String toString() {
         return
