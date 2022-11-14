@@ -1,29 +1,29 @@
 package com.sao;
+
 import org.bson.Document;
+
 import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-
 
 public class mongo {
     public static void main(String[] args) {
         MongoClient client;
-        
+
         client = new MongoClient("localhost", 27017);
-        
+
         MongoDatabase db = client.getDatabase("SAO Game");
         MongoCollection<Document> players = db.getCollection("Players");
         MongoCollection<Document> items = db.getCollection("Items");
         MongoCollection<Document> mobs = db.getCollection("Mobs");
 
-
         players.drop();
         items.drop();
         mobs.drop();
 
-        //first drop to ensure the creation of database will not be affected by previous state
-        //Collection = table, Document = rows,cols
+        // first drop to ensure the creation of database will not be affected by
+        // previous state
+        // Collection = table, Document = rows,cols
         // Document document =
         // new Document("name", "Daeshan");
         // document.append("sex", "male");
@@ -38,17 +38,17 @@ public class mongo {
         // documents[1] = doc;
         // for(Document i : documents)
         // {
-        //     collection.insertOne(i);
+        // collection.insertOne(i);
         // }
 
-        //returns everything from database
+        // returns everything from database
 
         // FindIterable<Document> i = collection.find();
 
         // System.out.println("____________________________________________________");
         // for(Document r : i)
         // {
-        //     System.out.println(r);
+        // System.out.println(r);
         // }
         client.close();
 
