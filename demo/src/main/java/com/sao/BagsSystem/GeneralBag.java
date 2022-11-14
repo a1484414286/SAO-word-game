@@ -28,10 +28,35 @@ public class GeneralBag {
                 this.bags.get(i).addChild(e);
             }
         }
+    }
 
+    public String print() {
+        String result = "";
+        for (BagTemplate i : bags) {
+            if (i.print() != result) {
+                result += i.print() + '\n';
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<BagTemplate> getBags() {
+        return bags;
     }
 
     public String calculate() {
+        int totalValue = 0;
+        int totalWeight = 0;
+        int itemCount = 0;
+        for (BagTemplate i : bags) {
+            totalValue += i.calculate()[0];
+            totalWeight += i.calculate()[1];
+            itemCount += i.calculate()[2];
+        }
+        return ("背包总价值 : " + totalValue + " 背包总重量 : " + totalWeight + " 背包物品数量 : " + itemCount);
+    }
+
+    public String collect() {
         int totalValue = 0;
         int totalWeight = 0;
         int itemCount = 0;

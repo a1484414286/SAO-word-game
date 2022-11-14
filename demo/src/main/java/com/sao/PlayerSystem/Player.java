@@ -7,13 +7,15 @@ public class Player {
     private String name;
     private BaseTemplate stats;
     private GeneralBag bag;
-    
-    public Player(int id, String name)
-    {
+    private int id;
+
+    public Player(int id, String name) {
+        this.id = id;
         this.name = name;
         this.stats = new BaseTemplate(id, name);
         this.bag = new GeneralBag();
     }
+
     public String getName() {
         return name;
     }

@@ -1,18 +1,19 @@
-package com.sao;
+package com.DB;
 
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.sao.ItemsSystem.ItemTypes.Potion;
 
-public class mongo {
+public class Mongo {
     public static void main(String[] args) {
         MongoClient client;
 
         client = new MongoClient("localhost", 27017);
 
-        MongoDatabase db = client.getDatabase("SAO Game");
+        MongoDatabase db = client.getDatabase("SAO_Game");
         MongoCollection<Document> players = db.getCollection("Players");
         MongoCollection<Document> items = db.getCollection("Items");
         MongoCollection<Document> mobs = db.getCollection("Mobs");
@@ -21,6 +22,10 @@ public class mongo {
         items.drop();
         mobs.drop();
 
+        MongoUtils.init();
+        MongoUtils.insertPlayer("晓桐");
+        MongoUtils.insertPlayer("二大爷");
+        MongoUtils.insertItems(1, new Potion(0, "红药", "补血", 50, 0, 0));
         // first drop to ensure the creation of database will not be affected by
         // previous state
         // Collection = table, Document = rows,cols

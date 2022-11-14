@@ -1,5 +1,6 @@
 package com.sao.StatusSystem;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class StatsTemplate {
@@ -14,19 +15,6 @@ public class StatsTemplate {
     private int LVL;
     private long EXP;
     private long reqEXP;
-
-    // public StatsTemplate(int LVL, int HP, int MP) {
-    // this.EXP = 0;
-    // this.HP = HP;
-    // this.MP = MP;
-    // this.LVL = LVL;
-    // this.STR = new Random().nextInt(10);
-    // this.AGI = new Random().nextInt(10);
-    // this.VIT = new Random().nextInt(10);
-    // this.INT = new Random().nextInt(10);
-    // this.DEX = new Random().nextInt(LVL, 100);
-    // this.LUK = new Random().nextInt(LVL, 100);
-    // }
 
     public StatsTemplate() {
         this.HP = 10;
@@ -96,5 +84,19 @@ public class StatsTemplate {
                 "\n HP  : %d  MP  : %d \n STR : %d   AGI : %d \n VIT : %d   INT : %d \n DEX : %d   EXP : %d", HP, MP,
                 STR, AGI, VIT, INT, DEX, EXP);
         return r;
+    }
+
+    public HashMap<String, Object> getData() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("HP", this.HP);
+        result.put("MP", this.MP);
+        result.put("STR", this.STR);
+        result.put("AGI", this.AGI);
+        result.put("VIT", this.VIT);
+        result.put("INT", this.INT);
+        result.put("DEX", this.DEX);
+        result.put("REQEXP", this.reqEXP);
+        result.put("EXP", this.EXP);
+        return result;
     }
 }

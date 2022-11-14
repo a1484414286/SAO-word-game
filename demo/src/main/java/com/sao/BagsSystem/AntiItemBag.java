@@ -1,6 +1,5 @@
 package com.sao.BagsSystem;
 
-
 import java.util.HashSet;
 
 import com.sao.ItemsSystem.ItemElement;
@@ -14,11 +13,11 @@ public class AntiItemBag implements BagTemplate {
     }
 
     @Override
-    public void print() {
+    public String print() {
         if (this.categoryContainer.size() < 1) {
-            System.out.println("无物品");
+            return ("");
         } else {
-            System.out.println(categoryContainer.iterator().next().getName() + " : "
+            return (categoryContainer.iterator().next().getName() + " : "
                     + categoryContainer.iterator().next().getCount());
         }
     }

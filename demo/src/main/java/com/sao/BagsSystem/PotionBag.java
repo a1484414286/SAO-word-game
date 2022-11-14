@@ -13,12 +13,13 @@ public class PotionBag implements BagTemplate {
     }
 
     @Override
-    public void print() {
+    public String print() {
         if (this.potionContainer.size() < 1) {
-            System.out.println("无物品");
+            return ("");
+        } else {
+            return (potionContainer.iterator().next().getName() + " : "
+                    + potionContainer.iterator().next().getCount());
         }
-        System.out.println(
-                potionContainer.iterator().next().getName() + " : " + potionContainer.iterator().next().getCount());
     }
 
     @Override
