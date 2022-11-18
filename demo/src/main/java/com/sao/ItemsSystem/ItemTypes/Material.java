@@ -3,7 +3,7 @@ package com.sao.ItemsSystem.ItemTypes;
 import com.sao.BagsSystem.BagVisitor;
 import com.sao.ItemsSystem.ItemElement;
 
-public class Material implements ItemElement{
+public class Material implements ItemElement {
     private int id;
     private String name;
     private String description;
@@ -12,8 +12,7 @@ public class Material implements ItemElement{
     private int durability;
     private int count;
 
-    public Material(int id, String name, String description, int price, int weight, int durability)
-    {
+    public Material(int id, String name, String description, int price, int weight, int durability) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,30 +29,37 @@ public class Material implements ItemElement{
     public String getDescription() {
         return description;
     }
+
     public int getDurability() {
         return durability;
     }
+
     public int getId() {
         return id;
     }
+
+    @Override
     public String getName() {
         return name;
     }
+
     public int getPrice() {
         return price;
     }
+
     public int getWeight() {
         return weight;
     }
+
     public String toString() {
         return description;
     }
+
     public int[] accept(BagVisitor visitor) {
         return visitor.visit(this);
     }
 
-    public void incrementCount()
-    {
+    public void incrementCount() {
         this.count += 1;
     }
 

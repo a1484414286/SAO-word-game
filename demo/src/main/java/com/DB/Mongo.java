@@ -1,31 +1,37 @@
 package com.DB;
 
-import org.bson.Document;
-
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.sao.ItemsSystem.ItemTypes.Potion;
 
 public class Mongo {
     public static void main(String[] args) {
-        MongoClient client;
+        // MongoDatabase db = client.getDatabase("SAO_Game");
+        // MongoCollection<Document> players = db.getCollection("Players");
+        // MongoCollection<Document> AntiItemsBag = db.getCollection("AntiItemBag");
+        // MongoCollection<Document> WeaponBag = db.getCollection("AntiItemBag");
+        // MongoCollection<Document> ArmorBag = db.getCollection("ArmorBag");
+        // MongoCollection<Document> CrystalBag = db.getCollection("CrystalBag");
+        // MongoCollection<Document> FoodBag = db.getCollection("FoodBag");
+        // MongoCollection<Document> MaterialBag = db.getCollection("MaterialBag");
+        // MongoCollection<Document> PotionBag = db.getCollection("PotionBag");
+        // MongoCollection<Document> items = db.getCollection("bag");
+        // MongoCollection<Document> mobs = db.getCollection("Mobs");
 
-        client = new MongoClient("localhost", 27017);
+        // AntiItemsBag.drop();
+        // WeaponBag.drop();
+        // ArmorBag.drop();
+        // CrystalBag.drop();
+        // FoodBag.drop();
+        // MaterialBag.drop();
+        // PotionBag.drop();
+        // players.drop();
+        // items.drop();
+        // mobs.drop();
 
-        MongoDatabase db = client.getDatabase("SAO_Game");
-        MongoCollection<Document> players = db.getCollection("Players");
-        MongoCollection<Document> items = db.getCollection("Items");
-        MongoCollection<Document> mobs = db.getCollection("Mobs");
-
-        players.drop();
-        items.drop();
-        mobs.drop();
-
-        MongoUtils.init();
-        MongoUtils.insertPlayer("晓桐");
-        MongoUtils.insertPlayer("二大爷");
-        MongoUtils.insertItems(1, new Potion(0, "红药", "补血", 50, 0, 0));
+        // MongoUtils.init();
+        MongoUtils.insertPlayer(0, "晓桐");
+        MongoUtils.insertItemsToPlayerBag(1, new Potion(0, "红药", "补血", 50, 0, 0));
+        MongoUtils.insertPlayer(1, "二大爷");
+        // MongoUtils.insertItemsToPlayerBag(1, new Potion(0, "蓝药", "补魔", 50, 0, 0));
         // first drop to ensure the creation of database will not be affected by
         // previous state
         // Collection = table, Document = rows,cols
@@ -55,7 +61,7 @@ public class Mongo {
         // {
         // System.out.println(r);
         // }
-        client.close();
+        // client.close();
 
     }
 }

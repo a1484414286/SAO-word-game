@@ -16,6 +16,10 @@ public class Player {
         this.bag = new GeneralBag();
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
