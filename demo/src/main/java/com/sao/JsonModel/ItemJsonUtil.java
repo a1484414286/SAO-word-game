@@ -21,4 +21,8 @@ public class ItemJsonUtil {
 	public static ItemJsonModel getModel(Long id) {
 		return map.get(id);
 	}
+
+	public static HashMap<Long, ItemJsonModel> getMap() {
+		return map;
+	}
 }

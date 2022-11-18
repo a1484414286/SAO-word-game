@@ -1,5 +1,6 @@
 package com.sao;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,7 +11,7 @@ import com.sao.ItemsSystem.ItemElement;
 // import com.sao.BattleSystem.BattleField;
 // import com.sao.ItemsSystem.ItemElement;
 import com.sao.ItemsSystem.ItemTypes.Potion;
-import com.sao.JsonModel.LevelJsonUtil;
+import com.sao.JsonModel.ItemJsonUtil;
 import com.sao.JsonModel.LoadAllJsonModel;
 import com.sao.MapSystem.LevelStage;
 import com.sao.MobSystem.Factories.AbstractFactory;
@@ -19,8 +20,6 @@ import com.sao.MobSystem.Factories.FactoryProducer;
 // import com.sao.MobSystem.Factories.NormalFactory;
 import com.sao.MobSystem.Mobs.MobTemplate;
 import com.sao.MobSystem.Mobs.RegMob;
-// import com.sao.MobSystem.MobTemplate;
-// import com.sao.MobSystem.Mobs.RegMob;
 import com.sao.PlayerSystem.Player;
 
 /**
@@ -34,23 +33,27 @@ public class App {
     // public String cde;
     // }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException {
         // 加载所有的JsonModel
         LoadAllJsonModel.load();
-        System.out.println(LevelJsonUtil.getModel(1).hp);
-        System.out.println(LevelJsonUtil.getModel(2).mp);
-        System.out.println(LevelJsonUtil.getModel(3));
+        // System.out.println(LevelJsonUtil.getModel(1).hp);
+        // System.out.println(LevelJsonUtil.getModel(2).mp);
+        // System.out.println(LevelJsonUtil.getModel(3));
 
+        for (Long i : ItemJsonUtil.getMap().keySet()) {
+            System.out.println(ItemJsonUtil.getModel(i).name);
+        }
         Player player1 = new Player(0, "晓铜");
         System.out.println(player1.getStats());
-        Potion po = new Potion(0, "红药水", " +10 HP", 20, 5, 1);
+        Potion po = new Potion(0, "红药", " +10 HP", 20, 5, 1);
         player1.getBag().addChild(po);
         System.out.println();
         // 查看药水背包:
         System.out.println("药水背包: ");
         player1.getBag().getCategoryBag(5).print();
         System.out.println(player1.getBag());
-        System.out.println("\n 介绍 : " + po.getName() + po + ", " + " 重量 " + po.getWeight() + " 价值 " + po.getPrice());
+        System.out
+                .println("\n 介绍 : " + po.getName() + po + ", " + " 重量 " + po.getWeight() + " 价格 " + po.getPrice());
 
         // 怪物
         AbstractFactory mob = FactoryProducer.getFactory(false);
@@ -73,10 +76,10 @@ public class App {
         // 玩家加入关卡,草原小路1
 
         firstFloor.add(stage1);
-        // 添加到区域
+        // 添加到区�?
 
         floors.put(1, firstFloor);
-        // 添加到总地图/层地图
+        // 添加到总地�?/层地�?
 
         System.out.println(floors);
         // System.out.println(firstMob);
