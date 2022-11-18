@@ -29,13 +29,13 @@ import com.sao.PlayerSystem.Player;
 public class MongoUtils {
     public static MongoClient client = new MongoClient("localhost", 27017);
     public static MongoDatabase db = client.getDatabase("SAO_Game");
-    CodecRegistry pojoCodecRegistry = org.bson.codecs.configuration.CodecRegistries.fromRegistries(
+    static CodecRegistry pojoCodecRegistry = org.bson.codecs.configuration.CodecRegistries.fromRegistries(
             MongoClientSettings.getDefaultCodecRegistry(),
             org.bson.codecs.configuration.CodecRegistries
                     .fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
     public static void init() {
-        MongoCollection<Document> players = db.getCollection("Players");
+        // MongoCollection<Document> players = db.getCollection("Players");
         // MongoCollection<Document> items = db.getCollection("Items");
         // MongoCollection<Document> mobs = db.getCollection("Mobs");
         // MongoCollection<Document> AntiItemsBag = db.getCollection("AntiItemBag");
@@ -45,7 +45,7 @@ public class MongoUtils {
         // MongoCollection<Document> FoodBag = db.getCollection("FoodBag");
         // MongoCollection<Document> MaterialBag = db.getCollection("MaterialBag");
         // MongoCollection<Document> PotionBag = db.getCollection("PotionBag");
-        players.drop();
+        // players.drop();
         // AntiItemsBag.drop();
         // WeaponBag.drop();
         // ArmorBag.drop();
@@ -76,40 +76,42 @@ public class MongoUtils {
     }
 
     public static void insertItemsToPlayerBag(int id, ItemElement item) {
-        CodecRegistry pojoCodecRegistry = org.bson.codecs.configuration.CodecRegistries.fromRegistries(
-                MongoClientSettings.getDefaultCodecRegistry(),
-                org.bson.codecs.configuration.CodecRegistries
-                        .fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+        Document doc = new Document();
+        HashMap<Object, Object> bag;
 
         MongoCollection<Document> playersDB = db.getCollection("Players").withCodecRegistry(pojoCodecRegistry);
         Document searchQuery = new Document();
         // 查找相同ID
         searchQuery.put("id", id);
-        String bagStr = instanceConverter(item).toString();
-        System.out.println(bagStr);
-        String[] splitteStrings = bagStr.toString().split("BagsSystem.");
-        String itemBag = splitteStrings[1];
-        // String bag = bagStr[bagStr.length - 1];
+
+        // 查找物品归属的helper method
+        String[] bagStr = instanceConverter(item).toString().split("BagsSystem.");
+        String itemBag = bagStr[1];
+        //
+
         if (playersDB.countDocuments(searchQuery) == 1) {
             FindIterable<Document> Found = playersDB.find(searchQuery);
-            Document updateDoc = Found.first();
-            String json = updateDoc.toJson();
-
+            Document personBagge = Found.first();
             try {
-                HashMap<String, String> map = new ObjectMapper().readValue(json, HashMap.class);
-                System.out.println(map.get(itemBag));
-                Object i = updateDoc.get(itemBag);
-                Document doc = new Document();
-                doc.put(item.getName(), item);
-                playersDB.findOneAndUpdate(Filters.eq("id", id), Updates.set(itemBag, doc));
+                if (personBagge.get(itemBag) != null) {// 如果找到背包,提取数据,添加数据
+                    Document str = (Document) personBagge.get(itemBag);
+                    bag = new ObjectMapper().readValue(str.toJson(), HashMap.class);
+                } else {// 如果找不到背包, 创建背包
+                    bag = new HashMap<>();
+                }
+                bag.put(item.getName(), item);
+                doc.put(itemBag, bag);
+                playersDB.findOneAndUpdate(Filters.eq("id", id), Updates.set(itemBag,
+                        doc.get(itemBag)));
             } catch (JsonProcessingException e) {
             }
         }
+
     }
 
     public static void insertPlayer(int id, String name) {
+        // 查询db,看有没有一样的id，如果没有,添加玩家
         MongoCollection<Document> playersDB = db.getCollection("Players");
-        // will be data from player init
         Player p = new Player(id, name);
         Document doc = new Document();
         doc.put("id", p.getStats().getId());
@@ -117,7 +119,6 @@ public class MongoUtils {
         if (found == 0) {
             doc.put("name", p.getName());
             doc.put("status", p.getStats().getDataFromStats());
-            doc.put("bag", p.getBag().print().strip());
             playersDB.insertOne(doc);
         }
     }
