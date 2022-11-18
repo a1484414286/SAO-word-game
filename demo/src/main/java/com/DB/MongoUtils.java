@@ -1,6 +1,8 @@
 package com.DB;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
@@ -103,13 +105,15 @@ public class MongoUtils {
                 doc.put(itemBag, bag);
                 playersDB.findOneAndUpdate(Filters.eq("id", id), Updates.set(itemBag,
                         doc.get(itemBag)));
+
             } catch (JsonProcessingException e) {
             }
         }
-
     }
 
-    public static void insertPlayer(int id, String name) {
+    public static void CreatePlayer(int id, String name) {
+        Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
+
         // 查询db,看有没有一样的id，如果没有,添加玩家
         MongoCollection<Document> playersDB = db.getCollection("Players");
         Player p = new Player(id, name);
