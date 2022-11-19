@@ -213,12 +213,15 @@ function parseCell(xlsxFile, sheet, sheetRang, sheetHead) {
     content += "\tpublic static ".concat(modelName, "JsonModel getModel(").concat(idJavaType, " id) {\n");
     content += "\t\treturn map.get(id);\n";
     content += "\t}\n";
+    content += "\tpublic static HashMap<".concat(idJavaType, ", ").concat(modelName, "JsonModel> getMap() {\n");
+    content += "\t\treturn map;\n";
+    content += "\t}\n";
     content += "}\n";
     fs.writeFileSync(path.join(codeRoot, "".concat(modelName, "JsonUtil.java")), content);
     //3.LoadAllJsonModel
     loadAllJsonModelTpl += "\t\tInputStream stream".concat(modelName, " = LoadAllJsonModel.class.getClassLoader().getResourceAsStream(\"json/").concat(modelName, ".json\");\n");
     loadAllJsonModelTpl += "\t\ttry {\n";
-    loadAllJsonModelTpl += "\t\t\t".concat(modelName, "JsonUtil.loadJson(new String(stream").concat(modelName, ".readAllBytes()));\n");
+    loadAllJsonModelTpl += "\t\t\t".concat(modelName, "JsonUtil.loadJson(new String(stream").concat(modelName, ".readAllBytes(), \"UTF-8\"));\n");
     loadAllJsonModelTpl += "\t\t} catch (Exception e) {\n";
     loadAllJsonModelTpl += "\t\t\tSystem.err.println(e);\n";
     loadAllJsonModelTpl += "\t\t}\n";

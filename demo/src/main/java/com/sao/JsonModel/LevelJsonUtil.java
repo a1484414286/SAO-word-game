@@ -21,7 +21,6 @@ public class LevelJsonUtil {
 	public static LevelJsonModel getModel(Integer id) {
 		return map.get(id);
 	}
-
 	public static HashMap<Integer, LevelJsonModel> getMap() {
 		return map;
 	}

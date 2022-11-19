@@ -181,12 +181,16 @@ function parseCell(xlsxFile: string, sheet: xlsx.WorkSheet, sheetRang: I_SheetRa
     content += `\tpublic static ${modelName}JsonModel getModel(${idJavaType} id) {\n`;
     content += `\t\treturn map.get(id);\n`;
     content += `\t}\n`;
+    content += `\n`;
+    content += `\tpublic static HashMap<${idJavaType}, ${modelName}JsonModel> getMap() {\n`;
+    content += `\t\treturn map;\n`;
+    content += `\t}\n`;
     content += `}\n`;
     fs.writeFileSync(path.join(codeRoot, `${modelName}JsonUtil.java`), content);
     //3.LoadAllJsonModel
     loadAllJsonModelTpl += `\t\tInputStream stream${modelName} = LoadAllJsonModel.class.getClassLoader().getResourceAsStream("json/${modelName}.json");\n`;
     loadAllJsonModelTpl += `\t\ttry {\n`;
-    loadAllJsonModelTpl += `\t\t\t${modelName}JsonUtil.loadJson(new String(stream${modelName}.readAllBytes()));\n`;
+    loadAllJsonModelTpl += `\t\t\t${modelName}JsonUtil.loadJson(new String(stream${modelName}.readAllBytes(), "UTF-8"));\n`;
     loadAllJsonModelTpl += `\t\t} catch (Exception e) {\n`;
     loadAllJsonModelTpl += `\t\t\tSystem.err.println(e);\n`;
     loadAllJsonModelTpl += `\t\t}\n`;
