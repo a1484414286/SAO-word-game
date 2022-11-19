@@ -35,6 +35,7 @@
     <version>2.7.5</version>
 </dependency>
 
+
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-bom</artifactId>
@@ -81,12 +82,12 @@
     </dependency>
 
 
-    <dependency>
+    <!-- <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring</artifactId>
       <version>5.3.23</version>
       <type>pom</type>
-    </dependency>
+    </dependency> -->
 
 
     <dependency>
@@ -102,11 +103,11 @@
     <version>3.4.1</version>
   </dependency> -->
 
-    <dependency>
+    <!-- <dependency>
         <groupId>org.mongodb</groupId>
         <artifactId>mongodb-driver</artifactId>
         <version>3.2.2</version>
-    </dependency>
+    </dependency> -->
 
     <dependency>
       <groupId>junit</groupId>
@@ -143,15 +144,19 @@
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
 
   </dependencies>
 
   <build>
+   <resources>
+    <resource>
+      <directory>resources</directory>
+      <targetPath>${project.build.outputDirectory}</targetPath>
+      <includes>
+        <include>application.properties</include>
+      </includes>
+    </resource>
+  </resources>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->

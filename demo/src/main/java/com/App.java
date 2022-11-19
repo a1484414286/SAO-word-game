@@ -1,4 +1,4 @@
-package com.saoModel;
+package com;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
