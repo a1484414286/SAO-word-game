@@ -42,6 +42,8 @@ public class App {
 
         for (Long i : ItemJsonUtil.getMap().keySet()) {
             System.out.println(ItemJsonUtil.getModel(i).name);
+            System.out.println(ItemJsonUtil.getModel(i).desc);
+            System.out.println(ItemJsonUtil.getModel(i).statck);
         }
         Player player1 = new Player(0, "晓铜");
         System.out.println(player1.getStats());
