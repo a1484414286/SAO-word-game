@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,17 +18,18 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-import com.sao.BagsSystem.AntiItemBag;
-import com.sao.BagsSystem.CrystalBag;
-import com.sao.BagsSystem.FoodBag;
-import com.sao.BagsSystem.PotionBag;
-import com.sao.ItemsSystem.ItemElement;
-import com.sao.ItemsSystem.ItemTypes.AntiItem;
-import com.sao.ItemsSystem.ItemTypes.Crystal;
-import com.sao.ItemsSystem.ItemTypes.Food;
-import com.sao.ItemsSystem.ItemTypes.Potion;
-import com.sao.PlayerSystem.Player;
+import com.saoModel.BagsSystem.AntiItemBag;
+import com.saoModel.BagsSystem.CrystalBag;
+import com.saoModel.BagsSystem.FoodBag;
+import com.saoModel.BagsSystem.PotionBag;
+import com.saoModel.ItemsSystem.ItemElement;
+import com.saoModel.ItemsSystem.ItemTypes.AntiItem;
+import com.saoModel.ItemsSystem.ItemTypes.Crystal;
+import com.saoModel.ItemsSystem.ItemTypes.Food;
+import com.saoModel.ItemsSystem.ItemTypes.Potion;
+import com.saoModel.PlayerSystem.Player;
 
+@RestController
 public class MongoUtils {
     public static MongoClient client = new MongoClient("localhost", 27017);
     public static MongoDatabase db = client.getDatabase("SAO_Game");
@@ -126,4 +128,5 @@ public class MongoUtils {
             playersDB.insertOne(doc);
         }
     }
+
 }

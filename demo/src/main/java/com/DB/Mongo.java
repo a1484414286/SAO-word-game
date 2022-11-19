@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import org.slf4j.LoggerFactory;
 
-import com.sao.ItemsSystem.ItemTypes.Food;
-import com.sao.ItemsSystem.ItemTypes.Potion;
+import com.saoModel.ItemsSystem.ItemTypes.Food;
+import com.saoModel.ItemsSystem.ItemTypes.Potion;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
