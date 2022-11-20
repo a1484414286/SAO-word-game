@@ -30,6 +30,11 @@ public class FoodBag implements BagTemplate {
     }
 
     @Override
+    public String toString() {
+        return this.print();
+    }
+
+    @Override
     public int[] calculate() {
         int totalValue = 0;
         int totalWeight = 0;
@@ -48,6 +53,10 @@ public class FoodBag implements BagTemplate {
     @Override
     public Object getType() {
         return Food.class;
+    }
+
+    public HashSet<Food> getFoodContainer() {
+        return foodContainer;
     }
 
 }

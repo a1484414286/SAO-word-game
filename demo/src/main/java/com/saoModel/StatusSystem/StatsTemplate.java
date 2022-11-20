@@ -1,6 +1,5 @@
 package com.saoModel.StatusSystem;
 
-import java.util.HashMap;
 import java.util.Random;
 
 public class StatsTemplate {
@@ -86,17 +85,4 @@ public class StatsTemplate {
         return r;
     }
 
-    public HashMap<String, Object> getData() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("HP", this.HP);
-        result.put("MP", this.MP);
-        result.put("STR", this.STR);
-        result.put("AGI", this.AGI);
-        result.put("VIT", this.VIT);
-        result.put("INT", this.INT);
-        result.put("DEX", this.DEX);
-        result.put("REQEXP", this.reqEXP);
-        result.put("EXP", this.EXP);
-        return result;
-    }
 }

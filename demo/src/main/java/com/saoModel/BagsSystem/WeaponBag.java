@@ -11,6 +11,10 @@ public class WeaponBag implements BagTemplate {
         weaponContainer = new ArrayList<>();
     }
 
+    public void setWeaponContainer(ArrayList<ItemElement> weaponContainer) {
+        this.weaponContainer = weaponContainer;
+    }
+
     @Override
     public String print() {
         return "";
@@ -20,6 +24,11 @@ public class WeaponBag implements BagTemplate {
         // return (categoryContainer.iterator().next().getName() + " : "
         // + categoryContainer.iterator().next().getCount());
         // }
+    }
+
+    @Override
+    public String toString() {
+        return this.print();
     }
 
     @Override
@@ -48,5 +57,9 @@ public class WeaponBag implements BagTemplate {
     public Object getType() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public ArrayList<ItemElement> getWeaponContainer() {
+        return weaponContainer;
     }
 }

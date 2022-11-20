@@ -1,22 +1,14 @@
 package com.saoModel.StatusSystem;
 
-import java.util.HashMap;
-
 public class BaseTemplate {
-    private final long id;
     private final String name;
     private StatsTemplate stats;
     private WeaponResistantTemplate weaponResist;
 
-    public BaseTemplate(long id, String name) {
-        this.id = id;
+    public BaseTemplate(String name) {
         this.name = name;
         this.stats = new StatsTemplate();
         this.weaponResist = new WeaponResistantTemplate();
-    }
-
-    public long getId() {
-        return id;
     }
 
     public StatsTemplate getStats() {
@@ -27,9 +19,9 @@ public class BaseTemplate {
         return weaponResist;
     }
 
-    public HashMap<String, Object> getDataFromStats() {
-        return this.stats.getData();
-    }
+    // public HashMap<String, Object> getDataFromStats() {
+    // return this.stats.getData();
+    // }
 
     @Override
     public String toString() {

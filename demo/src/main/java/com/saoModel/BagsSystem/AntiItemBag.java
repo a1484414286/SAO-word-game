@@ -23,6 +23,11 @@ public class AntiItemBag implements BagTemplate {
     }
 
     @Override
+    public String toString() {
+        return this.print();
+    }
+
+    @Override
     public void addChild(ItemElement e) {
         AntiItem r = (AntiItem) e;
         r.incrementCount();
@@ -46,6 +51,10 @@ public class AntiItemBag implements BagTemplate {
     @Override
     public Object getType() {
         return AntiItem.class;
+    }
+
+    public HashSet<AntiItem> getCategoryContainer() {
+        return categoryContainer;
     }
 
 }

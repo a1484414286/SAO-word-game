@@ -28,6 +28,11 @@ public class ArmorBag implements BagTemplate {
     }
 
     @Override
+    public String toString() {
+        return this.print();
+    }
+
+    @Override
     public int[] calculate() {
         int totalValue = 0;
         int totalWeight = 0;
@@ -47,6 +52,10 @@ public class ArmorBag implements BagTemplate {
     public Object getType() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public ArrayList<ItemElement> getArmorContainer() {
+        return armorContainer;
     }
 
 }

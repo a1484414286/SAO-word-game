@@ -23,6 +23,11 @@ public class CrystalBag implements BagTemplate {
     }
 
     @Override
+    public String toString() {
+        return this.print();
+    }
+
+    @Override
     public void addChild(ItemElement e) {
         Crystal r = (Crystal) e;
         r.incrementCount();
@@ -48,6 +53,10 @@ public class CrystalBag implements BagTemplate {
     @Override
     public Object getType() {
         return Crystal.class;
+    }
+
+    public ArrayList<Crystal> getCrystalContainer() {
+        return crystalContainer;
     }
 
 }

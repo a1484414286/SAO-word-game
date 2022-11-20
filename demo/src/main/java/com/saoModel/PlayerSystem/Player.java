@@ -3,6 +3,7 @@ package com.saoModel.PlayerSystem;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.saoModel.BagsSystem.BagTemplate;
 import com.saoModel.BagsSystem.GeneralBag;
 import com.saoModel.StatusSystem.BaseTemplate;
 
@@ -11,21 +12,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
 @ToString
+@Setter
 @Document(collection = "Players")
 public class Player {
     @Id
+    private int id;
     private String name;
     private BaseTemplate stats;
-    private GeneralBag bag;
-    private int id;
+    private GeneralBag baggage;
 
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
-        this.stats = new BaseTemplate(id, name);
-        this.bag = new GeneralBag();
+        this.stats = new BaseTemplate(name);
+        this.baggage = new GeneralBag();
     }
 
     public int getId() {
@@ -41,7 +42,15 @@ public class Player {
     }
 
     public GeneralBag getBag() {
-        return bag;
+        return baggage;
+    }
+
+    public String getBags() {
+        String result = "";
+        for (BagTemplate B : baggage.getBags()) {
+            result += B.print();
+        }
+        return result;
     }
 
 }

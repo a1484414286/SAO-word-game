@@ -39,7 +39,7 @@
 // org.bson.codecs.configuration.CodecRegistries
 // .fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
-// public static void init() {
+// // public static void init() {
 // // MongoCollection<Document> players = db.getCollection("Players");
 // // MongoCollection<Document> items = db.getCollection("Items");
 // // MongoCollection<Document> mobs = db.getCollection("Mobs");
@@ -60,7 +60,7 @@
 // // PotionBag.drop();
 // // items.drop();
 // // mobs.drop();
-// }
+// // }
 
 // public static Object instanceConverter(ItemElement item) {
 // Object result = null;

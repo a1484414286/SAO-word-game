@@ -23,6 +23,11 @@ public class PotionBag implements BagTemplate {
     }
 
     @Override
+    public String toString() {
+        return this.print();
+    }
+
+    @Override
     public void addChild(ItemElement e) {
         Potion f = (Potion) e;
         f.incrementCount();
@@ -48,5 +53,9 @@ public class PotionBag implements BagTemplate {
     @Override
     public Object getType() {
         return Potion.class;
+    }
+
+    public HashSet<Potion> getPotionContainer() {
+        return potionContainer;
     }
 }

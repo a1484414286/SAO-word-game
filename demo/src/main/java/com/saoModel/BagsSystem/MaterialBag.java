@@ -23,6 +23,11 @@ public class MaterialBag implements BagTemplate {
     }
 
     @Override
+    public String toString() {
+        return this.print();
+    }
+
+    @Override
     public void addChild(ItemElement e) {
         Material f = (Material) e;
         f.incrementCount();
@@ -48,5 +53,9 @@ public class MaterialBag implements BagTemplate {
     @Override
     public Object getType() {
         return Material.class;
+    }
+
+    public HashSet<Material> getMaterialContainer() {
+        return materialContainer;
     }
 }

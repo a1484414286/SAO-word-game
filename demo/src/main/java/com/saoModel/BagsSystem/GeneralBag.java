@@ -70,7 +70,7 @@ public class GeneralBag {
 
     @Override
     public String toString() {
-        return this.calculate();
+        return this.print();
     }
 
 }
