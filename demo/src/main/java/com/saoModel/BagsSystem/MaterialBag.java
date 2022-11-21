@@ -58,8 +58,6 @@ public class MaterialBag implements BagTemplate {
             totalWeight += i.accept(visitor)[1];
             itemCount++;
         }
-        // System.out.println("背包总价值 : " + totalValue + " 背包总重量 : " + totalWeight + "
-        // 背包物品数量 : " + itemCount);
         return new int[] { totalValue, totalWeight, itemCount };
     }
 

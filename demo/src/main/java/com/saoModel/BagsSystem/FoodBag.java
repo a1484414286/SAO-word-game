@@ -41,7 +41,7 @@ public class FoodBag implements BagTemplate {
             Iterator<Food> foo = foodContainer.iterator();
             while (foo.hasNext()) {
                 Food f = foo.next();
-                result += f.getName() + " : " + f.getCount() + '\n';
+                result += f.getName() + " : " + f.getCount();
             }
             return result;
         }
@@ -58,8 +58,6 @@ public class FoodBag implements BagTemplate {
             totalWeight += i.accept(visitor)[1];
             itemCount++;
         }
-        // System.out.println("背包总价值 : " + totalValue + " 背包总重量 : " + totalWeight + "
-        // 背包物品数量 : " + itemCount);
         return new int[] { totalValue, totalWeight, itemCount };
     }
 

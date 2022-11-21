@@ -31,14 +31,20 @@ public class CrystalBag implements BagTemplate {
     @Override
     public void addChild(ItemElement e) {
         Crystal f = (Crystal) e;
-        if (crystalContainer.contains(f)) {
-            Crystal tempF = crystalContainer.get(crystalContainer.indexOf(f));
-            tempF.incrementCount();
-            crystalContainer.add(crystalContainer.indexOf(f), tempF);
-        } else {
+        int index = crystalContainer.size();
+        if (crystalContainer.size() != 0) {
+            for (Crystal foo : crystalContainer) {
+                if (f.getName().equals(foo.getName())) {
+                    index = crystalContainer.indexOf(foo);
+                    f = foo;
+                }
+            }
             f.incrementCount();
-            this.crystalContainer.add(f);
+            crystalContainer.set(index, f);
+            return;
         }
+        f.incrementCount();
+        crystalContainer.add(f);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class GeneralBag {
         String result = "";
         for (BagTemplate i : baggage) {
             if (i.toString() != result) {
-                result += i.toString();
+                result += i.toString() + '\n';
             }
         }
         return result;

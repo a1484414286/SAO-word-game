@@ -13,15 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mongodb.client.MongoClients;
+import com.saoModel.ItemsSystem.ItemTypes.AntiItem;
+import com.saoModel.ItemsSystem.ItemTypes.Crystal;
 import com.saoModel.ItemsSystem.ItemTypes.Food;
+import com.saoModel.ItemsSystem.ItemTypes.Material;
+import com.saoModel.ItemsSystem.ItemTypes.Potion;
 import com.saoModel.PlayerSystem.Player;
 import com.saoView.PlayersData;
 
 @RestController
 public class PlayerController {
-    // AnnotationConfigApplicationContext ctx = new
-    // AnnotationConfigApplicationContext(SpringMongoConfig.class);
-    // MongoOperations mongoOperation = (MongoOperations) ctx.getBean("SAO_Game");
     MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "SAO_Game");
 
     @Autowired
@@ -34,7 +35,7 @@ public class PlayerController {
     }
 
     @RequestMapping(value = "/inventory/item/food/{id}", method = RequestMethod.PUT)
-    public String addItem(@PathVariable int id, @RequestParam(required = true) String name, String desc, int val,
+    public String addFood(@PathVariable int id, @RequestParam(required = true) String name, String desc, int val,
             int weight, int durability) {
         Player p = repo.findById(id).get();
         p.getBaggage().addChild(new Food(name, desc, val, weight, durability));
@@ -42,6 +43,45 @@ public class PlayerController {
         return "success";
     }
 
+    @RequestMapping(value = "/inventory/item/potion/{id}", method = RequestMethod.PUT)
+    public String addPotion(@PathVariable int id, @RequestParam(required = true) String name, String desc, int val,
+            int weight, int durability) {
+        Player p = repo.findById(id).get();
+        p.getBaggage().addChild(new Potion(name, desc, val, weight, durability));
+        repo.save(p);
+        return "success";
+    }
+
+    @RequestMapping(value = "/inventory/item/anti/{id}", method = RequestMethod.PUT)
+    public String addAntiItem(@PathVariable int id, @RequestParam(required = true) String name, String desc, int val,
+            int weight, int durability) {
+        Player p = repo.findById(id).get();
+        p.getBaggage().addChild(new AntiItem(name, desc, val, weight, durability));
+        repo.save(p);
+        return "success";
+    }
+
+    @RequestMapping(value = "/inventory/item/material/{id}", method = RequestMethod.PUT)
+    public String addMaterial(@PathVariable int id, @RequestParam(required = true) String name, String desc, int val,
+            int weight, int durability) {
+        Player p = repo.findById(id).get();
+        p.getBaggage().addChild(new Material(name, desc, val, weight, durability));
+        repo.save(p);
+        return "success";
+    }
+
+    @RequestMapping(value = "/inventory/item/crystal/{id}", method = RequestMethod.PUT)
+    public String addCrystal(@PathVariable int id, @RequestParam(required = true) String name, String desc, int val,
+            int weight, int durability) {
+        Player p = repo.findById(id).get();
+        p.getBaggage().addChild(new Crystal(name, desc, val, weight, durability));
+        repo.save(p);
+        return "success";
+    }
+
+    // todo
+    // weapon and armor will need to be implemented
+    //
     @GetMapping("/All")
     public List<Player> retrivePlayers() {
         return repo.findAll();
