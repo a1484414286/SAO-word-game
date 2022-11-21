@@ -28,7 +28,7 @@ public class PlayerController {
     @Autowired
     private PlayersData repo;
 
-    @GetMapping("/addPlayer/{id}")
+    @GetMapping("/addPlayer")
     public String savePlayer(@PathVariable int id, @RequestParam(required = false) String name) {
         repo.insert(new Player(id, name));
         return id + " " + " has been added to the database";

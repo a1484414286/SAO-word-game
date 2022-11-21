@@ -12,16 +12,16 @@ import com.saoModel.MobSystem.Mobs.SpecialMob;
 public class EnhancedFactory extends AbstractFactory {
 
     @Override
-    public MobTemplate getMob(Object type, int id, String name, int HP, int MP, int LVL,
-            HashMap<Integer, ItemElement> drops) {
+    public MobTemplate getMob(Object type, int id, String name, int HP, int MP, int spawnTime,
+            HashMap<Integer, ItemElement> droppable) {
         if (type.equals(EliteMob.class)) {
-            return new EliteMob(id, name, LVL, drops);
+            return new EliteMob(id, name, spawnTime, droppable);
         } else if (type.equals(SpecialMob.class)) {
-            return new SpecialMob(id, name, LVL, drops);
+            return new SpecialMob(id, name, spawnTime, droppable);
         } else if (type.equals(DungeonMob.class)) {
-            return new DungeonMob(id, name, LVL, drops);
+            return new DungeonMob(id, name, spawnTime, droppable);
         } else if (type.equals(RegMob.class)) {
-            return new RegMob(id, name, LVL, drops);
+            return new RegMob(id, name, spawnTime, droppable);
         } else {
             return null;
         }

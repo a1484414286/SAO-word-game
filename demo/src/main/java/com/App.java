@@ -16,6 +16,7 @@ public class App {
 
     public static void main(String[] args) {
         Player p1 = new Player(0, "p1");
+
         p1.getBaggage().addChild(new Food("面包", "吃的", 2, 2, 1));
         p1.getBaggage().addChild(new Food("面包", "吃的", 2, 2, 1));
         p1.getBaggage().addChild(new Food("面包", "吃的", 2, 2, 1));

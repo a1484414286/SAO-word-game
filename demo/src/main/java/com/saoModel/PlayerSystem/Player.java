@@ -1,5 +1,7 @@
 package com.saoModel.PlayerSystem;
 
+import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,6 +16,7 @@ import lombok.ToString;
 @ToString
 @Setter
 @Document(collection = "Players")
+
 public class Player {
     @Id
     private int id;
@@ -42,6 +45,11 @@ public class Player {
 
     public GeneralBag getBaggage() {
         return baggage;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id, this.name);
     }
 
 }

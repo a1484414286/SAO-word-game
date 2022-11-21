@@ -20,7 +20,7 @@ public class DungeonMob implements MobTemplate {
     private final String name;
     private StatsTemplate stats;
     private HashMap<Integer, ItemElement> dropList;
-    private long respawnTime;
+    private int respawnTime;
 
     public DungeonMob(int id, String name, int spawnTime, HashMap<Integer, ItemElement> droppable) {
         this.id = id;

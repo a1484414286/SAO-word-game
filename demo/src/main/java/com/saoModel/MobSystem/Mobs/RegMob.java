@@ -1,6 +1,7 @@
 package com.saoModel.MobSystem.Mobs;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,23 +16,22 @@ import lombok.Setter;
 @Setter
 @Document(collection = "RegMob")
 public class RegMob implements MobTemplate {
-    @Id
-    private final int id;
+    private @Id int id;
     private final String name;
+    private final int respawnTime;
     private StatsTemplate stats;
-    private HashMap<Integer, ItemElement> dropList;
-    private long respawnTime;
+    private HashMap<Integer, ItemElement> droppable;
 
-    public RegMob(int id, String name, int spawnTime, HashMap<Integer, ItemElement> droppable) {
+    public RegMob(int id, String name, int respawnTime, HashMap<Integer, ItemElement> droppable) {
         this.id = id;
         this.name = name;
-        this.dropList = droppable;
-        this.respawnTime = spawnTime;
+        this.droppable = droppable;
+        this.respawnTime = respawnTime;
         this.stats = new StatsTemplate();
     }
 
     public HashMap<Integer, ItemElement> getDropList() {
-        return dropList;
+        return droppable;
     }
 
     public int getId() {
@@ -42,7 +42,7 @@ public class RegMob implements MobTemplate {
         return name;
     }
 
-    public long getRespawnTime() {
+    public int getRespawnTime() {
         return respawnTime;
     }
 
@@ -54,6 +54,11 @@ public class RegMob implements MobTemplate {
     public void statusAdjustification() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id, this.name);
     }
 
     @Override
