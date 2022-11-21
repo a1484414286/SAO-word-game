@@ -15,8 +15,12 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.saoModel.MobSystem.Factories.AbstractFactory;
 import com.saoModel.MobSystem.Factories.FactoryProducer;
+import com.saoModel.MobSystem.Mobs.DungeonMob;
+import com.saoModel.MobSystem.Mobs.EliteMob;
 import com.saoModel.MobSystem.Mobs.MobTemplate;
+import com.saoModel.MobSystem.Mobs.PeacefulMob;
 import com.saoModel.MobSystem.Mobs.RegMob;
+import com.saoModel.MobSystem.Mobs.SpecialMob;
 import com.saoView.MobData;
 
 @RestController
@@ -42,4 +46,45 @@ public class MobController {
         MobRepo.insert(mob);
         return "success";
     }
+
+    @GetMapping("/addmob/dun")
+    public String addDunMob(@RequestParam(required = true) String name, int hp, int mp,
+            int respawnTime) {
+        MongoCollection<Document> mobData = mongoOps.getCollection("Mobs");
+        int id = (int) mobData.countDocuments();
+        MobTemplate mob = mobFactory.getMob(DungeonMob.class, id, name, hp, mp, respawnTime, new HashMap<>());
+        MobRepo.insert(mob);
+        return "success";
+    }
+
+    @GetMapping("/addmob/elite")
+    public String addEliteMob(@RequestParam(required = true) String name, int hp, int mp,
+            int respawnTime) {
+        MongoCollection<Document> mobData = mongoOps.getCollection("Mobs");
+        int id = (int) mobData.countDocuments();
+        MobTemplate mob = mobFactory.getMob(EliteMob.class, id, name, hp, mp, respawnTime, new HashMap<>());
+        MobRepo.insert(mob);
+        return "success";
+    }
+
+    @GetMapping("/addmob/peace")
+    public String addPeaceMob(@RequestParam(required = true) String name, int hp, int mp,
+            int respawnTime) {
+        MongoCollection<Document> mobData = mongoOps.getCollection("Mobs");
+        int id = (int) mobData.countDocuments();
+        MobTemplate mob = mobFactory.getMob(PeacefulMob.class, id, name, hp, mp, respawnTime, new HashMap<>());
+        MobRepo.insert(mob);
+        return "success";
+    }
+
+    @GetMapping("/addmob/spec")
+    public String addSpecialMob(@RequestParam(required = true) String name, int hp, int mp,
+            int respawnTime) {
+        MongoCollection<Document> mobData = mongoOps.getCollection("Mobs");
+        int id = (int) mobData.countDocuments();
+        MobTemplate mob = mobFactory.getMob(SpecialMob.class, id, name, hp, mp, respawnTime, new HashMap<>());
+        MobRepo.insert(mob);
+        return "success";
+    }
+
 }
