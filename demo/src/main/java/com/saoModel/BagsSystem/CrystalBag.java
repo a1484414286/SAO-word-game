@@ -29,9 +29,15 @@ public class CrystalBag implements BagTemplate {
 
     @Override
     public void addChild(ItemElement e) {
-        Crystal r = (Crystal) e;
-        r.incrementCount();
-        this.crystalContainer.add((Crystal) e);
+        Crystal f = (Crystal) e;
+        if (crystalContainer.contains(f)) {
+            Crystal tempF = crystalContainer.get(crystalContainer.indexOf(f));
+            tempF.incrementCount();
+            crystalContainer.add(crystalContainer.indexOf(f), tempF);
+        } else {
+            f.incrementCount();
+            this.crystalContainer.add(f);
+        }
     }
 
     @Override

@@ -19,10 +19,6 @@ public class BaseTemplate {
         return weaponResist;
     }
 
-    // public HashMap<String, Object> getDataFromStats() {
-    // return this.stats.getData();
-    // }
-
     @Override
     public String toString() {
         return String.format(

@@ -3,7 +3,6 @@ package com.saoModel.PlayerSystem;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.saoModel.BagsSystem.BagTemplate;
 import com.saoModel.BagsSystem.GeneralBag;
 import com.saoModel.StatusSystem.BaseTemplate;
 
@@ -41,16 +40,8 @@ public class Player {
         return stats;
     }
 
-    public GeneralBag getBag() {
+    public GeneralBag getBaggage() {
         return baggage;
-    }
-
-    public String getBags() {
-        String result = "";
-        for (BagTemplate B : baggage.getBags()) {
-            result += B.print();
-        }
-        return result;
     }
 
 }

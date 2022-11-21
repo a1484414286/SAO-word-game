@@ -4,7 +4,6 @@ import com.saoModel.BagsSystem.BagVisitor;
 import com.saoModel.ItemsSystem.ItemElement;
 
 public class Food implements ItemElement {
-    private int id;
     private String name;
     private String description;
     private int price;
@@ -12,8 +11,7 @@ public class Food implements ItemElement {
     private int durability;
     private int count;
 
-    public Food(int id, String name, String description, int price, int weight, int durability) {
-        this.id = id;
+    public Food(String name, String description, int price, int weight, int durability) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -36,10 +34,6 @@ public class Food implements ItemElement {
 
     public int getDurability() {
         return durability;
-    }
-
-    public int getId() {
-        return id;
     }
 
     @Override

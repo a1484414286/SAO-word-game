@@ -1,15 +1,15 @@
 package com.saoModel.BagsSystem;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import com.saoModel.ItemsSystem.ItemElement;
 import com.saoModel.ItemsSystem.ItemTypes.Food;
 
 public class FoodBag implements BagTemplate {
-    private HashSet<Food> foodContainer;
+    private ArrayList<Food> foodContainer;
 
     public FoodBag() {
-        foodContainer = new HashSet<>();
+        foodContainer = new ArrayList<>();
     }
 
     @Override
@@ -17,16 +17,25 @@ public class FoodBag implements BagTemplate {
         if (this.foodContainer.size() < 1) {
             return ("");
         } else {
-            return (foodContainer.iterator().next().getName() + " : "
-                    + foodContainer.iterator().next().getCount());
+            String result = "";
+            result += foodContainer.iterator().next().getName() + " : "
+                    + foodContainer.iterator().next().getCount();
+            System.out.println(result);
+            return result;
         }
     }
 
     @Override
     public void addChild(ItemElement e) {
         Food f = (Food) e;
-        f.incrementCount();
-        this.foodContainer.add((Food) e);
+        if (foodContainer.contains(f)) {
+            Food tempF = foodContainer.get(foodContainer.indexOf(f));
+            tempF.incrementCount();
+            foodContainer.add(foodContainer.indexOf(f), tempF);
+        } else {
+            f.incrementCount();
+            this.foodContainer.add((Food) f);
+        }
     }
 
     @Override
@@ -55,7 +64,7 @@ public class FoodBag implements BagTemplate {
         return Food.class;
     }
 
-    public HashSet<Food> getFoodContainer() {
+    public ArrayList<Food> getFoodContainer() {
         return foodContainer;
     }
 

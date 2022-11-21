@@ -1,15 +1,15 @@
 package com.saoModel.BagsSystem;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import com.saoModel.ItemsSystem.ItemElement;
 import com.saoModel.ItemsSystem.ItemTypes.Potion;
 
 public class PotionBag implements BagTemplate {
-    private HashSet<Potion> potionContainer;
+    private ArrayList<Potion> potionContainer;
 
     public PotionBag() {
-        potionContainer = new HashSet<>();
+        potionContainer = new ArrayList<>();
     }
 
     @Override
@@ -30,8 +30,14 @@ public class PotionBag implements BagTemplate {
     @Override
     public void addChild(ItemElement e) {
         Potion f = (Potion) e;
-        f.incrementCount();
-        this.potionContainer.add((Potion) e);
+        if (potionContainer.contains(f)) {
+            Potion tempF = potionContainer.get(potionContainer.indexOf(f));
+            tempF.incrementCount();
+            potionContainer.add(potionContainer.indexOf(f), tempF);
+        } else {
+            f.incrementCount();
+            this.potionContainer.add(f);
+        }
     }
 
     @Override
@@ -55,7 +61,7 @@ public class PotionBag implements BagTemplate {
         return Potion.class;
     }
 
-    public HashSet<Potion> getPotionContainer() {
+    public ArrayList<Potion> getPotionContainer() {
         return potionContainer;
     }
 }

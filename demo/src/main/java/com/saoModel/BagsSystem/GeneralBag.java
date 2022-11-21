@@ -5,34 +5,35 @@ import java.util.ArrayList;
 import com.saoModel.ItemsSystem.ItemElement;
 
 public class GeneralBag {
-    private ArrayList<BagTemplate> bags;
+    private ArrayList<BagTemplate> baggage;
 
     public GeneralBag() {
-        bags = new ArrayList<>();
-        bags.add(new AntiItemBag());
-        bags.add(new ArmorBag());
-        bags.add(new CrystalBag());
-        bags.add(new FoodBag());
-        bags.add(new MaterialBag());
-        bags.add(new PotionBag());
-        bags.add(new WeaponBag());
+        baggage = new ArrayList<>();
+        baggage.add(new AntiItemBag());
+        baggage.add(new ArmorBag());
+        baggage.add(new CrystalBag());
+        baggage.add(new FoodBag());
+        baggage.add(new MaterialBag());
+        baggage.add(new PotionBag());
+        baggage.add(new WeaponBag());
     }
 
     public BagTemplate getCategoryBag(int i) {
-        return bags.get(i);
+        return baggage.get(i);
     }
 
     public void addChild(ItemElement e) {
-        for (int i = 0; i < bags.size(); i++) {
-            if (e.getClass().equals(this.bags.get(i).getType())) {
-                this.bags.get(i).addChild(e);
+        for (int i = 0; i < baggage.size(); i++) {
+            if (e.getClass().equals(this.baggage.get(i).getType())) {
+
+                this.baggage.get(i).addChild(e);
             }
         }
     }
 
     public String print() {
         String result = "";
-        for (BagTemplate i : bags) {
+        for (BagTemplate i : baggage) {
             if (i.print() != result) {
                 result += i.print() + '\n';
             }
@@ -40,15 +41,11 @@ public class GeneralBag {
         return result;
     }
 
-    public ArrayList<BagTemplate> getBags() {
-        return bags;
-    }
-
     public String calculate() {
         int totalValue = 0;
         int totalWeight = 0;
         int itemCount = 0;
-        for (BagTemplate i : bags) {
+        for (BagTemplate i : baggage) {
             totalValue += i.calculate()[0];
             totalWeight += i.calculate()[1];
             itemCount += i.calculate()[2];
@@ -60,7 +57,7 @@ public class GeneralBag {
         int totalValue = 0;
         int totalWeight = 0;
         int itemCount = 0;
-        for (BagTemplate i : bags) {
+        for (BagTemplate i : baggage) {
             totalValue += i.calculate()[0];
             totalWeight += i.calculate()[1];
             itemCount += i.calculate()[2];
@@ -71,6 +68,14 @@ public class GeneralBag {
     @Override
     public String toString() {
         return this.print();
+    }
+
+    public String getBaggage() {
+        String result = "";
+        for (BagTemplate B : baggage) {
+            result += B.print();
+        }
+        return result;
     }
 
 }

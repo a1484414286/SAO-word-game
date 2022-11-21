@@ -1,15 +1,15 @@
 package com.saoModel.BagsSystem;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import com.saoModel.ItemsSystem.ItemElement;
 import com.saoModel.ItemsSystem.ItemTypes.Material;
 
 public class MaterialBag implements BagTemplate {
-    private HashSet<Material> materialContainer;
+    private ArrayList<Material> materialContainer;
 
     public MaterialBag() {
-        materialContainer = new HashSet<>();
+        materialContainer = new ArrayList<>();
     }
 
     @Override
@@ -30,8 +30,14 @@ public class MaterialBag implements BagTemplate {
     @Override
     public void addChild(ItemElement e) {
         Material f = (Material) e;
-        f.incrementCount();
-        this.materialContainer.add((Material) e);
+        if (materialContainer.contains(f)) {
+            Material tempF = materialContainer.get(materialContainer.indexOf(f));
+            tempF.incrementCount();
+            materialContainer.add(materialContainer.indexOf(f), tempF);
+        } else {
+            f.incrementCount();
+            this.materialContainer.add(f);
+        }
     }
 
     @Override
@@ -55,7 +61,7 @@ public class MaterialBag implements BagTemplate {
         return Material.class;
     }
 
-    public HashSet<Material> getMaterialContainer() {
+    public ArrayList<Material> getMaterialContainer() {
         return materialContainer;
     }
 }

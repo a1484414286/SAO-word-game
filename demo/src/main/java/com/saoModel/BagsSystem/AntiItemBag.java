@@ -1,24 +1,24 @@
 package com.saoModel.BagsSystem;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import com.saoModel.ItemsSystem.ItemElement;
 import com.saoModel.ItemsSystem.ItemTypes.AntiItem;
 
 public class AntiItemBag implements BagTemplate {
-    private HashSet<AntiItem> categoryContainer;
+    private ArrayList<AntiItem> antiItemContainer;
 
     public AntiItemBag() {
-        categoryContainer = new HashSet<>();
+        antiItemContainer = new ArrayList<>();
     }
 
     @Override
     public String print() {
-        if (this.categoryContainer.size() < 1) {
+        if (this.antiItemContainer.size() < 1) {
             return ("");
         } else {
-            return (categoryContainer.iterator().next().getName() + " : "
-                    + categoryContainer.iterator().next().getCount());
+            return (antiItemContainer.iterator().next().getName() + " : "
+                    + antiItemContainer.iterator().next().getCount());
         }
     }
 
@@ -29,9 +29,15 @@ public class AntiItemBag implements BagTemplate {
 
     @Override
     public void addChild(ItemElement e) {
-        AntiItem r = (AntiItem) e;
-        r.incrementCount();
-        categoryContainer.add((AntiItem) e);
+        AntiItem f = (AntiItem) e;
+        if (antiItemContainer.contains(f)) {
+            AntiItem tempF = antiItemContainer.get(antiItemContainer.indexOf(f));
+            tempF.incrementCount();
+            antiItemContainer.add(antiItemContainer.indexOf(f), tempF);
+        } else {
+            f.incrementCount();
+            this.antiItemContainer.add(f);
+        }
     }
 
     @Override
@@ -40,7 +46,7 @@ public class AntiItemBag implements BagTemplate {
         int totalWeight = 0;
         int itemCount = 0;
         BagVisitor visitor = new BagScanner();
-        for (ItemElement i : categoryContainer) {
+        for (ItemElement i : antiItemContainer) {
             totalValue += i.accept(visitor)[0];
             totalWeight += i.accept(visitor)[1];
             itemCount++;
@@ -53,8 +59,8 @@ public class AntiItemBag implements BagTemplate {
         return AntiItem.class;
     }
 
-    public HashSet<AntiItem> getCategoryContainer() {
-        return categoryContainer;
+    public ArrayList<AntiItem> getCategoryContainer() {
+        return antiItemContainer;
     }
 
 }

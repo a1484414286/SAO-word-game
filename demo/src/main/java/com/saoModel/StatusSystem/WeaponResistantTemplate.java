@@ -13,19 +13,20 @@ public class WeaponResistantTemplate {
         this.penetrateResist = 0;
     }
 
-    public int getCritResist() {
-        return critResist;
+    public void setCritResist(int critResist) {
+        this.critResist = critResist;
     }
 
-    public int getPenetrateResist() {
-        return penetrateResist;
+    public void setPenetrateResist(int penetrateResist) {
+        this.penetrateResist = penetrateResist;
     }
 
-    public int getSlashResist() {
-        return slashResist;
+    public void setSlashResist(int slashResist) {
+        this.slashResist = slashResist;
     }
 
-    public int getSmashResist() {
-        return smashResist;
+    public void setSmashResist(int smashResist) {
+        this.smashResist = smashResist;
     }
+
 }
