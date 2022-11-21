@@ -25,6 +25,8 @@ import com.saoView.MobData;
 
 @RestController
 public class MobController {
+
+    // http://localhost:8080/addmob/reg?name=野猪&hp=20&mp=10&respawnTime=2
     MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "SAO_Game");
     // if on produces enhanced mobs, if off reg mobs
     AbstractFactory mobFactory = FactoryProducer.getFactory(false);
