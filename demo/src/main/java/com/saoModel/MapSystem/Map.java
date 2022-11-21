@@ -16,6 +16,16 @@ import lombok.ToString;
 public class Map {
     @Id
     public int id;
-    public ArrayList<ArrayList<LevelStage>> Floor = new ArrayList<>();
+    public ArrayList<ArrayList<LevelStage>> Floor;
+
+    public Map(int id, ArrayList<ArrayList<LevelStage>> floor) {
+        this.id = id;
+        this.Floor = floor;
+    }
+
+    public Map(int id) {
+        this.id = id;
+        this.Floor = new ArrayList<>();
+    }
 
 }
