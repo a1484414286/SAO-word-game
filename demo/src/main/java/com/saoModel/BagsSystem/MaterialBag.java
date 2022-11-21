@@ -1,6 +1,7 @@
 package com.saoModel.BagsSystem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.saoModel.ItemsSystem.ItemElement;
 import com.saoModel.ItemsSystem.ItemTypes.Material;
@@ -13,31 +14,37 @@ public class MaterialBag implements BagTemplate {
     }
 
     @Override
-    public String print() {
+    public String toString() {
         if (this.materialContainer.size() < 1) {
             return ("");
         } else {
-            return (materialContainer.iterator().next().getName() + " : "
-                    + materialContainer.iterator().next().getCount());
+            String result = "";
+            Iterator<Material> foo = materialContainer.iterator();
+            while (foo.hasNext()) {
+                Material f = foo.next();
+                result += f.getName() + " : " + f.getCount();
+            }
+            return result;
         }
-    }
-
-    @Override
-    public String toString() {
-        return this.print();
     }
 
     @Override
     public void addChild(ItemElement e) {
         Material f = (Material) e;
-        if (materialContainer.contains(f)) {
-            Material tempF = materialContainer.get(materialContainer.indexOf(f));
-            tempF.incrementCount();
-            materialContainer.add(materialContainer.indexOf(f), tempF);
-        } else {
+        int index = materialContainer.size();
+        if (materialContainer.size() != 0) {
+            for (Material foo : materialContainer) {
+                if (f.getName().equals(foo.getName())) {
+                    index = materialContainer.indexOf(foo);
+                    f = foo;
+                }
+            }
             f.incrementCount();
-            this.materialContainer.add(f);
+            materialContainer.set(index, f);
+            return;
         }
+        f.incrementCount();
+        materialContainer.add(f);
     }
 
     @Override

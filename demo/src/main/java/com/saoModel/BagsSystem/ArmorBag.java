@@ -12,24 +12,13 @@ public class ArmorBag implements BagTemplate {
     }
 
     @Override
-    public String print() {
-        return "";
-        // if (this.categoryContainer.size() < 1) {
-        // return ("无物品");
-        // } else {
-        // return (categoryContainer.iterator().next().getName() + " : "
-        // + categoryContainer.iterator().next().getCount());
-        // }
-    }
-
-    @Override
     public void addChild(ItemElement e) {
 
     }
 
     @Override
     public String toString() {
-        return this.print();
+        return "";
     }
 
     @Override

@@ -29,4 +29,19 @@ public class WeaponResistantTemplate {
         this.smashResist = smashResist;
     }
 
+    public int getCritResist() {
+        return critResist;
+    }
+
+    public int getPenetrateResist() {
+        return penetrateResist;
+    }
+
+    public int getSlashResist() {
+        return slashResist;
+    }
+
+    public int getSmashResist() {
+        return smashResist;
+    }
 }

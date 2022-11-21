@@ -13,7 +13,7 @@ public class AntiItemBag implements BagTemplate {
     }
 
     @Override
-    public String print() {
+    public String toString() {
         if (this.antiItemContainer.size() < 1) {
             return ("");
         } else {
@@ -23,21 +23,22 @@ public class AntiItemBag implements BagTemplate {
     }
 
     @Override
-    public String toString() {
-        return this.print();
-    }
-
-    @Override
     public void addChild(ItemElement e) {
         AntiItem f = (AntiItem) e;
-        if (antiItemContainer.contains(f)) {
-            AntiItem tempF = antiItemContainer.get(antiItemContainer.indexOf(f));
-            tempF.incrementCount();
-            antiItemContainer.add(antiItemContainer.indexOf(f), tempF);
-        } else {
+        int index = antiItemContainer.size();
+        if (antiItemContainer.size() != 0) {
+            for (AntiItem foo : antiItemContainer) {
+                if (f.getName().equals(foo.getName())) {
+                    index = antiItemContainer.indexOf(foo);
+                    f = foo;
+                }
+            }
             f.incrementCount();
-            this.antiItemContainer.add(f);
+            antiItemContainer.set(index, f);
+            return;
         }
+        f.incrementCount();
+        antiItemContainer.add(f);
     }
 
     @Override

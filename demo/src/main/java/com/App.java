@@ -16,10 +16,12 @@ public class App {
 
     public static void main(String[] args) {
         Player p1 = new Player(0, "p1");
-        Food 面包 = new Food("面包", "吃的", 2, 2, 1);
-        p1.getBaggage().addChild(面包);
-        p1.getBaggage().addChild(面包);
-        p1.getBaggage().getCategoryBag(3).print();
+        p1.getBaggage().addChild(new Food("面包", "吃的", 2, 2, 1));
+        p1.getBaggage().addChild(new Food("面包", "吃的", 2, 2, 1));
+        p1.getBaggage().addChild(new Food("面包", "吃的", 2, 2, 1));
+
+        String i = p1.getBaggage().getCategoryBag(3).toString();
+        System.out.println(i);
     }
     // public static void main(String[] args) throws UnsupportedEncodingException {
     // // 加载所有的JsonModel

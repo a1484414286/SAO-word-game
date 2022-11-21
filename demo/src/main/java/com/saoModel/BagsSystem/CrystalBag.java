@@ -1,6 +1,7 @@
 package com.saoModel.BagsSystem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.saoModel.ItemsSystem.ItemElement;
 import com.saoModel.ItemsSystem.ItemTypes.Crystal;
@@ -13,18 +14,18 @@ public class CrystalBag implements BagTemplate {
     }
 
     @Override
-    public String print() {
+    public String toString() {
         if (this.crystalContainer.size() < 1) {
             return ("");
         } else {
-            return (crystalContainer.iterator().next().getName() + " : "
-                    + crystalContainer.iterator().next().getCount());
+            String result = "";
+            Iterator<Crystal> foo = crystalContainer.iterator();
+            while (foo.hasNext()) {
+                Crystal f = foo.next();
+                result += f.getName() + " : " + f.getCount();
+            }
+            return result;
         }
-    }
-
-    @Override
-    public String toString() {
-        return this.print();
     }
 
     @Override
@@ -51,8 +52,6 @@ public class CrystalBag implements BagTemplate {
             totalWeight += i.accept(visitor)[1];
             itemCount++;
         }
-        // System.out.println("背包总价值 : " + totalValue + " 背包总重量 : " + totalWeight + "
-        // 背包物品数量 : " + itemCount);
         return new int[] { totalValue, totalWeight, itemCount };
     }
 

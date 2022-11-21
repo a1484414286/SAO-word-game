@@ -25,23 +25,22 @@ public class GeneralBag {
     public void addChild(ItemElement e) {
         for (int i = 0; i < baggage.size(); i++) {
             if (e.getClass().equals(this.baggage.get(i).getType())) {
-
                 this.baggage.get(i).addChild(e);
             }
         }
     }
 
-    public String print() {
+    public String getBaggage() {
         String result = "";
         for (BagTemplate i : baggage) {
-            if (i.print() != result) {
-                result += i.print() + '\n';
+            if (i.toString() != result) {
+                result += i.toString();
             }
         }
         return result;
     }
 
-    public String calculate() {
+    public String getCalculate() {
         int totalValue = 0;
         int totalWeight = 0;
         int itemCount = 0;
@@ -67,15 +66,7 @@ public class GeneralBag {
 
     @Override
     public String toString() {
-        return this.print();
-    }
-
-    public String getBaggage() {
-        String result = "";
-        for (BagTemplate B : baggage) {
-            result += B.print();
-        }
-        return result;
+        return this.getBaggage();
     }
 
 }

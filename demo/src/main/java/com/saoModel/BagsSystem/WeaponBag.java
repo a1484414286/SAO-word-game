@@ -16,19 +16,20 @@ public class WeaponBag implements BagTemplate {
     }
 
     @Override
-    public String print() {
-        return "";
-        // if (this.categoryContainer.size() < 1) {
-        // return ("无物品");
-        // } else {
-        // return (categoryContainer.iterator().next().getName() + " : "
-        // + categoryContainer.iterator().next().getCount());
-        // }
-    }
-
-    @Override
     public String toString() {
-        return this.print();
+
+        // if (this.foodContainer.size() < 1) {
+        // return ("");
+        // } else {
+        // String result = "";
+        // Iterator<Food> foo = foodContainer.iterator();
+        // while (foo.hasNext()) {
+        // Food f = foo.next();
+        // result += f.getName() + " : " + f.getCount();
+        // }
+        return "";
+        // }
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.saoModel.BagsSystem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.saoModel.ItemsSystem.ItemElement;
 import com.saoModel.ItemsSystem.ItemTypes.Food;
@@ -13,34 +14,37 @@ public class FoodBag implements BagTemplate {
     }
 
     @Override
-    public String print() {
-        if (this.foodContainer.size() < 1) {
-            return ("");
-        } else {
-            String result = "";
-            result += foodContainer.iterator().next().getName() + " : "
-                    + foodContainer.iterator().next().getCount();
-            System.out.println(result);
-            return result;
-        }
-    }
-
-    @Override
     public void addChild(ItemElement e) {
         Food f = (Food) e;
-        if (foodContainer.contains(f)) {
-            Food tempF = foodContainer.get(foodContainer.indexOf(f));
-            tempF.incrementCount();
-            foodContainer.add(foodContainer.indexOf(f), tempF);
-        } else {
+        int index = foodContainer.size();
+        if (foodContainer.size() != 0) {
+            for (Food foo : foodContainer) {
+                if (f.getName().equals(foo.getName())) {
+                    index = foodContainer.indexOf(foo);
+                    f = foo;
+                }
+            }
             f.incrementCount();
-            this.foodContainer.add((Food) f);
+            foodContainer.set(index, f);
+            return;
         }
+        f.incrementCount();
+        foodContainer.add(f);
     }
 
     @Override
     public String toString() {
-        return this.print();
+        if (this.foodContainer.size() < 1) {
+            return ("");
+        } else {
+            String result = "";
+            Iterator<Food> foo = foodContainer.iterator();
+            while (foo.hasNext()) {
+                Food f = foo.next();
+                result += f.getName() + " : " + f.getCount() + '\n';
+            }
+            return result;
+        }
     }
 
     @Override
