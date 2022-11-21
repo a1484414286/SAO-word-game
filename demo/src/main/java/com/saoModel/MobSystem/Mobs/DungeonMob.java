@@ -1,21 +1,29 @@
 package com.saoModel.MobSystem.Mobs;
 
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.saoModel.ItemsSystem.ItemElement;
 import com.saoModel.StatusSystem.StatsTemplate;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Document(collection = "DungenMob")
 public class DungeonMob implements MobTemplate {
-    public AtomicInteger incrementID = new AtomicInteger();
+    @Id
     private final int id;
     private final String name;
     private StatsTemplate stats;
     private HashMap<Integer, ItemElement> dropList;
     private long respawnTime;
 
-    public DungeonMob(String name, int spawnTime, HashMap<Integer, ItemElement> droppable) {
-        this.id = incrementID.incrementAndGet();
+    public DungeonMob(int id, String name, int spawnTime, HashMap<Integer, ItemElement> droppable) {
+        this.id = id;
         this.name = name;
         this.dropList = droppable;
         this.respawnTime = spawnTime;

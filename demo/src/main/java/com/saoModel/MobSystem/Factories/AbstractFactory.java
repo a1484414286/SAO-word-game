@@ -6,7 +6,7 @@ import com.saoModel.ItemsSystem.ItemElement;
 import com.saoModel.MobSystem.Mobs.MobTemplate;
 
 public abstract class AbstractFactory {
-    public abstract MobTemplate getMob(Object mobType, String name, int HP, int MP, int LVL,
+    public abstract MobTemplate getMob(Object mobType, int id, String name, int HP, int MP, int LVL,
             HashMap<Integer, ItemElement> hashMap);
 
 }
