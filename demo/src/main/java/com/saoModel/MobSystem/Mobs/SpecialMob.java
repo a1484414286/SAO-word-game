@@ -21,6 +21,7 @@ public class SpecialMob implements MobTemplate {
     private StatsTemplate stats;
     private HashMap<Integer, ItemElement> dropList;
     private long respawnTime;
+    private String attackStyle;
 
     public SpecialMob(int id, String name, int spawnTime, HashMap<Integer, ItemElement> droppable) {
         this.id = id;
@@ -28,6 +29,19 @@ public class SpecialMob implements MobTemplate {
         this.dropList = droppable;
         this.respawnTime = spawnTime;
         this.stats = new StatsTemplate();
+    }
+
+    public SpecialMob(int id, String name, int spawnTime) {
+        this.id = id;
+        this.name = name;
+        this.respawnTime = spawnTime;
+        this.dropList = new HashMap<>();
+        this.stats = new StatsTemplate();
+    }
+
+    @Override
+    public String getAtkSyle() {
+        return attackStyle;
     }
 
     public HashMap<Integer, ItemElement> getDropList() {

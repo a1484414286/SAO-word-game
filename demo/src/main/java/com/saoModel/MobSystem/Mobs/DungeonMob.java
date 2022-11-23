@@ -21,13 +21,34 @@ public class DungeonMob implements MobTemplate {
     private StatsTemplate stats;
     private HashMap<Integer, ItemElement> dropList;
     private int respawnTime;
+    private String attackStyle;
+    private String hidAttackStyle;
 
-    public DungeonMob(int id, String name, int spawnTime, HashMap<Integer, ItemElement> droppable) {
+    public DungeonMob(int id, String name, int spawnTime,
+            HashMap<Integer, ItemElement> droppable) {
         this.id = id;
         this.name = name;
+        // this.attackStyle = atkStlye;
+        // this.hidAttackStyle = hidAtkStyle;
         this.dropList = droppable;
         this.respawnTime = spawnTime;
         this.stats = new StatsTemplate();
+    }
+
+    public DungeonMob(int id, String name, int spawnTime, String attackStyle, String hidAtkStlye) {
+        this.id = id;
+        this.name = name;
+        this.respawnTime = spawnTime;
+        this.attackStyle = attackStyle;
+        this.hidAttackStyle = hidAtkStlye;
+        this.dropList = new HashMap<>();
+        this.stats = new StatsTemplate();
+    }
+
+    @Override
+    public String getAtkSyle() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public HashMap<Integer, ItemElement> getDropList() {

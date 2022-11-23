@@ -44,7 +44,7 @@ public class MobController {
             int respawnTime) {
         MongoCollection<Document> mobData = mongoOps.getCollection("Mobs");
         int id = (int) mobData.countDocuments();
-        MobTemplate mob = mobFactory.getMob(RegMob.class, id, name, hp, mp, respawnTime, new HashMap<>());
+        MobTemplate mob = mobFactory.getMob(RegMob.class, id, name, respawnTime, new HashMap<>());
         MobRepo.insert(mob);
         return "success";
     }
@@ -54,7 +54,7 @@ public class MobController {
             int respawnTime) {
         MongoCollection<Document> mobData = mongoOps.getCollection("Mobs");
         int id = (int) mobData.countDocuments();
-        MobTemplate mob = mobFactory.getMob(DungeonMob.class, id, name, hp, mp, respawnTime, new HashMap<>());
+        MobTemplate mob = mobFactory.getMob(DungeonMob.class, id, name, respawnTime, new HashMap<>());
         MobRepo.insert(mob);
         return "success";
     }
@@ -64,7 +64,7 @@ public class MobController {
             int respawnTime) {
         MongoCollection<Document> mobData = mongoOps.getCollection("Mobs");
         int id = (int) mobData.countDocuments();
-        MobTemplate mob = mobFactory.getMob(EliteMob.class, id, name, hp, mp, respawnTime, new HashMap<>());
+        MobTemplate mob = mobFactory.getMob(EliteMob.class, id, name, respawnTime, new HashMap<>());
         MobRepo.insert(mob);
         return "success";
     }
@@ -74,7 +74,7 @@ public class MobController {
             int respawnTime) {
         MongoCollection<Document> mobData = mongoOps.getCollection("Mobs");
         int id = (int) mobData.countDocuments();
-        MobTemplate mob = mobFactory.getMob(PeacefulMob.class, id, name, hp, mp, respawnTime, new HashMap<>());
+        MobTemplate mob = mobFactory.getMob(PeacefulMob.class, id, name, respawnTime, new HashMap<>());
         MobRepo.insert(mob);
         return "success";
     }
@@ -84,7 +84,7 @@ public class MobController {
             int respawnTime) {
         MongoCollection<Document> mobData = mongoOps.getCollection("Mobs");
         int id = (int) mobData.countDocuments();
-        MobTemplate mob = mobFactory.getMob(SpecialMob.class, id, name, hp, mp, respawnTime, new HashMap<>());
+        MobTemplate mob = mobFactory.getMob(SpecialMob.class, id, name, respawnTime, new HashMap<>());
         MobRepo.insert(mob);
         return "success";
     }

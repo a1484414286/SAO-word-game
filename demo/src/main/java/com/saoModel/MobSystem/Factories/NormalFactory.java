@@ -12,7 +12,7 @@ import com.saoModel.MobSystem.Mobs.SpecialMob;
 public class NormalFactory extends AbstractFactory {
 
     @Override
-    public MobTemplate getMob(Object type, int id, String name, int HP, int MP, int spawnTime,
+    public MobTemplate getMob(Object type, int id, String name, int spawnTime,
             HashMap<Integer, ItemElement> drops) {
         if (type.equals(EliteMob.class)) {
             return new EliteMob(id, name, spawnTime, drops);

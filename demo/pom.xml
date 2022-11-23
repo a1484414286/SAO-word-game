@@ -151,6 +151,12 @@
       <artifactId>pousse-cafe-spring-mongo</artifactId>
       <version>0.18.0</version>
     </dependency>
+  
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
+      <version>2.8.2</version>
+    </dependency>
   </dependencies>
 
   <build>

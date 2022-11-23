@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.saoModel.BagsSystem.GeneralBag;
 import com.saoModel.StatusSystem.BaseTemplate;
+import com.saoModel.StatusSystem.StatsTemplate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -39,8 +40,12 @@ public class Player {
         return name;
     }
 
-    public BaseTemplate getStats() {
+    public BaseTemplate getBaseTemplate() {
         return stats;
+    }
+
+    public StatsTemplate getStats() {
+        return stats.getStats();
     }
 
     public GeneralBag getBaggage() {

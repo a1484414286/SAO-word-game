@@ -30,6 +30,14 @@ public class PeacefulMob implements MobTemplate {
         this.stats = new StatsTemplate();
     }
 
+    public PeacefulMob(int id, String name, int spawnTime) {
+        this.id = id;
+        this.name = name;
+        this.respawnTime = spawnTime;
+        this.dropList = new HashMap<>();
+        this.stats = new StatsTemplate();
+    }
+
     public HashMap<Integer, ItemElement> getDropList() {
         return dropList;
     }
