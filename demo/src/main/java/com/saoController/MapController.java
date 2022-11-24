@@ -19,24 +19,28 @@ public class MapController {
 
     @Autowired
     private MapData mapData;
+    // private PlayersData playersData;
 
     @RequestMapping(value = "/allMaps")
     public List<Map> getMethodName() {
         return mapData.findAll();
     }
 
-    @RequestMapping(value = "/add/map")
-    public String addMap() {
+    @RequestMapping(value = "/add/map/{size}")
+    public String addMap(@PathVariable int size) {
         int id = (int) mongoOps.getCollection("Maps").countDocuments();
-        mapData.insert(new Map(id));
+        mapData.insert(new Map(id, size));
         return "added sucess";
     }
 
-    @RequestMapping(value = "/add/map/{id}/stage")
-    public String addStage(@PathVariable int id) {
-        Map m = mapData.findById(id).get();
-        // m.getFloor().add(null)
-        return "stage added sucess";
-    }
+    // @RequestMapping(value = "/add/map/stage/player/{userID}")
+    // public String enterStage(@PathVariable int mapId, int stageNum, int userID) {
+    // Map m = mapData.findById(mapId).get();
+    // Player p = playersData.findById(userID).get();
+    // LevelStage stage = m.getFloor().get(mapId).get(stageNum);
+    // // p.setPosition(stage);
+    // mapData.save(m);
+    // return "stage added sucess";
+    // }
 
 }

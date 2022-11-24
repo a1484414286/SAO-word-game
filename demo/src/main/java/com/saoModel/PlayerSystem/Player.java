@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.saoModel.BagsSystem.GeneralBag;
+import com.saoModel.MapSystem.LevelStage;
 import com.saoModel.StatusSystem.BaseTemplate;
 import com.saoModel.StatusSystem.StatsTemplate;
 
@@ -24,6 +25,7 @@ public class Player {
     private String name;
     private BaseTemplate stats;
     private GeneralBag baggage;
+    private LevelStage current;
 
     public Player(int id, String name) {
         this.id = id;

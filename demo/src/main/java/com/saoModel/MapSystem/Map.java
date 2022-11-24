@@ -6,26 +6,36 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 @Getter
-@Setter
 @Document(collection = "Maps")
-@ToString
 public class Map {
     @Id
-    public int id;
-    public ArrayList<ArrayList<LevelStage>> Floor;
+    private int id;
+    private ArrayList<ArrayList<LevelStage>> Floor;
+    private int size;
 
-    public Map(int id, ArrayList<ArrayList<LevelStage>> floor) {
+    public Map(int id, int size) {
         this.id = id;
-        this.Floor = floor;
+        this.size = size;
+        this.Floor = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            Floor.add(new ArrayList<>());
+        }
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                int tileID = Integer.valueOf(i + "" + j);
+                Floor.get(i).add(new LevelStage(tileID, tileID + " 名字"));
+            }
+        }
     }
 
-    public Map(int id) {
-        this.id = id;
-        this.Floor = new ArrayList<>();
+    public String printMap() {
+        String result = "";
+        for (int i = 0; i < size; i++) {
+            result += Floor.get(i) + "\n";
+        }
+        return result;
     }
 
 }

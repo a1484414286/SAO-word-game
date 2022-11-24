@@ -38,6 +38,12 @@ public class PeacefulMob implements MobTemplate {
         this.stats = new StatsTemplate();
     }
 
+    @Override
+    public String getAtkSyle() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     public HashMap<Integer, ItemElement> getDropList() {
         return dropList;
     }

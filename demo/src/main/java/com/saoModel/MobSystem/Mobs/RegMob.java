@@ -26,6 +26,7 @@ public class RegMob implements MobTemplate {
     public RegMob(int id, String name, int respawnTime, HashMap<Integer, ItemElement> droppable) {
         this.id = id;
         this.name = name;
+        this.attackStyle = "布";
         this.droppable = droppable;
         this.respawnTime = respawnTime;
         this.stats = new StatsTemplate();
