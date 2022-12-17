@@ -12,7 +12,7 @@ import lombok.Getter;
 public class Map {
     @Id
     private int id;
-    private ArrayList<ArrayList<LevelStage>> Floor;
+    private ArrayList<ArrayList<Stage>> Floor;
     private int size;
 
     public Map(int id, int size) {
@@ -25,7 +25,7 @@ public class Map {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 int tileID = Integer.valueOf(i + "" + j);
-                Floor.get(i).add(new LevelStage(tileID, tileID + " 名字"));
+                Floor.get(i).add(new Stage(tileID, tileID + " 名字"));
             }
         }
     }

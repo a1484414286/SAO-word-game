@@ -2,13 +2,13 @@ package com.saoModel.BattleSystem;
 
 import java.util.HashMap;
 
-import com.saoModel.MapSystem.LevelStage;
+import com.saoModel.MapSystem.Stage;
 import com.saoModel.MobSystem.Mobs.MobTemplate;
 import com.saoModel.MobSystem.Mobs.RegMob;
 import com.saoModel.PlayerSystem.Player;
 
 public class BattleField {
-    private LevelStage stage;
+    private Stage stage;
     private Player Attacker;
     private MobTemplate Defender;
     private HashMap<String, HashMap<String, Double>> algo;
@@ -34,7 +34,7 @@ public class BattleField {
         algo.put("布", paperHash);
     }
 
-    public void setStage(LevelStage stage) {
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
