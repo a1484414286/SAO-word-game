@@ -25,13 +25,14 @@ public class Player {
     private String name;
     private BaseTemplate stats;
     private GeneralBag baggage;
-    private Stage current;
+    private Stage position;
 
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
         this.stats = new BaseTemplate(name);
         this.baggage = new GeneralBag();
+        this.position = null;
     }
 
     public int getId() {

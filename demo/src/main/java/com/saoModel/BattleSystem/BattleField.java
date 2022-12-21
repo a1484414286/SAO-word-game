@@ -82,6 +82,10 @@ public class BattleField {
         return new double[] { sumHP1, sumHP2 };
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
     public static void main(String[] args) {
         Player p1 = new Player(0, "✌");
         RegMob m1 = new RegMob(0, "野猪", 5, new HashMap<>());
