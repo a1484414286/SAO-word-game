@@ -44,6 +44,7 @@ public class MapController {
     @PostMapping(value = "/initSizedMap")
     public String initSizedMap(@RequestBody String jsonStr) throws JsonMappingException, JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+        @SuppressWarnings("unchecked")
         HashMap<String, String> map = mapper.readValue(jsonStr, HashMap.class);
         int id = (int) mapData.count();
         mapData.insert(new Map(id, Integer.parseInt(map.get("size"))));
@@ -63,7 +64,7 @@ public class MapController {
     @PostMapping(value = "/addStage")
     public String addStage(@RequestBody String str) throws JsonMappingException, JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-
+        @SuppressWarnings("unchecked")
         HashMap<String, String> map = mapper.readValue(str, HashMap.class);
 
         String mapID = map.get("mapID");
