@@ -2,7 +2,10 @@ package com.saoController;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.MethodParameter;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.NativeWebRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -22,8 +26,10 @@ import com.saoView.MapData;
 
 @RestController
 public class MapController {
-    MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "SAO_Game");
     public static String SUCCESS = "SUCESS OPERATION";
+    public static String FAILED = "FAILED OPERATION";
+
+    MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "SAO_Game");
     @Autowired
     private MapData mapData;
 
@@ -33,12 +39,14 @@ public class MapController {
     }
 
     @GetMapping(value = "/getStage/{id}")
-    public Stage getStage(@PathVariable int id) {
-        return new Stage(0, null);
+    public Map getMap(@PathVariable int id) {
+        return mapData.findById(id).get();
     }
 
-    @PostMapping(value = "/initMap")
-    public String initMap(@RequestBody String jsonStr) throws JsonMappingException, JsonProcessingException {
+    // this will be a "setted" amount of space, where the user can edit based on
+    // given stage/tile
+    @PostMapping(value = "/initSizedMap")
+    public String initSizedMap(@RequestBody String jsonStr) throws JsonMappingException, JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         HashMap<String, String> map = mapper.readValue(jsonStr, HashMap.class);
         int id = (int) mapData.count();
@@ -46,16 +54,36 @@ public class MapController {
         return SUCCESS;
     }
 
-    @GetMapping(value = "/addStage")
+    // this will automatically increment based on the count of "Map"(世界)
+    @PostMapping(value = "/initMap")
+    public String initMap() throws JsonMappingException, JsonProcessingException {
+        int id = (int) mapData.count();
+        mapData.insert(new Map(id));
+        return SUCCESS;
+    }
+
+    @PostMapping(value = "/addStage")
     public String addStage(@RequestBody String str) throws JsonMappingException, JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         HashMap<String, String> map = mapper.readValue(str, HashMap.class);
+
         String mapID = map.get("mapID");
-        String name = map.get("name");
         Map currentMap = mapData.findById(Integer.parseInt(mapID)).get();
-        int stageID = currentMap.getFloor().size();
-        currentMap.getFloor().add(new Stage(stageID, name));
-        return SUCCESS;
+        String name = map.get("name");
+        int range = currentMap.getFloor().size();
+        for (int i = 0; i < range; i++) {
+            if (!currentMap.getFloor().get(i).getName().equals(name)) {
+                currentMap.getFloor().add(new Stage(range, name));
+                return SUCCESS;
+            }
+        }
+        return FAILED;
+    }
+
+    protected <T> Object readWithMsgConverters(NativeWebRequest webRequest, MethodParameter param) {
+        HttpServletRequest servletRequest = (HttpServletRequest) webRequest.getNativeRequest(HttpServletRequest.class);
+
+        return null;
     }
 
     @PostMapping(value = "/add/map/{size}")

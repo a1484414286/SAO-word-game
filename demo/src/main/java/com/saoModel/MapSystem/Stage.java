@@ -1,8 +1,8 @@
 package com.saoModel.MapSystem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import com.google.gwt.dev.util.collect.HashMap;
 import com.saoModel.MobSystem.Mobs.MobTemplate;
 import com.saoModel.PlayerSystem.Player;
 
@@ -30,8 +30,8 @@ public class Stage {
     public Stage(int id, String name) {
         this.id = id;
         this.name = name;
-        this.players = new ArrayList<>();
         this.mobs = new ArrayList<>();
+        this.players = new ArrayList<>();
         this.neighbors = new HashMap<>();
         this.buildings = new HashMap<>();
     }
@@ -40,8 +40,7 @@ public class Stage {
         neighbors.put(direction, stage);
     }
 
-    @Override
-    public String toString() {
+    public String checkCurrentMap() {
         String str = "";
         for (Direction v : this.neighbors.keySet()) {
             if (v.equals(NORTH))

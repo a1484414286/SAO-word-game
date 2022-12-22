@@ -27,6 +27,12 @@ public class Map {
         }
     }
 
+    public Map(int id) {
+        this.id = id;
+        this.size = 0;
+        this.Floor = new ArrayList<>();
+    }
+
     public String printMap() {
         String result = "";
         for (int i = 0; i < size; i++) {
