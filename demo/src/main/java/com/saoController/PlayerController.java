@@ -1,5 +1,6 @@
 package com.saoController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,6 @@ import com.saoModel.ItemsSystem.ItemTypes.Crystal;
 import com.saoModel.ItemsSystem.ItemTypes.Food;
 import com.saoModel.ItemsSystem.ItemTypes.Material;
 import com.saoModel.ItemsSystem.ItemTypes.Potion;
-import com.saoModel.MapSystem.Direction;
-import com.saoModel.MapSystem.Stage;
 import com.saoModel.PlayerSystem.Player;
 import com.saoView.MapData;
 import com.saoView.PlayersData;
@@ -88,47 +87,21 @@ public class PlayerController {
     // 待优化
     @RequestMapping(value = "/stage", method = RequestMethod.PUT)
     public String moveTo(@PathVariable int id, @RequestParam(required = true) String direction) {
-        Stage nextMove;
-        Stage currentMove;
-
         // 上下左右 -> direction
         // id == QQ id
         Player p = repo.findById(id).get();
-        currentMove = p.getPosition();
-        if (direction == "左" || direction == "←") {
-            // 消除玩家在当前的纪录
-            // remove player from "current" stage
-            currentMove.getPlayers().remove(p);
-            // 将玩家添加到下一个地区
-            // add the player to next stage
-            nextMove = p.getPosition().getNeighbors().get(Direction.WEST);
-            p.setPosition(nextMove);
-            repo.save(p);
+        ArrayList<Object> result = p.moveToNextStage(direction);
+        if (result.get(0) instanceof Player) {
+            Player savedChangesPlayer = (Player) result.get(0);
+            repo.save(savedChangesPlayer);
+            mapData.save(savedChangesPlayer.getCurrentMap());
+            // able to move
             return SUCCESS;
-
-        } else if (direction == "右" || direction == "→") {
-            currentMove.getPlayers().remove(p);
-            nextMove = p.getPosition().getNeighbors().get(Direction.EAST);
-            p.setPosition(nextMove);
-            repo.save(p);
-            return SUCCESS;
-
-        } else if (direction == "下" || direction == "↓") {
-            currentMove.getPlayers().remove(p);
-            nextMove = p.getPosition().getNeighbors().get(Direction.SOUTH);
-            p.setPosition(nextMove);
-            repo.save(p);
-            return SUCCESS;
-
-        } else if (direction == "上" || direction == "↑") {
-            currentMove.getPlayers().remove(p);
-            nextMove = p.getPosition().getNeighbors().get(Direction.NORTH);
-            p.setPosition(nextMove);
-            repo.save(p);
-            return SUCCESS;
-
+        } else {
+            // unalbe to move, no road ahead
+            return FAILED;
         }
-        return FAILED;
+
     }
 
     // todo

@@ -71,4 +71,16 @@ public class Stage {
         return this.name + "\n" + str;
     }
 
+    public void addPlayer(Player p) {
+        this.players.add(p);
+    }
+
+    public Stage getNeighbor(Direction dir) {
+        return this.neighbors.get(dir);
+    }
+
+    public void removePlayer(Player p) {
+        this.players.remove(p);
+    }
+
 }
