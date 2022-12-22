@@ -62,6 +62,8 @@ public class MapController {
         return SUCCESS;
     }
 
+    // adding stage to each associated map
+    // 添加区域到地图
     @PostMapping(value = "/addStage")
     public String addStage(@RequestBody String str) throws JsonMappingException, JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -71,6 +73,8 @@ public class MapController {
         Map currentMap = mapData.findById(Integer.parseInt(mapID)).get();
         String name = map.get("name");
         int range = currentMap.getFloor().size();
+        // finding if the name exists in current map
+        // 寻找所添加的区块有没有被记录
         for (int i = 0; i < range; i++) {
             if (!currentMap.getFloor().get(i).getName().equals(name)) {
                 currentMap.getFloor().add(new Stage(range, name));
