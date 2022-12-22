@@ -1,6 +1,5 @@
 package com.saoModel.PlayerSystem;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
@@ -67,14 +66,27 @@ public class Player {
         return Objects.hash(this.id, this.name);
     }
 
+    public Player savedChangePlayerData(Stage nextStage, Stage currStage) {
+        // remove player from current stage
+        this.position.removePlayer(this);
+
+        // set current posistion to be next stage
+        this.setPosition(nextStage);
+        this.position.addPlayer(this);
+
+        // save the changes between stages into the original map
+        this.currentMap.getFloor().set(currStage.getId(), currStage);
+        this.currentMap.getFloor().set(nextStage.getId(), nextStage);
+        return this;
+    }
+
     // this will either return NO_ROAD indicating theres no road ahead, or
     // it will return the saved data of a player, including all the changes
     // it has been made
-    public ArrayList<Object> moveToNextStage(String direction) {
-        ArrayList<Object> result = new ArrayList<>();
+    public Object moveToNextStage(String direction) {
+        Object result = NO_ROAD;
         if (direction.equals("左") || direction.equals("←")) {
             if (this.position.getNeighbor(Direction.WEST) == null) {
-                result.add(NO_ROAD);
                 return result;
             }
             // next stage where we're moving
@@ -82,58 +94,38 @@ public class Player {
             Stage nextStage = this.position.getNeighbor(Direction.WEST);
 
             // remove player from current stage
-            this.position.removePlayer(this);
-
-            // set current posistion to be next stage
-            this.setPosition(nextStage);
-            this.position.addPlayer(this);
-
-            // save the changes between stages into the original map
-            this.currentMap.getFloor().set(currStage.getId(), currStage);
-            this.currentMap.getFloor().set(nextStage.getId(), nextStage);
-            result.add(this);
-            return result;
+            Player p = savedChangePlayerData(nextStage, currStage);
+            return p;
 
         } else if (direction.equals("右") || direction.equals("→")) {
             if (this.position.getNeighbor(Direction.WEST) == null) {
-                result.add(NO_ROAD);
                 return result;
             }
+            Stage currStage = this.position;
             Stage nextStage = this.position.getNeighbor(Direction.EAST);
-            this.position.removePlayer(this);
-            this.setPosition(nextStage);
-            this.position.addPlayer(this);
-            this.currentMap.getFloor().set(nextStage.getId(), nextStage);
-            result.add(this);
-            return result;
+            Player p = savedChangePlayerData(nextStage, currStage);
+            return p;
 
         } else if (direction.equals("下") || direction.equals("↓")) {
             if (this.position.getNeighbor(Direction.WEST) == null) {
-                result.add(NO_ROAD);
                 return result;
             }
+            // next stage where we're moving
+            Stage currStage = this.position;
             Stage nextStage = this.position.getNeighbor(Direction.SOUTH);
-            this.position.removePlayer(this);
-            this.setPosition(nextStage);
-            this.position.addPlayer(this);
-            this.currentMap.getFloor().set(nextStage.getId(), nextStage);
-            result.add(this);
-            return result;
+            Player p = savedChangePlayerData(nextStage, currStage);
+            return p;
 
         } else if (direction.equals("上") || direction.equals("↑")) {
             if (this.position.getNeighbor(Direction.WEST) == null) {
-                result.add(NO_ROAD);
                 return result;
             }
+            // next stage where we're moving
+            Stage currStage = this.position;
             Stage nextStage = this.position.getNeighbor(Direction.NORTH);
-            this.position.removePlayer(this);
-            this.setPosition(nextStage);
-            this.position.addPlayer(this);
-            this.currentMap.getFloor().set(nextStage.getId(), nextStage);
-            result.add(this);
-            return result;
+            Player p = savedChangePlayerData(nextStage, currStage);
+            return p;
         }
-        result.add(NO_ROAD);
         return result;
     }
 }

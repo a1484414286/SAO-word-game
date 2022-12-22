@@ -1,6 +1,5 @@
 package com.saoController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ import com.saoView.MapData;
 import com.saoView.PlayersData;
 
 @RestController
+@RequestMapping(value = "/player")
 public class PlayerController {
     MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "SAO_Game");
     public static String SUCCESS = "SUCESS OPERATION";
@@ -33,7 +33,7 @@ public class PlayerController {
     private PlayersData repo;
     private MapData mapData;
 
-    @GetMapping("/addPlayer")
+    @GetMapping("/add")
     public String savePlayer(@PathVariable int id, @RequestParam(required = false) String name) {
         repo.insert(new Player(id, name));
         return id + " " + " has been added to the database";
@@ -85,15 +85,18 @@ public class PlayerController {
     }
 
     // 待优化
-    @RequestMapping(value = "/stage", method = RequestMethod.PUT)
+    @RequestMapping(value = "/move", method = RequestMethod.PUT)
     public String moveTo(@PathVariable int id, @RequestParam(required = true) String direction) {
         // 上下左右 -> direction
         // id == QQ id
         Player p = repo.findById(id).get();
-        ArrayList<Object> result = p.moveToNextStage(direction);
-        if (result.get(0) instanceof Player) {
-            Player savedChangesPlayer = (Player) result.get(0);
+        Object result = p.moveToNextStage(direction);
+        if (result instanceof Player) {
+            Player savedChangesPlayer = (Player) result;
+            // changing the player state based on where it moves
             repo.save(savedChangesPlayer);
+
+            // changing the map state based on where the player is
             mapData.save(savedChangesPlayer.getCurrentMap());
             // able to move
             return SUCCESS;
