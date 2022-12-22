@@ -12,10 +12,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Stage {
-    public static Object NORTH = Direction.NORTH;
-    public static Object EAST = Direction.EAST;
-    public static Object WEST = Direction.WEST;
-    public static Object SOUTH = Direction.SOUTH;
+    public static HashMap<String, Direction> direction = new HashMap<>();
+    public static HashMap<String, Direction> oppDirection = new HashMap<>();
+
+    public static Direction NORTH = Direction.NORTH;
+    public static Direction EAST = Direction.EAST;
+    public static Direction WEST = Direction.WEST;
+    public static Direction SOUTH = Direction.SOUTH;
 
     private int id;
     private String name;
@@ -34,12 +37,25 @@ public class Stage {
         this.players = new ArrayList<>();
         this.neighbors = new HashMap<>();
         this.buildings = new HashMap<>();
+
+        direction.put("NORTH", NORTH);
+        direction.put("SOUTH", SOUTH);
+        direction.put("EAST", EAST);
+        direction.put("WEST", WEST);
+        oppDirection.put("NORTH", SOUTH);
+        oppDirection.put("SOUTH", NORTH);
+        oppDirection.put("EAST", WEST);
+        oppDirection.put("WEST", EAST);
     }
 
-    private void setNeighbors(Direction direction, Stage stage) {
-        neighbors.put(direction, stage);
+    // doubly linked structure of adding
+    // 双方位的区域添加, 如草原的北是沙漠，沙漠的南是草原
+    public void addNeighbors(String dir, Stage stage) {
+        neighbors.put(direction.get(dir), stage);
+        stage.neighbors.put(oppDirection.get(dir), this);
     }
 
+    // 查看当前地图的情况
     public String checkCurrentMap() {
         String str = "";
         for (Direction v : this.neighbors.keySet()) {

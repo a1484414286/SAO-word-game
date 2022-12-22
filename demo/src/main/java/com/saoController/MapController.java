@@ -2,10 +2,7 @@ package com.saoController;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.MethodParameter;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.NativeWebRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -67,27 +63,30 @@ public class MapController {
     @PostMapping(value = "/addStage")
     public String addStage(@RequestBody String str) throws JsonMappingException, JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+
         HashMap<String, String> map = mapper.readValue(str, HashMap.class);
 
         String mapID = map.get("mapID");
         Map currentMap = mapData.findById(Integer.parseInt(mapID)).get();
-        String name = map.get("name");
-        int range = currentMap.getFloor().size();
-        // finding if the name exists in current map
-        // 寻找所添加的区块有没有被记录
-        for (int i = 0; i < range; i++) {
-            if (!currentMap.getFloor().get(i).getName().equals(name)) {
-                currentMap.getFloor().add(new Stage(range, name));
-                return SUCCESS;
+
+        // if the map exists, then add
+        // 如果地图存在，再继续接下来的步骤
+        if (currentMap != null) {
+            String name = map.get("name");
+            int range = currentMap.getFloor().size();
+            // finding if the name exists in current map
+            // 寻找所添加的区块有没有被记录
+            for (int i = 0; i < range; i++) {
+                if (!currentMap.getFloor().get(i).getName().equals(name)) {
+                    currentMap.getFloor().add(new Stage(range, name));
+                    // save it to secure
+                    // 保存一下以防万一
+                    mapData.save(currentMap);
+                    return SUCCESS;
+                }
             }
         }
         return FAILED;
-    }
-
-    protected <T> Object readWithMsgConverters(NativeWebRequest webRequest, MethodParameter param) {
-        HttpServletRequest servletRequest = (HttpServletRequest) webRequest.getNativeRequest(HttpServletRequest.class);
-
-        return null;
     }
 
     @PostMapping(value = "/add/map/{size}")
