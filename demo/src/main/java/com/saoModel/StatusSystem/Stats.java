@@ -7,8 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StatsTemplate {
-    private String name;
+public class Stats {
     private int HP;
     private int MP;
     private int STR;
@@ -18,11 +17,10 @@ public class StatsTemplate {
     private int DEX;
     private int LUK;
     private int LVL;
-    private long EXP;
-    private long reqEXP;
+    private int EXP;
+    private int reqEXP;
 
-    public StatsTemplate(String name) {
-        this.name = name;
+    public Stats() {
         this.HP = 10;
         this.MP = 10;
         this.EXP = 0;

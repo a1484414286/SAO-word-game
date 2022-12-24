@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import com.saoModel.MapSystem.Stage;
 import com.saoModel.MobSystem.Mobs.MobTemplate;
-import com.saoModel.MobSystem.Mobs.RegMob;
 import com.saoModel.PlayerSystem.Player;
 
 public class BattleField {
@@ -61,26 +60,27 @@ public class BattleField {
         // todo
     }
 
-    public String battleLog(Double effective, Double dmgDealth, Double remainingHP) {
+    public String battleLog(Double effective, int dmgDealth, int remainingHP) {
         String result = "";
-        result += Attacker.getBaseTemplate().battleLogString() + " has dealt " + dmgDealth + " to "
-                + Defender.getStats().battleLogString();
+        String effectiveness = "";
         if (effective.equals(0.7)) {
-            result += " Ineffective attack " + remainingHP;
+            effectiveness += " Ineffective ";
         } else if (effective.equals(1.2)) {
-            result += " Super effective attack " + remainingHP;
+            effectiveness += " Super effective ";
         } else if (effective.equals(1.0)) {
-            result += " Neutral attack " + remainingHP;
+            effectiveness += " Neutral ";
         }
+        result += "you have dealt (" + effectiveness + ") " + dmgDealth + " damage to "
+                + Defender.getStats();
         return result;
     }
 
     public HashMap<String, Object> battle(String urStyle) {
-        double sumHP1 = 0;
+        int sumHP1 = 0;
         int HP1 = Attacker.getStats().getHP();
         int ATK1 = Attacker.getStats().getSTR();
 
-        double sumHP2 = 0;
+        int sumHP2 = 0;
         int HP2 = Defender.getStats().getStats().getHP();
         int ATK2 = Defender.getStats().getStats().getSTR();
 
@@ -88,19 +88,18 @@ public class BattleField {
 
         // u attack opp
         Double uAttack = algo.get(urStyle).get(oppAttackStyle);
-        double dmgDealt1 = ((ATK1 * uAttack) / 3);
+        int dmgDealt1 = (int) ((ATK1 * uAttack) / 3);
         sumHP2 = HP2 - dmgDealt1;
 
         // opp attack u
         Double oppAttack = algo.get(oppAttackStyle).get(urStyle);
-        double dmgDealt2 = ((ATK2 * oppAttack) / 3);
+        int dmgDealt2 = (int) ((ATK2 * oppAttack) / 3);
         sumHP1 = HP1 - dmgDealt2;
 
         String selfLog = battleLog(uAttack, dmgDealt1, sumHP2);
         String oppoLog = battleLog(oppAttack, dmgDealt2, sumHP1);
         logger.put("Atk", selfLog);
         logger.put("Def", oppoLog);
-
         return logger;
     }
 
@@ -108,13 +107,12 @@ public class BattleField {
         return stage;
     }
 
-    public static void main(String[] args) {
-        Player p1 = new Player(0, "吴针");
-        RegMob m1 = new RegMob(0, "野猪", 5, new HashMap<>());
-        BattleField field = new BattleField();
-        field.provokeBattle(p1, m1);
-        // System.out.println(field.battle("剪刀")[0]);
-        // System.out.println(field.battle("剪刀")[1]);
+    // public static void main(String[] args) {
+    // Player p1 = new Player(0, "吴针");
+    // RegMob m1 = new RegMob(0, "野猪", 5, new HashMap<>());
+    // BattleField field = new BattleField();
+    // field.provokeBattle(p1, m1);
+    // System.out.println(field.battle("剪刀").get("Atk"));
 
-    }
+    // }
 }

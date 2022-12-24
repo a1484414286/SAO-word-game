@@ -1,17 +1,24 @@
 package com.saoModel.StatusSystem;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class BaseTemplate {
     private final String name;
-    private StatsTemplate stats;
+    private Stats stats;
+    private BattleStats battleStats;
     private WeaponResistantTemplate weaponResist;
 
     public BaseTemplate(String name) {
         this.name = name;
-        this.stats = new StatsTemplate(name);
+        this.stats = new Stats();
+        this.battleStats = new BattleStats(stats);
         this.weaponResist = new WeaponResistantTemplate();
     }
 
-    public StatsTemplate getStats() {
+    public Stats getStats() {
         return stats;
     }
 
@@ -23,6 +30,13 @@ public class BaseTemplate {
         return String.format(
                 "名字 : %s  等级 : %s \n HP  : %d    MP  : %d  ",
                 this.name, stats.getLVL(), stats.getHP(), stats.getMP());
+    }
+
+    public String battleMobString() {
+        return String.format(
+                "名字 : %s  等级 : %s \n HP  : %d    MP  : %d  ",
+                this.name, stats.getLVL(), stats.getHP(), stats.getMP());
+
     }
 
     @Override

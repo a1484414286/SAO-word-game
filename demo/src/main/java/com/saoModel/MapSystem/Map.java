@@ -41,9 +41,9 @@ public class Map {
         return result;
     }
 
-    public static void main(String[] args) {
-        Map m = new Map(0, 10);
-        System.out.println(m.printMap());
-    }
+    // public static void main(String[] args) {
+    // Map m = new Map(0, 10);
+    // System.out.println(m.printMap());
+    // }
 
 }

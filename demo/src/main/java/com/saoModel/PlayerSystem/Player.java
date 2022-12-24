@@ -10,14 +10,13 @@ import com.saoModel.MapSystem.Direction;
 import com.saoModel.MapSystem.Map;
 import com.saoModel.MapSystem.Stage;
 import com.saoModel.StatusSystem.BaseTemplate;
-import com.saoModel.StatusSystem.StatsTemplate;
+import com.saoModel.StatusSystem.BattleStats;
+import com.saoModel.StatusSystem.Stats;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
-@ToString
 @Setter
 @Document(collection = "Players")
 
@@ -29,13 +28,13 @@ public class Player {
     private int id;
     private String name;
     private Stage position;
-    private BaseTemplate stats;
+    private BaseTemplate base;
     private GeneralBag baggage;
 
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
-        this.stats = new BaseTemplate(name);
+        this.base = new BaseTemplate(name);
         this.baggage = new GeneralBag();
         this.position = null;
         this.currentMap = null;
@@ -49,12 +48,12 @@ public class Player {
         return name;
     }
 
-    public BaseTemplate getBaseTemplate() {
-        return stats;
+    public Stats getStats() {
+        return base.getStats();
     }
 
-    public StatsTemplate getStats() {
-        return stats.getStats();
+    public BattleStats getBattleStats() {
+        return base.getBattleStats();
     }
 
     public GeneralBag getBaggage() {
@@ -127,5 +126,11 @@ public class Player {
             return p;
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.name;
     }
 }
