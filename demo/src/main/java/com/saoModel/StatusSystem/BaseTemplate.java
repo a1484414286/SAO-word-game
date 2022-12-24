@@ -9,20 +9,20 @@ public class BaseTemplate {
     private final String name;
     private Stats stats;
     private BattleStats battleStats;
-    private WeaponResistantTemplate weaponResist;
+    private WeaponResistant weaponResist;
 
     public BaseTemplate(String name) {
         this.name = name;
         this.stats = new Stats();
         this.battleStats = new BattleStats(stats);
-        this.weaponResist = new WeaponResistantTemplate();
+        this.weaponResist = new WeaponResistant();
     }
 
     public Stats getStats() {
         return stats;
     }
 
-    public WeaponResistantTemplate getWeaponResist() {
+    public WeaponResistant getWeaponResist() {
         return weaponResist;
     }
 
