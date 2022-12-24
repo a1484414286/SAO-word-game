@@ -2,7 +2,7 @@ package com.saoModel.MobSystem.Mobs;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.saoModel.StatusSystem.StatsTemplate;
+import com.saoModel.StatusSystem.BaseTemplate;
 
 @Document(collection = "Mobs")
 public interface MobTemplate {
@@ -10,5 +10,5 @@ public interface MobTemplate {
 
     abstract String getAtkSyle();
 
-    abstract StatsTemplate getStats();
+    abstract BaseTemplate getStats();
 }

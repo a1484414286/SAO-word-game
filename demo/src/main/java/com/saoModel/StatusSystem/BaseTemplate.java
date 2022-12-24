@@ -7,7 +7,7 @@ public class BaseTemplate {
 
     public BaseTemplate(String name) {
         this.name = name;
-        this.stats = new StatsTemplate();
+        this.stats = new StatsTemplate(name);
         this.weaponResist = new WeaponResistantTemplate();
     }
 
@@ -19,6 +19,12 @@ public class BaseTemplate {
         return weaponResist;
     }
 
+    public String battleLogString() {
+        return String.format(
+                "名字 : %s  等级 : %s \n HP  : %d    MP  : %d  ",
+                this.name, stats.getLVL(), stats.getHP(), stats.getMP());
+    }
+
     @Override
     public String toString() {
         return String.format(
@@ -26,4 +32,5 @@ public class BaseTemplate {
                 this.name, stats.getLVL(), stats.getHP(), stats.getMP(), stats.getSTR(), stats.getAGI(), stats.getVIT(),
                 stats.getINT(), stats.getDEX(), stats.getEXP());
     }
+
 }

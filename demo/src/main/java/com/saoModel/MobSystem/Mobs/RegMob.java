@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.saoModel.ItemsSystem.ItemElement;
-import com.saoModel.StatusSystem.StatsTemplate;
+import com.saoModel.StatusSystem.BaseTemplate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class RegMob implements MobTemplate {
     private @Id int id;
     private final String name;
     private final int respawnTime;
-    private StatsTemplate stats;
+    private BaseTemplate stats;
     private HashMap<Integer, ItemElement> droppable;
     private String attackStyle;
 
@@ -29,7 +29,7 @@ public class RegMob implements MobTemplate {
         this.attackStyle = "布";
         this.droppable = droppable;
         this.respawnTime = respawnTime;
-        this.stats = new StatsTemplate();
+        this.stats = new BaseTemplate(name);
     }
 
     public RegMob(int id, String name, int spawnTime) {
@@ -37,7 +37,7 @@ public class RegMob implements MobTemplate {
         this.name = name;
         this.respawnTime = spawnTime;
         this.droppable = new HashMap<>();
-        this.stats = new StatsTemplate();
+        this.stats = new BaseTemplate(name);
     }
 
     @Override

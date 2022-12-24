@@ -2,7 +2,13 @@ package com.saoModel.StatusSystem;
 
 import java.util.Random;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class StatsTemplate {
+    private String name;
     private int HP;
     private int MP;
     private int STR;
@@ -15,7 +21,8 @@ public class StatsTemplate {
     private long EXP;
     private long reqEXP;
 
-    public StatsTemplate() {
+    public StatsTemplate(String name) {
+        this.name = name;
         this.HP = 10;
         this.MP = 10;
         this.EXP = 0;
@@ -27,54 +34,6 @@ public class StatsTemplate {
         this.INT = new Random().nextInt(11);
         this.DEX = new Random().nextInt(11);
         this.LUK = new Random().nextInt(11);
-    }
-
-    public int getLVL() {
-        return LVL;
-    }
-
-    public long getReqEXP() {
-        return reqEXP;
-    }
-
-    public int getAGI() {
-        return AGI;
-    }
-
-    public int getDEX() {
-        return DEX;
-    }
-
-    public long getEXP() {
-        return EXP;
-    }
-
-    public int getHP() {
-        return HP;
-    }
-
-    public int getINT() {
-        return INT;
-    }
-
-    public int getLUK() {
-        return LUK;
-    }
-
-    public int getMP() {
-        return MP;
-    }
-
-    public int getSTR() {
-        return STR;
-    }
-
-    public int getVIT() {
-        return VIT;
-    }
-
-    public void setHP(int hP) {
-        HP = hP;
     }
 
     @Override

@@ -12,6 +12,7 @@ public class BattleField {
     private Player Attacker;
     private MobTemplate Defender;
     private HashMap<String, HashMap<String, Double>> algo;
+    private HashMap<String, Object> logger;
 
     public BattleField() {
         algo = new HashMap<>();
@@ -29,9 +30,14 @@ public class BattleField {
         paperHash.put("剪刀", 0.7);
         paperHash.put("布", 1.0);
         paperHash.put("石头", 1.2);
+
         algo.put("剪刀", scissorHash);
         algo.put("石头", rockHash);
         algo.put("布", paperHash);
+
+        logger = new HashMap<>();
+        logger.put("Atk", null);
+        logger.put("Def", null);
     }
 
     public void setStage(Stage stage) {
@@ -43,43 +49,59 @@ public class BattleField {
         this.Defender = mob;
     }
 
-    // public void provokeBattle(Player p1, ArrayList<MobTemplate> mobs) {
-
-    // }
-
     public void provokeBattle(Player p1, Player p2) {
-
+        // todo
     }
 
     public void Notify(MobTemplate mob) {
-
+        // todo
     }
-
-    // public void Notify(ArrayList<MobTemplate> mob) {
-
-    // }
 
     public void Notify(Player p1, MobTemplate mob) {
-
+        // todo
     }
 
-    public double[] battle(String message) {
+    public String battleLog(Double effective, Double dmgDealth, Double remainingHP) {
+        String result = "";
+        result += Attacker.getBaseTemplate().battleLogString() + " has dealt " + dmgDealth + " to "
+                + Defender.getStats().battleLogString();
+        if (effective.equals(0.7)) {
+            result += " Ineffective attack " + remainingHP;
+        } else if (effective.equals(1.2)) {
+            result += " Super effective attack " + remainingHP;
+        } else if (effective.equals(1.0)) {
+            result += " Neutral attack " + remainingHP;
+        }
+        return result;
+    }
+
+    public HashMap<String, Object> battle(String urStyle) {
         double sumHP1 = 0;
         int HP1 = Attacker.getStats().getHP();
         int ATK1 = Attacker.getStats().getSTR();
 
         double sumHP2 = 0;
-        int HP2 = Defender.getStats().getHP();
-        int ATK2 = Defender.getStats().getSTR();
+        int HP2 = Defender.getStats().getStats().getHP();
+        int ATK2 = Defender.getStats().getStats().getSTR();
 
         String oppAttackStyle = Defender.getAtkSyle();
 
-        Double uAttack = algo.get(message).get(oppAttackStyle);
-        Double oppAttack = algo.get(oppAttackStyle).get(message);
+        // u attack opp
+        Double uAttack = algo.get(urStyle).get(oppAttackStyle);
+        double dmgDealt1 = ((ATK1 * uAttack) / 3);
+        sumHP2 = HP2 - dmgDealt1;
 
-        sumHP1 = HP1 - ((ATK2 * oppAttack) / 3);
-        sumHP2 = HP2 - ((ATK1 * uAttack) / 3);
-        return new double[] { sumHP1, sumHP2 };
+        // opp attack u
+        Double oppAttack = algo.get(oppAttackStyle).get(urStyle);
+        double dmgDealt2 = ((ATK2 * oppAttack) / 3);
+        sumHP1 = HP1 - dmgDealt2;
+
+        String selfLog = battleLog(uAttack, dmgDealt1, sumHP2);
+        String oppoLog = battleLog(oppAttack, dmgDealt2, sumHP1);
+        logger.put("Atk", selfLog);
+        logger.put("Def", oppoLog);
+
+        return logger;
     }
 
     public Stage getStage() {
@@ -87,12 +109,12 @@ public class BattleField {
     }
 
     public static void main(String[] args) {
-        Player p1 = new Player(0, "✌");
+        Player p1 = new Player(0, "吴针");
         RegMob m1 = new RegMob(0, "野猪", 5, new HashMap<>());
         BattleField field = new BattleField();
         field.provokeBattle(p1, m1);
-        System.out.println(field.battle("剪刀")[0]);
-        System.out.println(field.battle("剪刀")[1]);
+        // System.out.println(field.battle("剪刀")[0]);
+        // System.out.println(field.battle("剪刀")[1]);
 
     }
 }

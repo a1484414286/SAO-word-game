@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.saoModel.ItemsSystem.ItemElement;
-import com.saoModel.StatusSystem.StatsTemplate;
+import com.saoModel.StatusSystem.BaseTemplate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class SpecialMob implements MobTemplate {
     @Id
     private final int id;
     private final String name;
-    private StatsTemplate stats;
+    private BaseTemplate stats;
     private HashMap<Integer, ItemElement> dropList;
     private long respawnTime;
     private String attackStyle;
@@ -28,7 +28,7 @@ public class SpecialMob implements MobTemplate {
         this.name = name;
         this.dropList = droppable;
         this.respawnTime = spawnTime;
-        this.stats = new StatsTemplate();
+        this.stats = new BaseTemplate(name);
     }
 
     public SpecialMob(int id, String name, int spawnTime) {
@@ -36,32 +36,12 @@ public class SpecialMob implements MobTemplate {
         this.name = name;
         this.respawnTime = spawnTime;
         this.dropList = new HashMap<>();
-        this.stats = new StatsTemplate();
+        this.stats = new BaseTemplate(name);
     }
 
     @Override
     public String getAtkSyle() {
         return attackStyle;
-    }
-
-    public HashMap<Integer, ItemElement> getDropList() {
-        return dropList;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getRespawnTime() {
-        return respawnTime;
-    }
-
-    public StatsTemplate getStats() {
-        return stats;
     }
 
     @Override
