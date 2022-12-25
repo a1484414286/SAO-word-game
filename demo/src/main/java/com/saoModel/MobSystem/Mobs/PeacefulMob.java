@@ -39,13 +39,13 @@ public class PeacefulMob implements MobTemplate {
     }
 
     @Override
-    public String getAtkSyle() {
+    public String getAtkStyle() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void statusAdjustification() {
+    public void statusJustification() {
         // TODO Auto-generated method stub
 
     }
@@ -53,6 +53,12 @@ public class PeacefulMob implements MobTemplate {
     @Override
     public String toString() {
         return String.format("\n id: %d, %s %s", this.id, this.name, this.stats);
+    }
+
+    @Override
+    public String saveAfterBattle(int HP) {
+        this.stats.getBattleStats().setHP(HP);
+        return "SUCCESS OPERATION";
     }
 
 }

@@ -28,21 +28,14 @@ public class BaseTemplate {
 
     public String battleLogString() {
         return String.format(
-                "名字 : %s  等级 : %s \n HP  : %d    MP  : %d  ",
-                this.name, stats.getLVL(), stats.getHP(), stats.getMP());
-    }
-
-    public String battleMobString() {
-        return String.format(
-                "名字 : %s  等级 : %s \n HP  : %d    MP  : %d  ",
-                this.name, stats.getLVL(), stats.getHP(), stats.getMP());
-
+                " 名字 : %s  等级 : %s \n HP  : %d    MP  : %d  ",
+                this.name, battleStats.getLVL(), battleStats.getHP(), battleStats.getMP());
     }
 
     @Override
     public String toString() {
         return String.format(
-                "名字 : %s  等级 : %s \n HP  : %d    MP  : %d  \n STR : %d     AGI : %d  \n VIT : %d     INT : %d \n DEX : %d     EXP : %d",
+                " 名字 : %s  等级 : %s \n HP  : %d    MP  : %d  \n STR : %d     AGI : %d  \n VIT : %d     INT : %d \n DEX : %d     EXP : %d",
                 this.name, stats.getLVL(), stats.getHP(), stats.getMP(), stats.getSTR(), stats.getAGI(), stats.getVIT(),
                 stats.getINT(), stats.getDEX(), stats.getEXP());
     }

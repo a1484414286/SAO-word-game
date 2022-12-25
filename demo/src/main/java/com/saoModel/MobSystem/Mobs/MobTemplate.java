@@ -6,9 +6,11 @@ import com.saoModel.StatusSystem.BaseTemplate;
 
 @Document(collection = "Mobs")
 public interface MobTemplate {
-    abstract void statusAdjustification();
+    abstract void statusJustification();
 
-    abstract String getAtkSyle();
+    abstract String getAtkStyle();
 
     abstract BaseTemplate getStats();
+
+    abstract String saveAfterBattle(int HP);
 }

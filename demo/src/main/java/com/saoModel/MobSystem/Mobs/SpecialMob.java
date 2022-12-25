@@ -40,12 +40,12 @@ public class SpecialMob implements MobTemplate {
     }
 
     @Override
-    public String getAtkSyle() {
+    public String getAtkStyle() {
         return attackStyle;
     }
 
     @Override
-    public void statusAdjustification() {
+    public void statusJustification() {
         // TODO Auto-generated method stub
 
     }
@@ -53,6 +53,12 @@ public class SpecialMob implements MobTemplate {
     @Override
     public String toString() {
         return String.format("\n id: %d, %s %s", this.id, this.name, this.stats);
+    }
+
+    @Override
+    public String saveAfterBattle(int HP) {
+        this.stats.getBattleStats().setHP(HP);
+        return "SUCCESS OPERATION";
     }
 
 }

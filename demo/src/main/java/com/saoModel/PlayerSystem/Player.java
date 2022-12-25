@@ -21,8 +21,8 @@ import lombok.Setter;
 @Document(collection = "Players")
 
 public class Player {
-    public static String SUCCESS = "SUCESS";
-    public static String NO_ROAD = "No Road Ahead";
+    public static String SUCCESS = "SUCCESS OPERATION";
+    public static String NO_ROAD = "NO ROAD AHEAD";
     public Map currentMap;
     @Id
     private int id;

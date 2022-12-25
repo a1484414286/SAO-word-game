@@ -7,8 +7,10 @@ import lombok.Setter;
 @Getter
 
 public class BattleStats {
+    public static String SUCCESS = "SUCCESS OPERATION";
     private int HP;
     private int MP;
+    private int LVL;
     private int STR;
     private int AGI;
     private int VIT;
@@ -26,7 +28,15 @@ public class BattleStats {
         this.INT = stat.getINT();
         this.DEX = stat.getDEX();
         this.LUK = stat.getLUK();
+        this.LVL = stat.getLVL();
         this.EXP = 0;
+    }
+
+    public String battleSave(int HP, int MP, int EXP) {
+        this.HP = HP;
+        this.MP = MP;
+        this.EXP = EXP;
+        return SUCCESS;
     }
 
     @Override

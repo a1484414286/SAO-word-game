@@ -43,7 +43,7 @@ public class EliteMob implements MobTemplate {
     }
 
     @Override
-    public String getAtkSyle() {
+    public String getAtkStyle() {
         return attackStyle;
     }
 
@@ -53,9 +53,15 @@ public class EliteMob implements MobTemplate {
     }
 
     @Override
-    public void statusAdjustification() {
+    public void statusJustification() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public String saveAfterBattle(int HP) {
+        this.stats.getBattleStats().setHP(HP);
+        return "SUCCESS OPERATION";
     }
 
 }
