@@ -1,4 +1,4 @@
-package com.Server;
+package com;
 
 import com.saoModel.ItemsSystem.ItemTypes.Food;
 import com.saoModel.PlayerSystem.Player;

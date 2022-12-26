@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BattleLog {
-    private int damageDealt;
+    private double damageDealt;
     private String battleResult;
 
-    public BattleLog(int dmgDealt, String battleResult) {
+    public BattleLog(Double dmgDealt, String battleResult) {
         this.damageDealt = dmgDealt;
         this.battleResult = battleResult;
     }

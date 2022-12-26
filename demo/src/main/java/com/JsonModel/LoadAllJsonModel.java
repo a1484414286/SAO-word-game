@@ -1,4 +1,4 @@
-package com.saoModel.JsonModel;
+package com.JsonModel;
 
 import java.io.InputStream;
 

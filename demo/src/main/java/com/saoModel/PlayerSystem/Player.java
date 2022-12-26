@@ -65,17 +65,17 @@ public class Player {
         return Objects.hash(this.id, this.name);
     }
 
-    public Player savedChangePlayerData(Stage nextStage, Stage currStage) {
+    public Player savedChangePlayerData(Stage nextStage, Stage currentStage) {
         // remove player from current stage
         this.position.removePlayer(this);
 
-        // set current posistion to be next stage
+        // set current position to be next stage
         this.setPosition(nextStage);
         this.position.addPlayer(this);
 
         // save the changes between stages into the original map
-        this.currentMap.getFloor().set(currStage.getId(), currStage);
-        this.currentMap.getFloor().set(nextStage.getId(), nextStage);
+        this.currentMap.getTile().set(currentStage.getId(), currentStage);
+        this.currentMap.getTile().set(nextStage.getId(), nextStage);
         return this;
     }
 
@@ -89,20 +89,20 @@ public class Player {
                 return result;
             }
             // next stage where we're moving
-            Stage currStage = this.position;
+            Stage currentStage = this.position;
             Stage nextStage = this.position.getNeighbor(Direction.WEST);
 
             // remove player from current stage
-            Player p = savedChangePlayerData(nextStage, currStage);
+            Player p = savedChangePlayerData(nextStage, currentStage);
             return p;
 
         } else if (direction.equals("右") || direction.equals("→")) {
             if (this.position.getNeighbor(Direction.WEST) == null) {
                 return result;
             }
-            Stage currStage = this.position;
+            Stage currentStage = this.position;
             Stage nextStage = this.position.getNeighbor(Direction.EAST);
-            Player p = savedChangePlayerData(nextStage, currStage);
+            Player p = savedChangePlayerData(nextStage, currentStage);
             return p;
 
         } else if (direction.equals("下") || direction.equals("↓")) {
@@ -110,9 +110,9 @@ public class Player {
                 return result;
             }
             // next stage where we're moving
-            Stage currStage = this.position;
+            Stage currentStage = this.position;
             Stage nextStage = this.position.getNeighbor(Direction.SOUTH);
-            Player p = savedChangePlayerData(nextStage, currStage);
+            Player p = savedChangePlayerData(nextStage, currentStage);
             return p;
 
         } else if (direction.equals("上") || direction.equals("↑")) {
@@ -120,9 +120,9 @@ public class Player {
                 return result;
             }
             // next stage where we're moving
-            Stage currStage = this.position;
+            Stage currentStage = this.position;
             Stage nextStage = this.position.getNeighbor(Direction.NORTH);
-            Player p = savedChangePlayerData(nextStage, currStage);
+            Player p = savedChangePlayerData(nextStage, currentStage);
             return p;
         }
         return result;

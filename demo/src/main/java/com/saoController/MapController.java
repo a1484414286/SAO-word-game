@@ -74,12 +74,12 @@ public class MapController {
         // 如果地图存在，再继续接下来的步骤
         if (currentMap != null) {
             String name = map.get("name");
-            int range = currentMap.getFloor().size();
+            int range = currentMap.getTile().size();
             // finding if the name exists in current map
             // 寻找所添加的区块有没有被记录
             for (int i = 0; i < range; i++) {
-                if (!currentMap.getFloor().get(i).getName().equals(name)) {
-                    currentMap.getFloor().add(new Stage(range, name));
+                if (!currentMap.getTile().get(i).getName().equals(name)) {
+                    currentMap.getTile().add(new Stage(range, name));
                     // save it to secure
                     // 保存一下以防万一
                     mapData.save(currentMap);

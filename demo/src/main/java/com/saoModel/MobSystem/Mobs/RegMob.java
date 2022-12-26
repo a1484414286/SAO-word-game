@@ -19,7 +19,7 @@ public class RegMob implements MobTemplate {
     private @Id int id;
     private final String name;
     private final int respawnTime;
-    private BaseTemplate stats;
+    private BaseTemplate base;
     private HashMap<Integer, ItemElement> droppable;
     private String attackStyle;
 
@@ -29,7 +29,7 @@ public class RegMob implements MobTemplate {
         this.attackStyle = "布";
         this.droppable = droppable;
         this.respawnTime = respawnTime;
-        this.stats = new BaseTemplate(name);
+        this.base = new BaseTemplate(name);
     }
 
     public RegMob(int id, String name, int spawnTime) {
@@ -37,7 +37,7 @@ public class RegMob implements MobTemplate {
         this.name = name;
         this.respawnTime = spawnTime;
         this.droppable = new HashMap<>();
-        this.stats = new BaseTemplate(name);
+        this.base = new BaseTemplate(name);
     }
 
     @Override
@@ -58,12 +58,12 @@ public class RegMob implements MobTemplate {
 
     @Override
     public String toString() {
-        return String.format("\n名字: %s %s", this.name, this.stats);
+        return String.format("\n名字: %s %s", this.name, this.base);
     }
 
     @Override
-    public String saveAfterBattle(int HP) {
-        this.stats.getBattleStats().setHP(HP);
+    public String saveAfterBattle(Double HP) {
+        this.base.getBattleStats().setHP(HP);
         return "SUCCESS OPERATION";
     }
 }

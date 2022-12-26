@@ -14,29 +14,29 @@ import lombok.Setter;
 public class Map {
     @Id
     private int id;
-    private ArrayList<Stage> Floor;
+    private ArrayList<Stage> tile;
     private int size;
 
     public Map(int id, int size) {
         this.id = id;
         this.size = size;
-        this.Floor = new ArrayList<>();
+        this.tile = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             int tileID = Integer.valueOf(i);
-            Floor.add(new Stage(tileID, tileID + " 区域名字"));
+            tile.add(new Stage(tileID, tileID + " 区域名字"));
         }
     }
 
     public Map(int id) {
         this.id = id;
         this.size = 0;
-        this.Floor = new ArrayList<>();
+        this.tile = new ArrayList<>();
     }
 
     public String printMap() {
         String result = "";
         for (int i = 0; i < size; i++) {
-            result += Floor.get(i);
+            result += tile.get(i);
         }
         return result;
     }

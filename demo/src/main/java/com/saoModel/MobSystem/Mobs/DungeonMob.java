@@ -18,7 +18,7 @@ public class DungeonMob implements MobTemplate {
     @Id
     private final int id;
     private final String name;
-    private BaseTemplate stats;
+    private BaseTemplate base;
     private HashMap<Integer, ItemElement> dropList;
     private int respawnTime;
     private String attackStyle;
@@ -32,7 +32,7 @@ public class DungeonMob implements MobTemplate {
         // this.hidAttackStyle = hidAtkStyle;
         this.dropList = droppable;
         this.respawnTime = spawnTime;
-        this.stats = new BaseTemplate(name);
+        this.base = new BaseTemplate(name);
     }
 
     public DungeonMob(int id, String name, int spawnTime, String attackStyle, String hidAtkStlye) {
@@ -42,7 +42,7 @@ public class DungeonMob implements MobTemplate {
         this.attackStyle = attackStyle;
         this.hidAttackStyle = hidAtkStlye;
         this.dropList = new HashMap<>();
-        this.stats = new BaseTemplate(name);
+        this.base = new BaseTemplate(name);
     }
 
     @Override
@@ -67,13 +67,9 @@ public class DungeonMob implements MobTemplate {
         return respawnTime;
     }
 
-    public BaseTemplate getStats() {
-        return stats;
-    }
-
     @Override
     public String toString() {
-        return String.format("\n id: %d, %s %s", this.id, this.name, this.stats);
+        return String.format("\n id: %d, %s %s", this.id, this.name, this.base);
     }
 
     @Override
@@ -83,8 +79,8 @@ public class DungeonMob implements MobTemplate {
     }
 
     @Override
-    public String saveAfterBattle(int HP) {
-        this.stats.getBattleStats().setHP(HP);
+    public String saveAfterBattle(Double HP) {
+        this.base.getBattleStats().setHP(HP);
         return "SUCCESS OPERATION";
     }
 

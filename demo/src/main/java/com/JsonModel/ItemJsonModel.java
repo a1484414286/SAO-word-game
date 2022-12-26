@@ -1,4 +1,4 @@
-package com.saoModel.JsonModel;
+package com.JsonModel;
 
 /** 道具表 */
 public class ItemJsonModel {

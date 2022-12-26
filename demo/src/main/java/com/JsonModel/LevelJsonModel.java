@@ -1,4 +1,4 @@
-package com.saoModel.JsonModel;
+package com.JsonModel;
 
 /** 等级表 */
 public class LevelJsonModel {

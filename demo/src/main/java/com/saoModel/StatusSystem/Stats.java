@@ -8,30 +8,30 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Stats {
-    private int HP;
-    private int MP;
-    private int STR;
-    private int AGI;
-    private int VIT;
-    private int INT;
-    private int DEX;
-    private int LUK;
+    private Double HP;
+    private Double MP;
+    private Double STR;
+    private Double AGI;
+    private Double VIT;
+    private Double INT;
+    private Double DEX;
+    private Double LUK;
     private int LVL;
     private int EXP;
     private int reqEXP;
 
     public Stats() {
-        this.HP = 10;
-        this.MP = 10;
+        this.HP = 10.0;
+        this.MP = 10.0;
         this.EXP = 0;
         this.LVL = 1;
         this.reqEXP = 50;
-        this.STR = new Random().nextInt(11);
-        this.AGI = new Random().nextInt(11);
-        this.VIT = new Random().nextInt(11);
-        this.INT = new Random().nextInt(11);
-        this.DEX = new Random().nextInt(11);
-        this.LUK = new Random().nextInt(11);
+        this.STR = (double) (new Random().nextInt(11) + 1);
+        this.AGI = (double) (new Random().nextInt(11) + 1);
+        this.VIT = (double) (new Random().nextInt(11) + 1);
+        this.INT = (double) (new Random().nextInt(11) + 1);
+        this.DEX = (double) (new Random().nextInt(11) + 1);
+        this.LUK = (double) (new Random().nextInt(11) + 1);
     }
 
     @Override

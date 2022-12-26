@@ -8,15 +8,15 @@ import lombok.Setter;
 
 public class BattleStats {
     public static String SUCCESS = "SUCCESS OPERATION";
-    private int HP;
-    private int MP;
+    private Double HP;
+    private Double MP;
+    private Double STR;
+    private Double AGI;
+    private Double VIT;
+    private Double INT;
+    private Double DEX;
+    private Double LUK;
     private int LVL;
-    private int STR;
-    private int AGI;
-    private int VIT;
-    private int INT;
-    private int DEX;
-    private int LUK;
     private int EXP;
 
     public BattleStats(Stats stat) {
@@ -32,7 +32,7 @@ public class BattleStats {
         this.EXP = 0;
     }
 
-    public String battleSave(int HP, int MP, int EXP) {
+    public String battleSave(Double HP, Double MP, int EXP) {
         this.HP = HP;
         this.MP = MP;
         this.EXP = EXP;

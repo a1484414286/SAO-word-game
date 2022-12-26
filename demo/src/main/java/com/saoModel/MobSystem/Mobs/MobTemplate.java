@@ -10,7 +10,7 @@ public interface MobTemplate {
 
     abstract String getAtkStyle();
 
-    abstract BaseTemplate getStats();
+    abstract BaseTemplate getBase();
 
-    abstract String saveAfterBattle(int HP);
+    abstract String saveAfterBattle(Double HP);
 }

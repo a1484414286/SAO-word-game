@@ -1,4 +1,4 @@
-package com.saoModel.JsonModel;
+package com.JsonModel;
 
 import java.util.HashMap;
 import java.util.Set;

@@ -18,7 +18,7 @@ public class EliteMob implements MobTemplate {
     @Id
     private final int id;
     private final String name;
-    private BaseTemplate stats;
+    private BaseTemplate base;
     private HashMap<Integer, ItemElement> dropList;
     private long respawnTime;
     private String attackStyle;
@@ -29,7 +29,7 @@ public class EliteMob implements MobTemplate {
         this.name = name;
         this.dropList = droppable;
         this.respawnTime = spawnTime;
-        this.stats = new BaseTemplate(name);
+        this.base = new BaseTemplate(name);
     }
 
     public EliteMob(int id, String name, int spawnTime, String atkStyle) {
@@ -38,7 +38,7 @@ public class EliteMob implements MobTemplate {
         this.respawnTime = spawnTime;
         this.attackStyle = atkStyle;
         this.dropList = new HashMap<>();
-        this.stats = new BaseTemplate(name);
+        this.base = new BaseTemplate(name);
 
     }
 
@@ -49,7 +49,7 @@ public class EliteMob implements MobTemplate {
 
     @Override
     public String toString() {
-        return String.format("\n id: %d,  %s %s", this.id, this.name, this.stats);
+        return String.format("\n id: %d,  %s %s", this.id, this.name, this.base);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class EliteMob implements MobTemplate {
     }
 
     @Override
-    public String saveAfterBattle(int HP) {
-        this.stats.getBattleStats().setHP(HP);
+    public String saveAfterBattle(Double HP) {
+        this.base.getBattleStats().setHP(HP);
         return "SUCCESS OPERATION";
     }
 
