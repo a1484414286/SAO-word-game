@@ -26,7 +26,7 @@ public class RegMob implements MobTemplate {
     public RegMob(int id, String name, int respawnTime, HashMap<Integer, ItemElement> droppable) {
         this.id = id;
         this.name = name;
-        this.attackStyle = "布";
+        this.attackStyle = "Paper";
         this.droppable = droppable;
         this.respawnTime = respawnTime;
         this.base = new BaseTemplate(name);
@@ -64,6 +64,7 @@ public class RegMob implements MobTemplate {
     @Override
     public String saveAfterBattle(Double HP) {
         this.base.getBattleStats().setHP(HP);
+
         return "SUCCESS OPERATION";
     }
 }

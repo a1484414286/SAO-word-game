@@ -42,7 +42,8 @@ public class BattleStats {
     @Override
     public String toString() {
         String r = String.format(
-                "\n HP : %d MP : %d \n STR : %d AGI : %d \n VIT : %d INT : %d \n DEX : %d EXP: %d", HP, MP,
+                "\n HP : %.2f MP : %.2f \n STR : %.2f AGI : %.2f \n VIT : %.2f INT : %.2f \n DEX : %.2f EXP: %d", HP,
+                MP,
                 STR, AGI, VIT, INT, DEX, EXP);
         return r;
     }

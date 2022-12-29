@@ -23,39 +23,43 @@ public class BaseTemplate {
     }
 
     public double getBattleHP() {
-        return getBattleStats().getHP();
+        return this.battleStats.getHP();
     }
 
     public double getBattleDEX() {
-        return getBattleStats().getDEX();
+        return this.battleStats.getDEX();
     }
 
     public double getBattleAGI() {
-        return getBattleStats().getAGI();
+        return this.battleStats.getAGI();
     }
 
     public double getBattleSTR() {
-        return getBattleStats().getSTR();
+        return this.battleStats.getSTR();
     }
 
     public double getBattleINT() {
-        return getBattleStats().getINT();
+        return this.battleStats.getINT();
     }
 
     public double getBattleMP() {
-        return getBattleStats().getMP();
+        return this.battleStats.getMP();
     }
 
     public double getBattleLUK() {
-        return getBattleStats().getLUK();
+        return this.battleStats.getLUK();
     }
 
     public int getBattleEXP() {
-        return getBattleStats().getEXP();
+        return this.battleStats.getEXP();
     }
 
     public WeaponResistant getWeaponResist() {
         return weaponResist;
+    }
+
+    public void saveAfterBattle(Double HP) {
+        this.battleStats.setHP(HP);
     }
 
     public String battleLogString() {
@@ -67,7 +71,7 @@ public class BaseTemplate {
     @Override
     public String toString() {
         return String.format(
-                " 名字 : %s 等级 : %s \n HP : %.2f MP : %2.f \n STR : %.2f AGI : %.2f \n VIT : %.2f INT : %.2f \n DEX : %.2f EXP : %d",
+                " 名字 : %s 等级 : %s \n HP : %.2f MP : %.2f \n STR : %.2f AGI : %.2f \n VIT : %.2f INT : %.2f \n DEX : %.2f EXP : %f",
                 this.name, stats.getLVL(), stats.getHP(), stats.getMP(), stats.getSTR(),
                 stats.getAGI(), stats.getVIT(),
                 stats.getINT(), stats.getDEX(), stats.getEXP());
