@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.saoModel.ItemsSystem.ItemElement;
+import com.saoModel.MapSystem.Stage;
 import com.saoModel.StatusSystem.BaseTemplate;
 
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class SpecialMob implements MobTemplate {
     private HashMap<Integer, ItemElement> dropList;
     private long respawnTime;
     private String attackStyle;
+    private Stage stage;
 
     public SpecialMob(int id, String name, int spawnTime, HashMap<Integer, ItemElement> droppable) {
         this.id = id;
@@ -61,4 +63,12 @@ public class SpecialMob implements MobTemplate {
         return "SUCCESS OPERATION";
     }
 
+    @Override
+    public String removeMob() {
+        if (stage.getMobs().contains(this)) {
+            stage.removeMob(this);
+            return "SUCCESS OPERATION";
+        }
+        return "CANNOT BE FOUND";
+    }
 }

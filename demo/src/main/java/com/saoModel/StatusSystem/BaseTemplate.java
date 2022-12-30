@@ -71,7 +71,7 @@ public class BaseTemplate {
     @Override
     public String toString() {
         return String.format(
-                " 名字 : %s 等级 : %s \n HP : %.2f MP : %.2f \n STR : %.2f AGI : %.2f \n VIT : %.2f INT : %.2f \n DEX : %.2f EXP : %f",
+                " 名字 : %s 等级 : %s \n HP : %.2f MP : %.2f \n STR : %.2f AGI : %.2f \n VIT : %.2f INT : %.2f \n DEX : %.2f EXP : %d",
                 this.name, stats.getLVL(), stats.getHP(), stats.getMP(), stats.getSTR(),
                 stats.getAGI(), stats.getVIT(),
                 stats.getINT(), stats.getDEX(), stats.getEXP());

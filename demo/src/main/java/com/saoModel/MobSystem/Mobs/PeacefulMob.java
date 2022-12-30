@@ -61,4 +61,10 @@ public class PeacefulMob implements MobTemplate {
         return "SUCCESS OPERATION";
     }
 
+    @Override
+    public String removeMob() {
+
+        return "SUCESS";
+    }
+
 }

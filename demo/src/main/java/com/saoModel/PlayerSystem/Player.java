@@ -128,9 +128,4 @@ public class Player {
         return result;
     }
 
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return this.name;
-    }
 }

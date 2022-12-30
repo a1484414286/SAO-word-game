@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.saoModel.ItemsSystem.ItemElement;
+import com.saoModel.MapSystem.Stage;
 import com.saoModel.StatusSystem.BaseTemplate;
 
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class DungeonMob implements MobTemplate {
     private int respawnTime;
     private String attackStyle;
     private String hidAttackStyle;
+    private Stage stage;
 
     public DungeonMob(int id, String name, int spawnTime,
             HashMap<Integer, ItemElement> droppable) {
@@ -82,6 +84,15 @@ public class DungeonMob implements MobTemplate {
     public String saveAfterBattle(Double HP) {
         this.base.getBattleStats().setHP(HP);
         return "SUCCESS OPERATION";
+    }
+
+    @Override
+    public String removeMob() {
+        if (stage.getMobs().contains(this)) {
+            stage.removeMob(this);
+            return "SUCCESS OPERATION";
+        }
+        return "CANNOT BE FOUND";
     }
 
 }

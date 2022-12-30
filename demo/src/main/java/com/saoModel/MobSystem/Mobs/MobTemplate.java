@@ -13,4 +13,6 @@ public interface MobTemplate {
     abstract BaseTemplate getBase();
 
     abstract String saveAfterBattle(Double HP);
+
+    abstract String removeMob();
 }

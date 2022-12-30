@@ -83,4 +83,8 @@ public class Stage {
         this.players.remove(p);
     }
 
+    public void removeMob(MobTemplate m) {
+        this.mobs.remove(m);
+    }
+
 }
