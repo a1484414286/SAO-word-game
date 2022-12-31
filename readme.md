@@ -1,9 +1,9 @@
 # SAO-word-game
 
-## 角色系统
+## Player System 角色系统
 
-### 基础属性
-* HP 血
+### Base Status Class(基础属性)
+* HP 血 
 * MP 蓝
 * STR 力量
 * AGI 敏捷
@@ -13,51 +13,52 @@
 * LUK 幸运
 * EXP 经验
 * LVL 等级
-* Resist 武器抗性
+* Weapon Resist 武器抗性
 
-## 背包系统 Bag system
-* generalBag   综合背包
-* totalWeight  各个背包总重量
-* totalVal  　 各个背包总财富
+## Bag System(背包系统)
+* generalBag  Bag that contains all other "types" of bags(综合背包)
+* totalWeight The total weight of individual bags not including general bag(各个背包总重量)
+* totalVal  　The total the value of each individual bags not including general bag(各个背包总财富)
 * totalCount   各个背包总物品总数
 
-### 道具背包
-* container 道具背包
-* weight　  背包总重量
-* val  　   背包总财富
-* count     背包总物品总数
+### Item Bag(道具背包)
+* container contains different types of item  (道具背包)
+* weight　  contains the weight of the bag (背包总重量)
+* val  　   represent the value of each individual items in the bag (背包总财富)
+* count     the total number of count in this bag 背包总物品总数
 
-### 装备背包
-* container 装备背包
-* weight　  背包总重量
-* val  　   背包总财富
-* count     背包总物品总数
+### Amour/Weapon Bag(装备背包)
+* container contains different types of amour and weapon (装备背包)
+* weight　  contains the weight of each item (背包总重量)
+* val  　   contains the value of each item (背包总财富)
+* count     represents the count of each individual item (背包总物品总数)
 
-### 水晶背包
-* container 水晶背包
-* weight　  背包总重量
-* val  　   背包总财富
-* count     背包总物品总数
+### Crystal Bag (水晶背包)
+* container contains different types of crystal (水晶背包)
+* weight　  represent the weight of crystals (背包总重量)
+* val  　   represent the value of each crystals (背包总财富)
+* count     the total count of items in the bag (背包总物品总数)
 
-### 食物背包
-* container 食物背包
-* weight　  背包总重量
-* val  　   背包总财富
-* count     背包总物品总数
+### Food Bag(食物背包)
+* container contains food items (食物背包)
+* weight　  the weight of the bag (背包总重量)
+* val  　   the value of the items combined(背包总财富)
+* count     the item count(背包总物品总数)
 
-### 素材背包
-* container 素材背包
-* weight　  背包总重量
-* val  　   背包总财富
-* count     背包总物品总数   
+### Materials Bag(素材背包)
+* container contains food items (素材背包)
+* weight　  the weight of the bag (背包总重量)
+* val  　   the value of the items combined(背包总财富)
+* count     the item count(背包总物品总数)
 
-### 禁止背包
-* container 物品背包
-* weight　  背包总重量
-* val  　   背包总财富
-* count     背包总物品总数
+### Anti-Item Bag (禁止背包)
+* container contains food items (禁止背包)
+* weight　  the weight of the bag (背包总重量)
+* val  　   the value of the items combined(背包总财富)
+* count     the item count(背包总物品总数)
 
 ## 道具系统　Item system
+* it implemented visitor and iterator pattern 
 * id          编号
 * count       数量
 * price       价值
@@ -66,71 +67,80 @@
 * durability  耐久
 * description 描述
 
-### 食物
-* 品质
+### Food (食物)
+* Quality(品质)
 
-### 水晶
-#### 红水晶
+### Crystals 水晶
+
+#### Red Crystal 红水晶
+* Regenerate Health
 * 回复, 并且增加MAX HP
 
-#### 绿水晶
+#### Green Crystal 绿水晶
+* Cures all abnormal states 
 * 解除所有异常状态
 
-#### 蓝水晶
+#### Blue Crystal 蓝水晶
+* Teleport/Save Previous Spot
 * 记录/传送已经记录位置
 
-#### 回廊水晶
+#### Cloister Crystal 回廊水晶
+* Infinite Durability for Teleportation
 * 无限耐久传送
 
-### 药水
+### Potion 药水
+* Quality
 * 品质
 
-### 素材
+### Materials 素材
+* Quality
 * 品质
 
-### 禁止道具
+### Anti-Item 禁止道具
+* Anti-Items, uses in certain stage, where players can stop others from teleportation, regenerate health, etc.
 * 跟水晶一类属于特殊道具, 禁止使用回血道具, 传送, 等
 
-## 装备系统
+## Gear System 装备系统
+* The gear(armor, weapon) description will be abstract, for instance, this weapon would increase player's strength, but would decrease the speed of 
 * 描述会抽象化, 如这件装备能小幅增幅xxx, 并且附带副作用
 
-### 防具
-* 基础属性
-* 锋利度
-* 耐久度
-* 品质
+### Armour(防具)
+* Base Stats 基础属性
+* Durability 耐久度
+* Quality 品质
 
 #### 饰品(归类防具一种)
 
-### 武器
-* 基础属性
-* 锋利度
-* 耐久度
-* 品质
+### Weapon(武器)
 
-#### 长剑 (劈砍)
-* 连砍
+* Base Stats 基础属性
+* Sharpness 锋利度
+* Durability 耐久度
+* Quality 品质
 
-#### 匕首 (穿刺)
-* 低频率攻击, 流血
+#### Long Sword 长剑 (劈砍)
+* Multi-Strike passive skill 连砍
 
-#### 细剑 (穿刺)
-* 弱点攻击 (攻击弱点, 暴击)
+#### Dagger 匕首 (穿刺)
+* Bleed passive skill 低频率攻击, 流血
 
-#### 锤子 (钝击)
-* 破防攻击 (无视防御)
+#### Rapier 细剑 (穿刺)
+* Weakness penetrate 弱点攻击 (攻击弱点, 暴击)
 
-#### 斧子 (劈砍)
-* 劈砍 (高攻击蓄力,霸体)
+#### Hammer 锤子 (钝击)
+* Defense penetrate 破防攻击 (无视防御)
 
-#### 长枪 (穿刺)
-* 控制, 范围远 (击飞)
+#### Axe 斧子 (劈砍)
+* Endure and waits for X seconds 劈砍 (高攻击蓄力,霸体)
+
+<!-- #### 长枪 (穿刺) -->
+<!-- * 控制, 范围远 (击飞) -->
 
 #### 小盾牌 (无)
-* 轻便 -> (低到中防御)
+* Light 轻便 -> (低到中防御)
 
 #### 大盾牌 (无)
-* 厚实 -> (高防御, 降低敏捷, 要求主手是重武器)
+* Solid 厚实 -> (高防御, 降低敏捷, 要求主手是重武器)
 
 #### 暗器 (无)
 * 可淬毒 -> 虚弱, 中毒, 麻痹
@@ -138,7 +148,8 @@
 #### 战锤 (钝击)
 * 打断施法(如长剑蓄力)
 
-## 地图系统
+## Map System 地图系统
+* Imagine a map that contains stages and stages are structured like doubly linked list, they're linked to each
 * 想象它是一个doubly linked list结构
 * 地图(区域->区域->区域->区域->区域)
 * 地图是super class, 它包含无数个区域
@@ -147,7 +158,7 @@
 * moblist 区域怪物
 * buildings 区域建筑物
 
-### 区域
+### Stage 区域
 * id         编号
 * name       名字
 * forgeShop  锻造屋
@@ -169,7 +180,8 @@
 * dropItems    掉落篮
 * weaponResist 武器抗性
 * respawnTime  重生时间
-* 品质(普通,精英,特殊,层主)
+
+* Quality: Regular, Elite, Special, Dungeon Master 品质(普通,精英,特殊,层主)
 
 ## 技能系统 Move system(TODO)
 
