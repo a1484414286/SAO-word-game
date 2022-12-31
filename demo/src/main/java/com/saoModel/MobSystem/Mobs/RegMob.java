@@ -60,7 +60,7 @@ public class RegMob implements MobTemplate {
 
     @Override
     public String toString() {
-        return String.format("\n名字: %s %s", this.name, this.base);
+        return String.format("\n名字: %s %s", this.name, this.base.getBattleStats());
     }
 
     @Override

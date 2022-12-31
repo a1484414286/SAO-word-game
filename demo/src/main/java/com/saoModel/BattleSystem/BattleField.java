@@ -58,8 +58,8 @@ public class BattleField {
         algo.put("Attack", regAtk);
 
         logger = new HashMap<>();
-        logger.put("Self", null);
-        logger.put("Opponent", null);
+        logger.put("Attacker", null);
+        logger.put("Defender", null);
     }
 
     public void setStage(Stage stage) {
@@ -87,23 +87,42 @@ public class BattleField {
         return true;
     }
 
-    public String battleLog(Double effective, Double dmgDealt, Double remainingHP) {
+    public String battleLog(Double effective, Double dmgDealt, Double remainingHP, Object target) {
         String result = "";
-        String effectiveness = "";
-        result += Defender.getBase().battleLogString();
-        if (effective.equals(0.7)) {
-            effectiveness += "\n    Ineffective ";
-        } else if (effective.equals(1.3)) {
-            effectiveness += "\n    Super effective !!!";
-        } else if (effective.equals(1.0)) {
-            effectiveness += "\n    Neutral ";
+        if (target instanceof MobTemplate) {
+            String effectiveness = "";
+            result += Defender.getBase().battleLogString();
+            if (effective.equals(0.7)) {
+                effectiveness += "\n    Ineffective ";
+            } else if (effective.equals(1.3)) {
+                effectiveness += "\n    Super effective !!!";
+            } else if (effective.equals(1.0)) {
+                effectiveness += "\n    Neutral ";
+            }
+            result += effectiveness + "\n you have dealt " + dmgDealt + " damage to "
+                    + Defender.getBase().getName() + "\n \n \n";
+        } else if (target instanceof Player) {
+            String effectiveness = "";
+            result += Attacker.getBase().battleLogString();
+            if (effective.equals(0.7)) {
+                effectiveness += "\n    Ineffective ";
+            } else if (effective.equals(1.3)) {
+                effectiveness += "\n    Super effective !!!";
+            } else if (effective.equals(1.0)) {
+                effectiveness += "\n    Neutral ";
+            }
+            result += effectiveness + "\n " + Defender.getBase().getName() + " have dealt " + dmgDealt
+                    + " damage to "
+                    + Attacker.getBase().getName() + "\n \n \n";
         }
-        result += effectiveness + "\n you have dealt " + dmgDealt + " damage to "
-                + Defender.getBase().getName() + "\n \n \n";
+
         return result;
+
     }
 
     public HashMap<String, ArrayList<Object>> battle(String urStyle) {
+        String attackerLog = "";
+        String defenderLog = "";
         double selfSumHP = 0;
         double selfHP = Attacker.getBase().getBattleHP();
         double selfATK = Attacker.getBase().getBattleSTR();
@@ -114,60 +133,44 @@ public class BattleField {
 
         ArrayList<Object> playerArr;
         ArrayList<Object> mobArr;
-        if (oppHP != 0 && selfHP != 0) {
 
-            String oppAttackStyle = Defender.getAtkStyle();
-            DecimalFormat df = new DecimalFormat("0.00");
-            rand = new Random();
-            // u attack opp
-            Double selfAttackRatio = algo.get(urStyle).get(oppAttackStyle);
+        String oppAttackStyle = Defender.getAtkStyle();
+        DecimalFormat df = new DecimalFormat("0.00");
+        rand = new Random();
+        // u attack opp
+        Double selfAttackRatio = algo.get(urStyle).get(oppAttackStyle);
 
-            Double dmgDealingToMob = ((selfATK * selfAttackRatio) / 3) * 100.0 / 100.0;
-            dmgDealingToMob = Double.parseDouble(
-                    df.format(ThreadLocalRandom.current().nextDouble(dmgDealingToMob, dmgDealingToMob + 2)));
+        Double dmgDealingToMob = ((selfATK * selfAttackRatio) / 3) * 100.0 / 100.0;
+        dmgDealingToMob = Double.parseDouble(
+                df.format(ThreadLocalRandom.current().nextDouble(dmgDealingToMob, dmgDealingToMob + 2)));
 
-            oppSumHP = oppHP - dmgDealingToMob;
+        oppSumHP = oppHP - dmgDealingToMob;
 
-            rand = new Random();
-            Double oppAttackRatio = algo.get(oppAttackStyle).get(urStyle);
-            Double dmgDealingToPlayer = (Double) ((oppATK * oppAttackRatio) / 3);
-            dmgDealingToPlayer = Double.parseDouble(
-                    df.format(ThreadLocalRandom.current().nextDouble(dmgDealingToPlayer, dmgDealingToPlayer + 2)));
-            // dmgDealt2 = rand.nextInt(dmgDealt2) + dmgDealt2 + 1;
-            selfSumHP = selfHP - dmgDealingToPlayer;
+        rand = new Random();
+        Double oppAttackRatio = algo.get(oppAttackStyle).get(urStyle);
+        Double dmgDealingToPlayer = (Double) ((oppATK * oppAttackRatio) / 3);
+        dmgDealingToPlayer = Double.parseDouble(
+                df.format(ThreadLocalRandom.current().nextDouble(dmgDealingToPlayer, dmgDealingToPlayer + 2)));
+        // dmgDealt2 = rand.nextInt(dmgDealt2) + dmgDealt2 + 1;
+        selfSumHP = selfHP - dmgDealingToPlayer;
 
-            String selfLog = battleLog(oppAttackRatio, dmgDealingToPlayer, selfSumHP);
-            String oppLog = battleLog(selfAttackRatio, dmgDealingToMob, oppSumHP);
-            playerArr = new ArrayList<>();
-            mobArr = new ArrayList<>();
-            playerArr.add(new BattleLog(selfSumHP, selfLog));
-            playerArr.add(Attacker);
+        attackerLog = battleLog(oppAttackRatio, dmgDealingToPlayer, selfSumHP, Attacker);
+        defenderLog = battleLog(selfAttackRatio, dmgDealingToMob, oppSumHP, Defender);
+        playerArr = new ArrayList<>();
+        mobArr = new ArrayList<>();
 
-            mobArr.add(new BattleLog(oppSumHP, oppLog));
-            mobArr.add(Defender);
+        logger.put("Attacker", playerArr);
+        logger.put("Defender", mobArr);
 
-            logger.put("Self", playerArr);
-            logger.put("Opponent", mobArr);
+        Defender.getBase().saveAfterBattle(oppSumHP);
+        Attacker.getBase().saveAfterBattle(selfSumHP);
+        playerArr.add(Attacker);
+        playerArr.add(new BattleLog(selfSumHP, attackerLog));
 
-            Defender.getBase().saveAfterBattle(oppSumHP);
-            Attacker.getBase().saveAfterBattle(selfSumHP);
-            return logger;
-        } else if (oppHP == 0) {
+        mobArr.add(Defender);
+        mobArr.add(new BattleLog(oppSumHP, defenderLog));
+        return logger;
 
-            playerArr = new ArrayList<>();
-            mobArr = new ArrayList<>();
-            logger.put("Self", null);
-            logger.put("Opponent", null);
-        } else if (selfHP == 0) {
-            playerArr = new ArrayList<>();
-            mobArr = new ArrayList<>();
-            playerArr.add(Attacker);
-            mobArr.add(Defender);
-            logger.put("Self", playerArr);
-            logger.put("Opponent", mobArr);
-
-        }
-        return null;
     }
 
     public Stage getStage() {
@@ -181,14 +184,11 @@ public class BattleField {
         field.provokeBattle(p1, m1);
 
         // the calculation
-        field.battle("Scissor").get("Opponent");
-        System.out.println(field.logger.get("Opponent"));
-        System.out.println(m1.getBase().battleLogString());
+        ArrayList<Object> mapper1 = field.battle("Scissor").get("Attacker");
+        System.out.println(mapper1);
         System.out.println("————————————————————————————————————————————————————————————————————————————————————");
-        ArrayList<Object> mapper = field.battle("Scissor").get("Opponent");
-        System.out.println(mapper);
-        // System.out.println(field.getLogger().get("Opponent"));
-        // System.out.println(m1.getBase().battleLogString());
+        ArrayList<Object> mapper2 = field.battle("Scissor").get("Attacker");
+        System.out.println(mapper2);
         System.out.println("————————————————————————————————————————————————————————————————————————————————————");
 
     }
